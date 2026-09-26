@@ -1,6 +1,6 @@
 # Mongo
 Project for IN258
-Siehe [Aufgabenstellung](Audgabe.md) für Projektaufgabe und Anforderungen
+Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen
 
 ## Architektur
 Unten als Vorschlag grober Aufbau.
