@@ -1,0 +1,504 @@
+{
+  "incidents": [
+    {
+      "incident_id": "INC-2026-00002",
+      "zeitpunkt": "2026-09-01T12:28:00+02:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS50126: Benutzername oder Passwort ungültig beim SSO-Login. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00004",
+      "zeitpunkt": "2026-99-42T25:61:00+02:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "Login-Schleife nach erfolgreicher MFA, Session-Cookie wird nicht übernommen. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": "Behoben: Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00006",
+      "zeitpunkt": "2026-09-02T08:20:00+02:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS50076: MFA erforderlich, Anmeldung auf dem Portal nicht abgeschlossen. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00008",
+      "zeitpunkt": "2026-09-02T18:46:00+02:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS700016: Anwendung bei der Anmeldung nicht gefunden. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": "Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00010",
+      "zeitpunkt": "2026-09-03T05:12:00+02:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS50020: Benutzerkonto im falschen Tenant angemeldet. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": "Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00012",
+      "zeitpunkt": "2026-09-03T14:38:00+02:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "DHCP timeout: Client erhält APIPA-Adresse 169.254.23.8. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00014",
+      "zeitpunkt": "2026-09-04T01:04:00+02:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "DNS lookup timeout bei internen Hostnamen trotz Internetzugriff. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": "Behoben: Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00016",
+      "zeitpunkt": "2026-09-04T10:30:00+02:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "Switchport Gi1/0/18 down, Endgerät nicht erreichbar. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00018",
+      "zeitpunkt": "2026-09-04T20:56:00+02:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "Packet loss 38 % zum Gateway, Verbindung bricht sporadisch ab. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": "Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00020",
+      "zeitpunkt": "2026-09-05T06:22:00+02:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "STP topology change mehrfach innerhalb von 60 Sekunden erkannt. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": "Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00022",
+      "zeitpunkt": "2026-09-05T16:48:00+02:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "ERROR: deadlock detected beim Update der Incident-Tabelle. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00024",
+      "zeitpunkt": "2026-09-06T03:14:00+02:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "SQLSTATE 57014: query canceled due to statement timeout. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": "Behoben: Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00026",
+      "zeitpunkt": "2026-09-06T12:40:00+02:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "FATAL: remaining connection slots are reserved for non-replication superuser connections. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00028",
+      "zeitpunkt": "2026-09-06T23:06:00+02:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "could not write to file: No space left on device. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": "Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00030",
+      "zeitpunkt": "2026-09-07T08:32:00+02:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "FATAL: password authentication failed for user report_reader. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": "Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00032",
+      "zeitpunkt": "2026-09-07T18:58:00+02:00",
+      "system_service": "Exchange Online",
+      "fehlermeldung": "451 4.7.500 Server busy, outbound emails delayed. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "E-Mail",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00034",
+      "zeitpunkt": "2026-09-08T04:24:00+02:00",
+      "system_service": "Exchange Online",
+      "fehlermeldung": "554 5.7.1 Message rejected due to transport rule. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "E-Mail",
+      "bekannte_loesung": "Behoben: Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00036",
+      "zeitpunkt": "2026-09-08T14:50:00+02:00",
+      "system_service": "Exchange Online",
+      "fehlermeldung": "550 5.1.1 Recipient address rejected: User unknown. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "E-Mail",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00038",
+      "zeitpunkt": "2026-09-09T00:16:00+02:00",
+      "system_service": "Exchange Online",
+      "fehlermeldung": "Outlook synchronisiert Posteingang seit 09:12 nicht mehr. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "E-Mail",
+      "bekannte_loesung": "Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00040",
+      "zeitpunkt": "2026-09-09T10:42:00+02:00",
+      "system_service": "Exchange Online",
+      "fehlermeldung": "SMTP AUTH failed: 535 5.7.3 Authentication unsuccessful. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "E-Mail",
+      "bekannte_loesung": "Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00042",
+      "zeitpunkt": "2026-09-09T21:08:00+02:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Intune error 0x87D1FDE8: Configuration profile failed. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00044",
+      "zeitpunkt": "2026-09-10T06:34:00+02:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Anwendung startet nach Patch nicht, Event ID 1000 Application Error. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": "Behoben: Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+    },
+    {
+      "incident_id": "INC-2026-00046",
+      "zeitpunkt": "2026-09-10T17:00:00+02:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "BitLocker recovery key requested after BIOS update. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00048",
+      "zeitpunkt": "2026-09-11T02:26:00+02:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Windows Update 0x800f0922, kumulatives Update fehlgeschlagen. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+    },
+    {
+      "incident_id": "INC-2026-00050",
+      "zeitpunkt": "2026-09-11T12:52:00+02:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Endpoint verliert nach Standby WLAN-Verbindung, Event ID 5005. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+    },
+    {
+      "incident_id": "INC-2026-00052",
+      "zeitpunkt": "2026-09-11T22:18:00+02:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "Filesystem 96 % ausgelastet, Schreibvorgänge schlagen fehl. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Storage",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00054",
+      "zeitpunkt": "2026-09-12T08:44:00+02:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "I/O error beim Lesen von /data/archive/2026. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Storage",
+      "bekannte_loesung": "Behoben: Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+    },
+    {
+      "incident_id": "",
+      "zeitpunkt": "2026-09-12T19:10:00+02:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "SMB STATUS_ACCESS_DENIED beim Öffnen von Teamfreigabe. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Storage",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00058",
+      "zeitpunkt": "2026-09-13T04:36:00+02:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "NFS mount: stale file handle nach Storage-Neustart. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Storage",
+      "bekannte_loesung": "Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+    },
+    {
+      "incident_id": "INC-2026-00060",
+      "zeitpunkt": "2026-09-13T15:02:00+02:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "RAID degraded: Disk 3 predictive failure. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Storage",
+      "bekannte_loesung": "Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+    },
+    {
+      "incident_id": "INC-2026-00062",
+      "zeitpunkt": "2026-09-14T00:28:00+02:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "Genehmigungsworkflow bleibt auf Pending trotz Freigabe. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Applikation",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00064",
+      "zeitpunkt": "2026-09-14T10:54:00+02:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "API antwortet 429 Too Many Requests bei Ticket-Synchronisation. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "Applikation",
+      "bekannte_loesung": "Behoben: Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00066",
+      "zeitpunkt": "2026-09-14T20:20:00+02:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "HTTP 500 beim Speichern eines Incident-Datensatzes. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "Applikation",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00068",
+      "zeitpunkt": null,
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "Portal zeigt leere Ticketliste nach Filterwechsel. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Applikation",
+      "bekannte_loesung": "Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00070",
+      "zeitpunkt": "2026-09-15T17:12:00+02:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "Ticketanhänge liefern HTTP 403 trotz bestehender Berechtigung. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Applikation",
+      "bekannte_loesung": "Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00072",
+      "zeitpunkt": "2026-09-16T02:38:00+02:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "VSS_E_WRITERERROR_TIMEOUT bei nächtlicher Sicherung. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Backup",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00074",
+      "zeitpunkt": "2026-09-16T13:04:00+02:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Failed to connect to backup proxy, connection timed out. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Backup",
+      "bekannte_loesung": "Behoben: Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+    },
+    {
+      "incident_id": "INC-2026-00076",
+      "zeitpunkt": "2026-09-16T22:30:00+02:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Backup job failed: Repository out of space. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Backup",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00078",
+      "zeitpunkt": "2026-09-17T08:56:00+02:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Restore point missing für VM-app-04. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Backup",
+      "bekannte_loesung": "Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+    },
+    {
+      "incident_id": "INC-2026-00080",
+      "zeitpunkt": "2026-09-17T18:22:00+02:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Incremental backup stopped: changed block tracking invalid. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "",
+      "bekannte_loesung": "Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+    },
+    {
+      "incident_id": "INC-2026-00082",
+      "zeitpunkt": "2026-09-18T04:48:00+02:00",
+      "system_service": "ERP / SAP",
+      "fehlermeldung": "CPU-Auslastung 99 % auf Applikationsserver während Batchjob. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Performance",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00084",
+      "zeitpunkt": "2026-09-18T15:14:00+02:00",
+      "system_service": "ERP / SAP",
+      "fehlermeldung": "RFC timeout zwischen ERP und Dokumentenmanagement. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "Performance",
+      "bekannte_loesung": "Behoben: Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+    },
+    {
+      "incident_id": "INC-2026-00086",
+      "zeitpunkt": "2026-09-19T00:40:00+02:00",
+      "system_service": "ERP / SAP",
+      "fehlermeldung": "Dialog response time 18 s, üblicher Wert 2 s. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "Performance",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00088",
+      "zeitpunkt": "2026-09-19T11:06:00+02:00",
+      "system_service": "ERP / SAP",
+      "fehlermeldung": "SAP GUI friert beim Öffnen von Materialstammdaten ein. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Performance",
+      "bekannte_loesung": "Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+    },
+    {
+      "incident_id": "INC-2026-00090",
+      "zeitpunkt": "2026-09-19T20:32:00+02:00",
+      "system_service": "ERP / SAP",
+      "fehlermeldung": "Queue length 180, Hintergrundverarbeitung verzögert sich. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Performance",
+      "bekannte_loesung": "Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+    },
+    {
+      "incident_id": "INC-2026-00092",
+      "zeitpunkt": "2026-09-20T06:58:00+02:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "x509: certificate signed by unknown authority. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00094",
+      "zeitpunkt": "2026-09-20T16:24:00+02:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "OCSP responder timeout, sporadische TLS-Fehler. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": "Behoben: Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00096",
+      "zeitpunkt": "2026-09-21T02:50:00+02:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "TLS handshake failed: certificate has expired. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "hoch",
+      "status": "neu",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00098",
+      "zeitpunkt": "2026-09-21T12:16:00+02:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "Certificate hostname mismatch für portal.intern.example. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": "Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00100",
+      "zeitpunkt": "2026-09-21T22:42:00+02:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "TLS alert unknown_ca nach Zertifikatswechsel. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": "Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+    }
+  ]
+}

@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='utf-8'?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00001</incident_id>
+    <zeitpunkt>2026-09-01T07:15:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50076: MFA erforderlich, Anmeldung auf dem Portal nicht abgeschlossen. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00003</incident_id>
+    <zeitpunkt>2026-09-01T17:41:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS700016: Anwendung bei der Anmeldung nicht gefunden. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00005</incident_id>
+    <zeitpunkt>2026-09-02T04:07:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50020: Benutzerkonto im falschen Tenant angemeldet. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00007</incident_id>
+    <zeitpunkt>2026-09-02T13:33:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50126: Benutzername oder Passwort ungültig beim SSO-Login. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00009</incident_id>
+    <zeitpunkt>2026-09-02T23:59:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>Login-Schleife nach erfolgreicher MFA, Session-Cookie wird nicht übernommen. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Behoben: Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00011</incident_id>
+    <zeitpunkt>2026-09-03T09:25:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>Switchport Gi1/0/18 down, Endgerät nicht erreichbar. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00013</incident_id>
+    <zeitpunkt>2026-09-03T19:51:00+02:00</zeitpunkt>
+    <system_service fehlend="true" />
+    <fehlermeldung>Packet loss 38 % zum Gateway, Verbindung bricht sporadisch ab. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00015</incident_id>
+    <zeitpunkt>2026-09-04T05:17:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>STP topology change mehrfach innerhalb von 60 Sekunden erkannt. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00017</incident_id>
+    <zeitpunkt>2026-09-04T15:43:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>DHCP timeout: Client erhält APIPA-Adresse 169.254.23.8. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00019</incident_id>
+    <zeitpunkt>2026-09-05T02:09:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>DNS lookup timeout bei internen Hostnamen trotz Internetzugriff. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Behoben: Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00021</incident_id>
+    <zeitpunkt>2026-09-05T11:35:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>FATAL: remaining connection slots are reserved for non-replication superuser connections. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00023</incident_id>
+    <zeitpunkt>2026-09-05T22:01:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>could not write to file: No space left on device. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00025</incident_id>
+    <zeitpunkt>2026-09-06T07:27:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>FATAL: password authentication failed for user report_reader. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>dringend!!!</schweregrad>
+    <status>wartend</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00027</incident_id>
+    <zeitpunkt>2026-09-06T17:53:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>ERROR: deadlock detected beim Update der Incident-Tabelle. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00029</incident_id>
+    <zeitpunkt>2026-09-07T03:19:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>SQLSTATE 57014: query canceled due to statement timeout. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Behoben: Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00031</incident_id>
+    <zeitpunkt>2026-09-07T13:45:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>550 5.1.1 Recipient address rejected: User unknown. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00033</incident_id>
+    <zeitpunkt>2026-09-08T00:11:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>Outlook synchronisiert Posteingang seit 09:12 nicht mehr. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00035</incident_id>
+    <zeitpunkt>2026-09-08T09:37:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>SMTP AUTH failed: 535 5.7.3 Authentication unsuccessful. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00037</incident_id>
+    <zeitpunkt>2026-09-08T20:03:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung />
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00039</incident_id>
+    <zeitpunkt>2026-09-09T05:29:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>554 5.7.1 Message rejected due to transport rule. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Behoben: Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00041</incident_id>
+    <zeitpunkt>2026-09-09T15:55:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>BitLocker recovery key requested after BIOS update. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00043</incident_id>
+    <zeitpunkt>2026-09-10T01:21:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Windows Update 0x800f0922, kumulatives Update fehlgeschlagen. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00045</incident_id>
+    <zeitpunkt>2026-09-10T11:47:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Endpoint verliert nach Standby WLAN-Verbindung, Event ID 5005. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00047</incident_id>
+    <zeitpunkt>2026-09-10T22:13:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Intune error 0x87D1FDE8: Configuration profile failed. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00049</incident_id>
+    <zeitpunkt>2026-09-11T07:39:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Anwendung startet nach Patch nicht, Event ID 1000 Application Error. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>unknown</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Behoben: Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00051</incident_id>
+    <zeitpunkt>2026-09-11T18:05:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>SMB STATUS_ACCESS_DENIED beim Öffnen von Teamfreigabe. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00053</incident_id>
+    <zeitpunkt>2026-09-12T03:31:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>NFS mount: stale file handle nach Storage-Neustart. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00055</incident_id>
+    <zeitpunkt>2026-09-12T13:57:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>RAID degraded: Disk 3 predictive failure. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00057</incident_id>
+    <zeitpunkt>2026-09-12T23:23:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>Filesystem 96 % ausgelastet, Schreibvorgänge schlagen fehl. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00059</incident_id>
+    <zeitpunkt>2026-09-13T09:49:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>I/O error beim Lesen von /data/archive/2026. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Behoben: Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00061</incident_id>
+    <zeitpunkt>2026-09-13T19:15:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>HTTP 500 beim Speichern eines Incident-Datensatzes. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00063</incident_id>
+    <zeitpunkt>2026-09-14T05:41:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Portal zeigt leere Ticketliste nach Filterwechsel. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00065</incident_id>
+    <zeitpunkt>2026-09-14T16:07:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Ticketanhänge liefern HTTP 403 trotz bestehender Berechtigung. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00067</incident_id>
+    <zeitpunkt>2026-09-15T01:33:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Genehmigungsworkflow bleibt auf Pending trotz Freigabe. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00069</incident_id>
+    <zeitpunkt>2026-09-15T11:59:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>API antwortet 429 Too Many Requests bei Ticket-Synchronisation. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Behoben: Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00071</incident_id>
+    <zeitpunkt>2026-09-15T21:25:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Backup job failed: Repository out of space. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00073</incident_id>
+    <zeitpunkt>2026-09-16T07:51:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Restore point missing für VM-app-04. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00075</incident_id>
+    <zeitpunkt>2026-09-16T17:17:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Incremental backup stopped: changed block tracking invalid. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00077</incident_id>
+    <zeitpunkt>2026-09-17T03:43:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>VSS_E_WRITERERROR_TIMEOUT bei nächtlicher Sicherung. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00079</incident_id>
+    <zeitpunkt>2026-09-17T14:09:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Failed to connect to backup proxy, connection timed out. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Behoben: Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00081</incident_id>
+    <zeitpunkt>2026-09-17T23:35:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>Dialog response time 18 s, üblicher Wert 2 s. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00083</incident_id>
+    <zeitpunkt>2026-09-18T10:01:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>SAP GUI friert beim Öffnen von Materialstammdaten ein. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00085</incident_id>
+    <zeitpunkt>2026-09-18T19:27:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>Queue length 180, Hintergrundverarbeitung verzögert sich. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00087</incident_id>
+    <zeitpunkt>2026-09-19T05:53:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>CPU-Auslastung 99 % auf Applikationsserver während Batchjob. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad fehlend="true" />
+    <status>in_bearbeitung</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00089</incident_id>
+    <zeitpunkt>2026-09-19T15:19:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>RFC timeout zwischen ERP und Dokumentenmanagement. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Behoben: Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00091</incident_id>
+    <zeitpunkt>2026-09-20T01:45:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>TLS handshake failed: certificate has expired. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00093</incident_id>
+    <zeitpunkt>2026-09-20T12:11:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>Certificate hostname mismatch für portal.intern.example. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00095</incident_id>
+    <zeitpunkt>2026-09-20T21:37:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>TLS alert unknown_ca nach Zertifikatswechsel. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00097</incident_id>
+    <zeitpunkt>2026-09-21T08:03:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>x509: certificate signed by unknown authority. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00099</incident_id>
+    <zeitpunkt>2026-09-21T17:29:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>OCSP responder timeout, sporadische TLS-Fehler. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>done-ish</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Behoben: Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+</incidents>
