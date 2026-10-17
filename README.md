@@ -2,6 +2,9 @@
 Project for IN258
 Siehe [Aufgabenstellung](Audgabe.md) für Projektaufgabe und Anforderungen
 
+## Branching
+TBD
+
 ## Architektur
 Unten als Vorschlag grober Aufbau.
 
