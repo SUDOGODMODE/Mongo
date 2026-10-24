@@ -7,33 +7,42 @@ import json
 # returns message + schema
 def build_request(ticket, evals):
 
-    prompt = "Analyze the following ITSM ticket:\n"
+    prompt = "Analyze the following Incident ticket:\n"
 
     properties = {}
 
-    if "description_quality" in evals:
+    if "impact" in evals:
         prompt += """
-        \n- Rate the ticket description quality from 1 to 10.
-        Evaluate whether the description clearly explains the issue or request.
-        The rating has to consider, wheter the description gives a clear picture, what is needed or what isn't working.
-        Only evaluate the subject and description fields.
+        Perform an IT incident impact analysis and rate the severity from 1 to 10.
+
+        Consider the following criteria:
+        - Number of affected users or systems
+        - Business impact and service availability
+        - Criticality of the affected system or service
+        - Availability of a workaround
+        - Potential security or data integrity risks
 
         Rating guidelines:
-        1-2: Missing, meaningless, or impossible to understand.
-        3-4: Issue is vaguely described. Essential information is missing.
-        5-6: Main issue is understandable, but relevant details or context are missing.
-        7-8: Clear description with sufficient information to understand the issue or request.
-        9-10: Clear, concise, and complete description with relevant context and details.
+        1-2: Very Low - Minor issue, negligible business impact, individual user affected.
+        3-4: Low - Limited impact, few users affected, normal operations mostly possible.
+        5-6: Medium - Noticeable disruption, multiple users affected, important functions impaired.
+        7-8: High - Major disruption, critical service impaired or unavailable, many users affected.
+        9-10: Critical - Business-critical outage, widespread impact, production stopped or severe security/data integrity risk.
 
-        Do not penalize simple issues for not requiring extensive descriptions.
-        Give a short reason for the rating.
+        Instructions:
+        - Base the rating only on the provided incident information.
+        - Do not assume missing information.
+        - Rate the actual impact, not the potential worst-case scenario.
+        - Give a short explanation for the rating.
+        - Return the severity rating and reason in the specified JSON format.
         """
-        properties["description_quality"] = {
+
+        properties["impact_rating"] = {
             "type": "integer",
             "minimum": 1,
             "maximum": 10
         }
-        properties["description_quality_reason"] = {
+        properties["impact_reason"] = {
             "type": "string",
             "maxLength": 1000
         }
