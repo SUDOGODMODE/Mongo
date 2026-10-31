@@ -1,0 +1,174 @@
+{
+  "incidents": [
+    {
+      "incident_id": "INC-2026-00010",
+      "zeitpunkt": "2026-09-03T03:12:00+00:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS50020: Benutzerkonto im falschen Tenant angemeldet. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": "Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00016",
+      "zeitpunkt": "2026-09-04T08:30:00+00:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "Switchport Gi1/0/18 down, Endgerät nicht erreichbar. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00050",
+      "zeitpunkt": "2026-09-11T10:52:00+00:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Endpoint verliert nach Standby WLAN-Verbindung, Event ID 5005. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+    },
+    {
+      "incident_id": "INC-2026-00062",
+      "zeitpunkt": "2026-09-13T22:28:00+00:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "Genehmigungsworkflow bleibt auf Pending trotz Freigabe. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Applikation",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00076",
+      "zeitpunkt": "2026-09-16T20:30:00+00:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Backup job failed: Repository out of space. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Backup",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00030",
+      "zeitpunkt": "2026-09-07T06:32:00+00:00",
+      "system_service": "PostgreSQL / Ticketsystem",
+      "fehlermeldung": "FATAL: password authentication failed for user report_reader. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Datenbank",
+      "bekannte_loesung": "Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00064",
+      "zeitpunkt": "2026-09-14T08:54:00+00:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "API antwortet 429 Too Many Requests bei Ticket-Synchronisation. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "mittel",
+      "status": "geschlossen",
+      "kategorie": "Applikation",
+      "bekannte_loesung": "Behoben: Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00070",
+      "zeitpunkt": "2026-09-15T15:12:00+00:00",
+      "system_service": "Serviceware ITSM",
+      "fehlermeldung": "Ticketanhänge liefern HTTP 403 trotz bestehender Berechtigung. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Applikation",
+      "bekannte_loesung": "Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+    },
+    {
+      "incident_id": "INC-2026-00072",
+      "zeitpunkt": "2026-09-16T00:38:00+00:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "VSS_E_WRITERERROR_TIMEOUT bei nächtlicher Sicherung. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Backup",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00048",
+      "zeitpunkt": "2026-09-11T00:26:00+00:00",
+      "system_service": "Windows Clients / Intune",
+      "fehlermeldung": "Windows Update 0x800f0922, kumulatives Update fehlgeschlagen. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Endpoint",
+      "bekannte_loesung": "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+    },
+    {
+      "incident_id": "INC-2026-00020",
+      "zeitpunkt": "2026-09-05T04:22:00+00:00",
+      "system_service": "Standortnetz / LAN",
+      "fehlermeldung": "STP topology change mehrfach innerhalb von 60 Sekunden erkannt. Support kann Problem nachstellen.",
+      "schweregrad": "niedrig",
+      "status": "wartend",
+      "kategorie": "Netzwerk",
+      "bekannte_loesung": "Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+    },
+    {
+      "incident_id": "INC-2026-00092",
+      "zeitpunkt": "2026-09-20T04:58:00+00:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "x509: certificate signed by unknown authority. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00074",
+      "zeitpunkt": "2026-09-16T11:04:00+00:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Failed to connect to backup proxy, connection timed out. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Backup",
+      "bekannte_loesung": "Behoben: Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+    },
+    {
+      "incident_id": "INC-2026-00054",
+      "zeitpunkt": "2026-09-12T06:44:00+00:00",
+      "system_service": "NAS / Fileserver",
+      "fehlermeldung": "I/O error beim Lesen von /data/archive/2026. Fehler seit Wartungsfenster beobachtet.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Storage",
+      "bekannte_loesung": "Behoben: Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+    },
+    {
+      "incident_id": "INC-2026-00078",
+      "zeitpunkt": "2026-09-17T06:56:00+00:00",
+      "system_service": "Veeam Backup",
+      "fehlermeldung": "Restore point missing für VM-app-04. Testumgebung ebenfalls betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Backup",
+      "bekannte_loesung": "Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+    },
+    {
+      "incident_id": "INC-2026-00096",
+      "zeitpunkt": "2026-09-21T00:50:00+00:00",
+      "system_service": "Reverse Proxy / Webportal",
+      "fehlermeldung": "TLS handshake failed: certificate has expired. Produktivbetrieb zeitweise beeinträchtigt.",
+      "schweregrad": "hoch",
+      "status": "neu",
+      "kategorie": "Zertifikat",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-00002",
+      "zeitpunkt": "2026-09-01T10:28:00+00:00",
+      "system_service": "Microsoft Entra ID",
+      "fehlermeldung": "AADSTS50126: Benutzername oder Passwort ungültig beim SSO-Login. Mehrere Personen im gleichen Team betroffen.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Authentifizierung",
+      "bekannte_loesung": null
+    }
+  ]
+}

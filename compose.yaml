@@ -1,0 +1,20 @@
+services:
+  mongodb:
+    image: docker.io/library/mongo:8.0-noble
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db:Z
+
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama:Z
+
+volumes:
+  mongodb_data:
+  ollama_data:

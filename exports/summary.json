@@ -1,0 +1,49 @@
+{
+  "incidents": 10,
+  "repeats": 3,
+  "runs_per_method": 30,
+  "evaluation_ids": [
+    "INC-2026-00010",
+    "INC-2026-00016",
+    "INC-2026-00021",
+    "INC-2026-00031",
+    "INC-2026-00050",
+    "INC-2026-00051",
+    "INC-2026-00062",
+    "INC-2026-00076",
+    "INC-2026-00081",
+    "INC-2026-00091"
+  ],
+  "classical": {
+    "correct": 30,
+    "accuracy": 1.0,
+    "valid_predictions": 30,
+    "coverage": 1.0,
+    "errors": 0,
+    "consistent_incidents": 10,
+    "median_duration_s": 1.2e-05,
+    "total_duration_s": 0.000378
+  },
+  "ai": {
+    "correct": 6,
+    "accuracy": 0.2,
+    "valid_predictions": 30,
+    "coverage": 1.0,
+    "errors": 0,
+    "consistent_incidents": 10,
+    "median_duration_s": 5.613542,
+    "total_duration_s": 170.719985
+  },
+  "prediction_counts": {
+    "klassisch": {
+      "niedrig": 6,
+      "kritisch": 6,
+      "hoch": 9,
+      "mittel": 9
+    },
+    "ki": {
+      "hoch": 27,
+      "mittel": 3
+    }
+  }
+}
