@@ -2,16 +2,18 @@
 __pycache__/
 *.pyc
 *.pyo
-
-# Virtuelle Umgebung
+.pytest_cache/
 .venv/
 venv/
-.myenv
 
-# OS
+# Laufzeitdaten
+failed/
+.env
+
+# Editor / OS
 .DS_Store
-
-# IDE
 .vscode/
 .idea/
+
+# Bestehende Projektregel
 .github/

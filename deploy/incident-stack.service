@@ -1,0 +1,15 @@
+[Unit]
+Description=Incident-Worker mit MongoDB und Ollama (Podman Compose)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/max/Mongo
+ExecStart=/usr/bin/podman-compose -f /home/max/Mongo/compose.yaml up -d
+ExecStop=/usr/bin/podman-compose -f /home/max/Mongo/compose.yaml down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

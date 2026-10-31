@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    image: docker.io/library/mongo:8.0-noble
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db:Z
+
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama:Z
+
+  worker:
+    build:
+      context: .
+      dockerfile: Containerfile
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - ollama
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/
+      LLM_URL: http://ollama:11434/v1
+      PATH_IMPORT: /app/import
+      PATH_ERROR: /app/failed
+      LLM_MODEL: gemma3:4b
+    volumes:
+      - ./import:/app/import:ro,Z
+      - ./failed:/app/failed:Z
+
+volumes:
+  mongodb_data:
+  ollama_data:
