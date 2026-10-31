@@ -2,11 +2,19 @@
 __pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Virtuelle Umgebung
 .venv/
 venv/
 .myenv
+
+# Lokale Zugangsdaten und Konfiguration
+.env
+.env.*
+!.env.example
 
 # OS
 .DS_Store

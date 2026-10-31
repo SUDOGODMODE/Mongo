@@ -1,66 +1,41 @@
-import llm as llm
-import config as config
+"""Command line entry point for importing and comparing incident severity."""
+from __future__ import annotations
+
+import argparse
 import json
-import xml.etree.ElementTree as ET
-from pymongo import MongoClient
 from pathlib import Path
 
+from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["incident_db"]
-incidents_raw = db["incidents_raw"]
-incidents_rated = db["incidents_rated"]
-incidents_rated_ai = db["incidents_rated_ai"]
-
-def load_json(folder, name):
-    with open(f"{folder}/{name}.json", "r", encoding="utf-8") as datei: 
-        data = json.load(datei)
-
-    incidents = []
-    for incident in data:
-        incidents.append(incident)
-
-    return(incidents)
+import config
+from compare import compare_incidents
+from pipeline import import_dataset
 
 
-def load_xml(folder, name):
-    tree = ET.parse(f"{folder}/{name}.xml")
-    root = tree.getroot()
-
-    incidents = []
-    for incident in root.findall("incident"):
-        incident_dict = {
-            child.tag: child.text.strip() if child.text else None
-            for child in incident
-        }
-        incidents.append(incident_dict)
-
-    return incidents
-
-
-def write_mongo(db, collection, data):
-
-    return
-
-def read_mongo(db, collection, data):
-
-    return
-
-def update_mongo(db, collection, data):
-
-    return
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Incident-Import und Schweregradvergleich")
+    parser.add_argument("command", choices=("import", "compare", "all"))
+    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    base = Path(__file__).resolve().parent
+    with MongoClient(config.MONGO_URL, serverSelectionTimeoutMS=5000) as client:
+        client.admin.command("ping")
+        db = client["incident_db"]
+        if args.command in ("import", "all"):
+            result = import_dataset(
+                base / "import" / "incidents_sample_50.json",
+                base / "import" / "incidents_sample_50.xml",
+                db, args.output,
+            )
+            print(json.dumps({"import": result}, ensure_ascii=False))
+        if args.command in ("compare", "all"):
+            selection_path = args.output / "dataset_ids.json"
+            if not selection_path.exists():
+                raise SystemExit("dataset_ids.json fehlt; zuerst 'import' ausführen")
+            selection = json.loads(selection_path.read_text(encoding="utf-8"))
+            result = compare_incidents(db, selection["evaluation_ids"], args.output)
+            print(json.dumps({"vergleich": result}, ensure_ascii=False, indent=2))
 
 
-incidents = []
-import_path = Path(config.PATH_IMPORT)
-
-for file in import_path.iterdir():
-    if file.is_file():
-        match file.suffix.lower():
-            case ".xml":
-                incidents.extend(load_xml(file.parent, file.stem))
-            case ".json":
-                incidents.extend(load_json(file.parent, file.stem))
-
-
-print(incidents)
+if __name__ == "__main__":
+    main()
