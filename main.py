@@ -1,26 +1,20 @@
+from os import write
+
 import llm as llm
 import config as config
 import json
 import xml.etree.ElementTree as ET
+from pymongo.database import Database
+from pymongo.collection import Collection
 from pymongo import MongoClient
 from pathlib import Path
 
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["incident_db"]
-incidents_raw = db["incidents_raw"]
-incidents_rated = db["incidents_rated"]
-incidents_rated_ai = db["incidents_rated_ai"]
-
 def load_json(folder, name):
-    with open(f"{folder}/{name}.json", "r", encoding="utf-8") as datei: 
+    with open(f"{folder}/{name}.json", "r", encoding="utf-8") as datei:
         data = json.load(datei)
 
-    incidents = []
-    for incident in data:
-        incidents.append(incident)
-
-    return(incidents)
+    return data["incidents"]
 
 
 def load_xml(folder, name):
@@ -38,17 +32,72 @@ def load_xml(folder, name):
     return incidents
 
 
-def write_mongo(db, collection, data):
+def db_write_incidents(col: Collection, data: list[dict]) -> None:
+    inserted = 0
+    updated = 0
 
-    return
+    for incident in data:
+        if not incident.get("incident_id"):
+            print("Skipping incident without ID.")
+            continue
 
-def read_mongo(db, collection, data):
+        result = col.update_one(
+            {"incident_id": incident["incident_id"]},
+            {
+                "$set": incident,
+                "$setOnInsert": {
+                    "rated_ai": False,
+                    "rated_manual": False 
+                }
+            },
+            upsert=True
+        )
 
-    return
+        if result.upserted_id is not None:
+            inserted += 1
+        else:
+            updated += result.modified_count
 
-def update_mongo(db, collection, data):
+    print(f"Inserted: {inserted}, Updated: {updated}")
 
-    return
+    return 
+
+
+def rate_ai(col: Collection) -> None:
+    unrated_ai = col.find({"rated_ai": False})
+
+    for incident in unrated_ai:
+
+        llm_incident = incident.copy()
+        llm_incident.pop("_id", None)
+
+        request, schema = llm.build_request(llm_incident, "impact")
+
+        impact_rating_ai = llm.send_request(
+            config.LLM_URL,
+            config.LLM_MODEL,
+            request,
+            schema=schema
+        )
+
+        incident["impact_rating_ai"] = impact_rating_ai
+        incident["rated_ai"] = True
+
+        col.replace_one(
+            {"_id": incident["_id"]},
+            incident
+        )
+
+        print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated with {config.LLM_MODEL}")
+
+
+
+
+client = MongoClient(config.MONGO_URL)
+db = client["incident_db"]
+incident_col = db["incidents"]
+logs = db["logs"]
+errors = db["errors"]
 
 
 incidents = []
@@ -62,5 +111,10 @@ for file in import_path.iterdir():
             case ".json":
                 incidents.extend(load_json(file.parent, file.stem))
 
+if not "incidents" in db.list_collection_names():
+    db.create_collection("incidents")
+    incident_col.create_index("incident_id", unique=True)
 
-print(incidents)
+
+db_write_incidents(incident_col, incidents)
+rate_ai(incident_col)

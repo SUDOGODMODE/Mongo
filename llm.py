@@ -119,6 +119,7 @@ def send_request(base_url, model, message, api_key=None, temperature=0.1, schema
         content = json.loads(content)
 
     metrics = {
+        "model": model,
         "duration_seconds": round(duration, 2),
         "prompt_tokens": data.get("usage", {}).get("prompt_tokens", 0),
         "completion_tokens": data.get("usage", {}).get("completion_tokens", 0),
