@@ -1,35 +1,14 @@
-from os import write
-
+﻿from loaders import load_json, load_xml
 import llm as llm
 import config as config
-import json
-import xml.etree.ElementTree as ET
-from pymongo.database import Database
+import manual as rater
+import compare as compare
 from pymongo.collection import Collection
 from pymongo import MongoClient
 from pathlib import Path
+from requests.exceptions import RequestException
+from pymongo.errors import PyMongoError
 
-
-def load_json(folder, name):
-    with open(f"{folder}/{name}.json", "r", encoding="utf-8") as datei:
-        data = json.load(datei)
-
-    return data["incidents"]
-
-
-def load_xml(folder, name):
-    tree = ET.parse(f"{folder}/{name}.xml")
-    root = tree.getroot()
-
-    incidents = []
-    for incident in root.findall("incident"):
-        incident_dict = {
-            child.tag: child.text.strip() if child.text else None
-            for child in incident
-        }
-        incidents.append(incident_dict)
-
-    return incidents
 
 
 def db_write_incidents(col: Collection, data: list[dict]) -> None:
@@ -60,61 +39,109 @@ def db_write_incidents(col: Collection, data: list[dict]) -> None:
 
     print(f"Inserted: {inserted}, Updated: {updated}")
 
-    return 
 
 
 def rate_ai(col: Collection) -> None:
     unrated_ai = col.find({"rated_ai": False})
 
+
     for incident in unrated_ai:
+        try:
+            llm_incident = {
+                key: value
+                for key, value in incident.items()
+                if key not in {
+                    "_id",
+                    "rating_manual",
+                    "impact_rating_ai",
+                    "metrics_ai",
+                    "rated_manual",
+                    "rated_ai",
+                }
+            }
 
-        llm_incident = incident.copy()
-        llm_incident.pop("_id", None)
+            request, schema = llm.build_request(llm_incident, "impact")
 
-        request, schema = llm.build_request(llm_incident, "impact")
+            impact_rating_ai, metrics = llm.send_request(
+                config.LLM_URL,
+                config.LLM_MODEL,
+                request,
+                schema=schema
+            )
 
-        impact_rating_ai = llm.send_request(
-            config.LLM_URL,
-            config.LLM_MODEL,
-            request,
-            schema=schema
-        )
+            incident["impact_rating_ai"] = impact_rating_ai
+            incident["metrics_ai"] = metrics
+            incident["rated_ai"] = True
 
-        incident["impact_rating_ai"] = impact_rating_ai
-        incident["rated_ai"] = True
-
-        col.replace_one(
-            {"_id": incident["_id"]},
-            incident
-        )
+            col.replace_one(
+                {"_id": incident["_id"]},
+                incident
+            )
+        except (RequestException, ValueError, KeyError, IndexError, PyMongoError) as error:
+            print(f"Rating failed for {incident['incident_id']}: {error}")
+            continue
 
         print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated with {config.LLM_MODEL}")
 
+def rate_manual(col: Collection) -> None:
+    unrated = col.find({"rated_manual": False})
+
+    for incident in unrated:
+        try:
+            man_incident = {
+                key: value
+                for key, value in incident.items()
+                if key not in {
+                    "_id",
+                    "rating_manual",
+                    "impact_rating_ai",
+                    "metrics_ai",
+                    "rated_manual",
+                    "rated_ai",
+                }
+            }
+
+            impact_rating = rater.rate_incident(man_incident, "schweregrad", "kategorie")
+
+            incident["rating_manual"] = impact_rating
+            incident["rated_manual"] = True
+
+            col.replace_one(
+                {"_id": incident["_id"]},
+                incident
+            )
+        except (RequestException, ValueError, KeyError, IndexError, PyMongoError) as error:
+            print(f"Rating failed for {incident['incident_id']}: {error}")
+            continue
+
+        print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated manually")
 
 
+if __name__ == "__main__":
+    client = MongoClient(config.MONGO_URL)
+    db = client["incident_db"]
+    incident_col = db["incidents"]
+    logs = db["logs"]
+    errors = db["errors"]
 
-client = MongoClient(config.MONGO_URL)
-db = client["incident_db"]
-incident_col = db["incidents"]
-logs = db["logs"]
-errors = db["errors"]
 
+    incidents = []
+    import_path = Path(config.PATH_IMPORT)
 
-incidents = []
-import_path = Path(config.PATH_IMPORT)
+    for file in import_path.iterdir():
+        if file.is_file():
+            match file.suffix.lower():
+                case ".xml":
+                    incidents.extend(load_xml(file.parent, file.stem))
+                case ".json":
+                    incidents.extend(load_json(file.parent, file.stem))
 
-for file in import_path.iterdir():
-    if file.is_file():
-        match file.suffix.lower():
-            case ".xml":
-                incidents.extend(load_xml(file.parent, file.stem))
-            case ".json":
-                incidents.extend(load_json(file.parent, file.stem))
-
-if not "incidents" in db.list_collection_names():
-    db.create_collection("incidents")
+    if not "incidents" in db.list_collection_names():
+        db.create_collection("incidents")
     incident_col.create_index("incident_id", unique=True)
 
 
-db_write_incidents(incident_col, incidents)
-rate_ai(incident_col)
+    db_write_incidents(incident_col, incidents)
+    rate_ai(incident_col)
+    rate_manual(incident_col)
+    compare.export_comparison(incident_col)

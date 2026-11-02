@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incident import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["incidents"],
+  "properties": {
+    "incidents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "incident_id", "zeitpunkt", "system_service", "fehlermeldung",
+          "schweregrad", "status", "kategorie"
+        ],
+        "properties": {
+          "incident_id": {"$ref": "#/$defs/nonEmptyText"},
+          "zeitpunkt": {"type": "string", "format": "date-time"},
+          "system_service": {"$ref": "#/$defs/nonEmptyText"},
+          "fehlermeldung": {"$ref": "#/$defs/nonEmptyText"},
+          "schweregrad": {"enum": ["niedrig", "mittel", "hoch", "kritisch"]},
+          "status": {"enum": ["neu", "in_bearbeitung", "wartend", "geloest", "geschlossen"]},
+          "kategorie": {"$ref": "#/$defs/nonEmptyText"},
+          "bekannte_loesung": {"type": ["string", "null"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyText": {"type": "string", "pattern": "\\S"}
+  }
+}

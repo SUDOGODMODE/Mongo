@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="nonEmptyText">
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="timestamp">
+    <xs:restriction base="xs:dateTime">
+      <xs:pattern value=".*(Z|[+\-][0-9]{2}:[0-9]{2})"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="severity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="niedrig"/>
+      <xs:enumeration value="mittel"/>
+      <xs:enumeration value="hoch"/>
+      <xs:enumeration value="kritisch"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="neu"/>
+      <xs:enumeration value="in_bearbeitung"/>
+      <xs:enumeration value="wartend"/>
+      <xs:enumeration value="geloest"/>
+      <xs:enumeration value="geschlossen"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="incidents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="incident" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="incident_id" type="nonEmptyText"/>
+              <xs:element name="zeitpunkt" type="timestamp"/>
+              <xs:element name="system_service" type="nonEmptyText"/>
+              <xs:element name="fehlermeldung" type="nonEmptyText"/>
+              <xs:element name="schweregrad" type="severity"/>
+              <xs:element name="status" type="status"/>
+              <xs:element name="kategorie" type="nonEmptyText"/>
+              <xs:element name="bekannte_loesung" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="fehlend" type="xs:boolean"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
