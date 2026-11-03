@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00041</incident_id>
+    <zeitpunkt>2026-09-09T15:55:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>BitLocker recovery key requested after BIOS update. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00043</incident_id>
+    <zeitpunkt>2026-09-10T01:21:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Windows Update 0x800f0922, kumulatives Update fehlgeschlagen. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00045</incident_id>
+    <zeitpunkt>2026-09-10T11:47:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Endpoint verliert nach Standby WLAN-Verbindung, Event ID 5005. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00047</incident_id>
+    <zeitpunkt>2026-09-10T22:13:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Intune error 0x87D1FDE8: Configuration profile failed. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00049</incident_id>
+    <zeitpunkt>2026-09-11T07:39:00+02:00</zeitpunkt>
+    <system_service>Windows Clients / Intune</system_service>
+    <fehlermeldung>Anwendung startet nach Patch nicht, Event ID 1000 Application Error. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>unknown</status>
+    <kategorie>Endpoint</kategorie>
+    <bekannte_loesung>Behoben: Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00051</incident_id>
+    <zeitpunkt>2026-09-11T18:05:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>SMB STATUS_ACCESS_DENIED beim Öffnen von Teamfreigabe. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00053</incident_id>
+    <zeitpunkt>2026-09-12T03:31:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>NFS mount: stale file handle nach Storage-Neustart. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00055</incident_id>
+    <zeitpunkt>2026-09-12T13:57:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>RAID degraded: Disk 3 predictive failure. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00057</incident_id>
+    <zeitpunkt>2026-09-12T23:23:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>Filesystem 96 % ausgelastet, Schreibvorgänge schlagen fehl. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00059</incident_id>
+    <zeitpunkt>2026-09-13T09:49:00+02:00</zeitpunkt>
+    <system_service>NAS / Fileserver</system_service>
+    <fehlermeldung>I/O error beim Lesen von /data/archive/2026. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Storage</kategorie>
+    <bekannte_loesung>Behoben: Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen.</bekannte_loesung>
+  </incident>
+</incidents>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00021</incident_id>
+    <zeitpunkt>2026-09-05T11:35:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>FATAL: remaining connection slots are reserved for non-replication superuser connections. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00023</incident_id>
+    <zeitpunkt>2026-09-05T22:01:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>could not write to file: No space left on device. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00025</incident_id>
+    <zeitpunkt>2026-09-06T07:27:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>FATAL: password authentication failed for user report_reader. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>dringend!!!</schweregrad>
+    <status>wartend</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00027</incident_id>
+    <zeitpunkt>2026-09-06T17:53:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>ERROR: deadlock detected beim Update der Incident-Tabelle. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00029</incident_id>
+    <zeitpunkt>2026-09-07T03:19:00+02:00</zeitpunkt>
+    <system_service>PostgreSQL / Ticketsystem</system_service>
+    <fehlermeldung>SQLSTATE 57014: query canceled due to statement timeout. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Datenbank</kategorie>
+    <bekannte_loesung>Behoben: Datenbank-Logs und Verbindungen prüfen, Kapazität oder Abfrage gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00031</incident_id>
+    <zeitpunkt>2026-09-07T13:45:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>550 5.1.1 Recipient address rejected: User unknown. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00033</incident_id>
+    <zeitpunkt>2026-09-08T00:11:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>Outlook synchronisiert Posteingang seit 09:12 nicht mehr. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00035</incident_id>
+    <zeitpunkt>2026-09-08T09:37:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>SMTP AUTH failed: 535 5.7.3 Authentication unsuccessful. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00037</incident_id>
+    <zeitpunkt>2026-09-08T20:03:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung />
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00039</incident_id>
+    <zeitpunkt>2026-09-09T05:29:00+02:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <fehlermeldung>554 5.7.1 Message rejected due to transport rule. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>E-Mail</kategorie>
+    <bekannte_loesung>Behoben: Message Trace, Transportregeln, Postfachstatus und Authentifizierung prüfen.</bekannte_loesung>
+  </incident>
+</incidents>

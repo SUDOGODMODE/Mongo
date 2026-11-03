@@ -1,4 +1,6 @@
 import csv
+from pymongo import MongoClient
+import config
 
 def export_comparison(col, path="comparison.csv"):
     incidents = col.find({
@@ -27,3 +29,10 @@ def export_comparison(col, path="comparison.csv"):
                 "manual_reason": manual["impact_reason"],
                 "ai_reason": ai["impact_reason"],
             })
+
+if __name__ == "__main__":
+    client = MongoClient(config.MONGO_URL)
+    db = client["incident_db"]
+    incident_col = db["incidents"]
+
+    export_comparison(incident_col)

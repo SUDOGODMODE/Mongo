@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00001</incident_id>
+    <zeitpunkt>2026-09-01T07:15:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50076: MFA erforderlich, Anmeldung auf dem Portal nicht abgeschlossen. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00003</incident_id>
+    <zeitpunkt>2026-09-01T17:41:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS700016: Anwendung bei der Anmeldung nicht gefunden. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00005</incident_id>
+    <zeitpunkt>2026-09-02T04:07:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50020: Benutzerkonto im falschen Tenant angemeldet. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00007</incident_id>
+    <zeitpunkt>2026-09-02T13:33:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>AADSTS50126: Benutzername oder Passwort ungültig beim SSO-Login. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00009</incident_id>
+    <zeitpunkt>2026-09-02T23:59:00+02:00</zeitpunkt>
+    <system_service>Microsoft Entra ID</system_service>
+    <fehlermeldung>Login-Schleife nach erfolgreicher MFA, Session-Cookie wird nicht übernommen. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Authentifizierung</kategorie>
+    <bekannte_loesung>Behoben: Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00011</incident_id>
+    <zeitpunkt>2026-09-03T09:25:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>Switchport Gi1/0/18 down, Endgerät nicht erreichbar. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00013</incident_id>
+    <zeitpunkt>2026-09-03T19:51:00+02:00</zeitpunkt>
+    <system_service fehlend="true" />
+    <fehlermeldung>Packet loss 38 % zum Gateway, Verbindung bricht sporadisch ab. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00015</incident_id>
+    <zeitpunkt>2026-09-04T05:17:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>STP topology change mehrfach innerhalb von 60 Sekunden erkannt. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00017</incident_id>
+    <zeitpunkt>2026-09-04T15:43:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>DHCP timeout: Client erhält APIPA-Adresse 169.254.23.8. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00019</incident_id>
+    <zeitpunkt>2026-09-05T02:09:00+02:00</zeitpunkt>
+    <system_service>Standortnetz / LAN</system_service>
+    <fehlermeldung>DNS lookup timeout bei internen Hostnamen trotz Internetzugriff. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung>Behoben: Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren.</bekannte_loesung>
+  </incident>
+</incidents>

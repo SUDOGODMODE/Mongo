@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00081</incident_id>
+    <zeitpunkt>2026-09-17T23:35:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>Dialog response time 18 s, üblicher Wert 2 s. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00083</incident_id>
+    <zeitpunkt>2026-09-18T10:01:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>SAP GUI friert beim Öffnen von Materialstammdaten ein. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00085</incident_id>
+    <zeitpunkt>2026-09-18T19:27:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>Queue length 180, Hintergrundverarbeitung verzögert sich. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00087</incident_id>
+    <zeitpunkt>2026-09-19T05:53:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>CPU-Auslastung 99 % auf Applikationsserver während Batchjob. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad fehlend="true" />
+    <status>in_bearbeitung</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00089</incident_id>
+    <zeitpunkt>2026-09-19T15:19:00+02:00</zeitpunkt>
+    <system_service>ERP / SAP</system_service>
+    <fehlermeldung>RFC timeout zwischen ERP und Dokumentenmanagement. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Performance</kategorie>
+    <bekannte_loesung>Behoben: Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00091</incident_id>
+    <zeitpunkt>2026-09-20T01:45:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>TLS handshake failed: certificate has expired. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00093</incident_id>
+    <zeitpunkt>2026-09-20T12:11:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>Certificate hostname mismatch für portal.intern.example. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00095</incident_id>
+    <zeitpunkt>2026-09-20T21:37:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>TLS alert unknown_ca nach Zertifikatswechsel. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00097</incident_id>
+    <zeitpunkt>2026-09-21T08:03:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>x509: certificate signed by unknown authority. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00099</incident_id>
+    <zeitpunkt>2026-09-21T17:29:00+02:00</zeitpunkt>
+    <system_service>Reverse Proxy / Webportal</system_service>
+    <fehlermeldung>OCSP responder timeout, sporadische TLS-Fehler. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>done-ish</status>
+    <kategorie>Zertifikat</kategorie>
+    <bekannte_loesung>Behoben: Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen.</bekannte_loesung>
+  </incident>
+</incidents>

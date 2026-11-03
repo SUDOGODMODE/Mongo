@@ -1,5 +1,8 @@
 ﻿from loaders import load_json, load_xml
 import llm as llm
+from loaders import move_to_done, move_to_failed
+from jsonschema.exceptions import ValidationError
+from lxml.etree import LxmlError
 import config as config
 import manual as rater
 import compare as compare
@@ -8,29 +11,37 @@ from pymongo import MongoClient
 from pathlib import Path
 from requests.exceptions import RequestException
 from pymongo.errors import PyMongoError
+import time
 
 
-
-def db_write_incidents(col: Collection, data: list[dict]) -> None:
+def db_write_incidents(col: Collection, data: list[dict]) -> bool:
     inserted = 0
     updated = 0
 
     for incident in data:
         if not incident.get("incident_id"):
-            print("Skipping incident without ID.")
-            continue
+            print("Database write failed: incident without ID.")
+            return False
 
-        result = col.update_one(
-            {"incident_id": incident["incident_id"]},
-            {
-                "$set": incident,
-                "$setOnInsert": {
-                    "rated_ai": False,
-                    "rated_manual": False 
-                }
-            },
-            upsert=True
-        )
+        try:
+            result = col.update_one(
+                {"incident_id": incident["incident_id"]},
+                {
+                    "$set": incident,
+                    "$setOnInsert": {
+                        "rated_ai": False,
+                        "rated_manual": False,
+                    },
+                },
+                upsert=True
+            )
+        except PyMongoError as error:
+            print(f"Database write failed: {error}")
+            return False
+
+        if not result.acknowledged:
+            print("Database write was not acknowledged.")
+            return False
 
         if result.upserted_id is not None:
             inserted += 1
@@ -38,13 +49,12 @@ def db_write_incidents(col: Collection, data: list[dict]) -> None:
             updated += result.modified_count
 
     print(f"Inserted: {inserted}, Updated: {updated}")
-
-
+    return True
 
 def rate_ai(col: Collection) -> None:
     unrated_ai = col.find({"rated_ai": False})
 
-
+    print("Start AI-Rating")
     for incident in unrated_ai:
         try:
             llm_incident = {
@@ -86,6 +96,7 @@ def rate_ai(col: Collection) -> None:
 def rate_manual(col: Collection) -> None:
     unrated = col.find({"rated_manual": False})
 
+    print("Start manual rating")
     for incident in unrated:
         try:
             man_incident = {
@@ -118,30 +129,50 @@ def rate_manual(col: Collection) -> None:
 
 
 if __name__ == "__main__":
+
     client = MongoClient(config.MONGO_URL)
     db = client["incident_db"]
     incident_col = db["incidents"]
     logs = db["logs"]
     errors = db["errors"]
-
-
-    incidents = []
     import_path = Path(config.PATH_IMPORT)
 
-    for file in import_path.iterdir():
-        if file.is_file():
-            match file.suffix.lower():
-                case ".xml":
-                    incidents.extend(load_xml(file.parent, file.stem))
-                case ".json":
-                    incidents.extend(load_json(file.parent, file.stem))
-
+    # Check if collection already exists
     if not "incidents" in db.list_collection_names():
         db.create_collection("incidents")
     incident_col.create_index("incident_id", unique=True)
+    import_path.mkdir(parents=True, exist_ok=True)
 
+    # Start process loop
+    print("Begin process-loop, wait for incoming files.")
+    while True:
 
-    db_write_incidents(incident_col, incidents)
-    rate_ai(incident_col)
-    rate_manual(incident_col)
-    compare.export_comparison(incident_col)
+        time.sleep(2)
+
+        for file in import_path.iterdir():
+            if not file.is_file():
+                continue
+            try:
+                match file.suffix.lower():
+                    case ".json":
+                        print(f"{file.name} found, load")
+                        incidents = load_json(file.parent, file.stem)
+                    case ".xml":
+                        print(f"{file.name} found, load")
+                        incidents = load_xml(file.parent, file.stem)
+                    case _:
+                        continue
+                if incidents and db_write_incidents(incident_col, incidents):
+                    print(f"{file.name} done, move do done")
+                    move_to_done(file)
+            except (ValueError, ValidationError, LxmlError) as error:
+                try:
+                    destination = move_to_failed(file)
+                    print(f"Invalid import {file.name} moved to {destination}: {error}")
+                except OSError as move_error:
+                    print(f"Could not quarantine {file.name}; file retained: {move_error}")
+            except OSError as error:
+                print(f"Import failed for {file.name}; file retained for retry: {error}")
+
+        rate_ai(incident_col)
+        rate_manual(incident_col)

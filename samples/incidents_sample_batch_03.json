@@ -1,0 +1,104 @@
+{
+    "incidents":  [
+                      {
+                          "incident_id":  "INC-2026-00042",
+                          "zeitpunkt":  "2026-09-09T21:08:00+02:00",
+                          "system_service":  "Windows Clients / Intune",
+                          "fehlermeldung":  "Intune error 0x87D1FDE8: Configuration profile failed. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Endpoint",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00044",
+                          "zeitpunkt":  "2026-09-10T06:34:00+02:00",
+                          "system_service":  "Windows Clients / Intune",
+                          "fehlermeldung":  "Anwendung startet nach Patch nicht, Event ID 1000 Application Error. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "mittel",
+                          "status":  "geschlossen",
+                          "kategorie":  "Endpoint",
+                          "bekannte_loesung":  "Behoben: Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00046",
+                          "zeitpunkt":  "2026-09-10T17:00:00+02:00",
+                          "system_service":  "Windows Clients / Intune",
+                          "fehlermeldung":  "BitLocker recovery key requested after BIOS update. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "mittel",
+                          "status":  "neu",
+                          "kategorie":  "Endpoint",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00048",
+                          "zeitpunkt":  "2026-09-11T02:26:00+02:00",
+                          "system_service":  "Windows Clients / Intune",
+                          "fehlermeldung":  "Windows Update 0x800f0922, kumulatives Update fehlgeschlagen. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "geloest",
+                          "kategorie":  "Endpoint",
+                          "bekannte_loesung":  "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00050",
+                          "zeitpunkt":  "2026-09-11T12:52:00+02:00",
+                          "system_service":  "Windows Clients / Intune",
+                          "fehlermeldung":  "Endpoint verliert nach Standby WLAN-Verbindung, Event ID 5005. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Endpoint",
+                          "bekannte_loesung":  "Geräteereignisse, Compliance, Treiber und letzte Änderungen prüfen, Massnahme am betroffenen Gerät testen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00052",
+                          "zeitpunkt":  "2026-09-11T22:18:00+02:00",
+                          "system_service":  "NAS / Fileserver",
+                          "fehlermeldung":  "Filesystem 96 % ausgelastet, Schreibvorgänge schlagen fehl. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Storage",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00054",
+                          "zeitpunkt":  "2026-09-12T08:44:00+02:00",
+                          "system_service":  "NAS / Fileserver",
+                          "fehlermeldung":  "I/O error beim Lesen von /data/archive/2026. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "hoch",
+                          "status":  "geschlossen",
+                          "kategorie":  "Storage",
+                          "bekannte_loesung":  "Behoben: Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+                      },
+                      {
+                          "incident_id":  "",
+                          "zeitpunkt":  "2026-09-12T19:10:00+02:00",
+                          "system_service":  "NAS / Fileserver",
+                          "fehlermeldung":  "SMB STATUS_ACCESS_DENIED beim Öffnen von Teamfreigabe. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "kritisch",
+                          "status":  "neu",
+                          "kategorie":  "Storage",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00058",
+                          "zeitpunkt":  "2026-09-13T04:36:00+02:00",
+                          "system_service":  "NAS / Fileserver",
+                          "fehlermeldung":  "NFS mount: stale file handle nach Storage-Neustart. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "geloest",
+                          "kategorie":  "Storage",
+                          "bekannte_loesung":  "Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00060",
+                          "zeitpunkt":  "2026-09-13T15:02:00+02:00",
+                          "system_service":  "NAS / Fileserver",
+                          "fehlermeldung":  "RAID degraded: Disk 3 predictive failure. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Storage",
+                          "bekannte_loesung":  "Freigabeberechtigungen, Kapazität, Mounts und Storage-Health prüfen, Wiederherstellung nach Freigabe planen."
+                      }
+                  ]
+}

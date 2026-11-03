@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-00061</incident_id>
+    <zeitpunkt>2026-09-13T19:15:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>HTTP 500 beim Speichern eines Incident-Datensatzes. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00063</incident_id>
+    <zeitpunkt>2026-09-14T05:41:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Portal zeigt leere Ticketliste nach Filterwechsel. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geloest</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00065</incident_id>
+    <zeitpunkt>2026-09-14T16:07:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Ticketanhänge liefern HTTP 403 trotz bestehender Berechtigung. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>wartend</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00067</incident_id>
+    <zeitpunkt>2026-09-15T01:33:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>Genehmigungsworkflow bleibt auf Pending trotz Freigabe. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00069</incident_id>
+    <zeitpunkt>2026-09-15T11:59:00+02:00</zeitpunkt>
+    <system_service>Serviceware ITSM</system_service>
+    <fehlermeldung>API antwortet 429 Too Many Requests bei Ticket-Synchronisation. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Applikation</kategorie>
+    <bekannte_loesung>Behoben: Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00071</incident_id>
+    <zeitpunkt>2026-09-15T21:25:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Backup job failed: Repository out of space. Einzelner Benutzer meldet Störung.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>neu</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00073</incident_id>
+    <zeitpunkt>2026-09-16T07:51:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Restore point missing für VM-app-04. Monitoring meldet wiederholten Fehler.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geloest</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00075</incident_id>
+    <zeitpunkt>2026-09-16T17:17:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Incremental backup stopped: changed block tracking invalid. Fehler nur im Homeoffice reproduzierbar.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00077</incident_id>
+    <zeitpunkt>2026-09-17T03:43:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>VSS_E_WRITERERROR_TIMEOUT bei nächtlicher Sicherung. Störung nach Neustart erneut aufgetreten.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung fehlend="true" />
+  </incident>
+  <incident>
+    <incident_id>INC-2026-00079</incident_id>
+    <zeitpunkt>2026-09-17T14:09:00+02:00</zeitpunkt>
+    <system_service>Veeam Backup</system_service>
+    <fehlermeldung>Failed to connect to backup proxy, connection timed out. Fehler tritt bei hoher Last auf.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>geschlossen</status>
+    <kategorie>Backup</kategorie>
+    <bekannte_loesung>Behoben: Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen.</bekannte_loesung>
+  </incident>
+</incidents>

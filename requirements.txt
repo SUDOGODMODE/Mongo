@@ -2,3 +2,5 @@ requests
 pymongo
 jsonschema[format]
 lxml
+fastapi
+uvicorn

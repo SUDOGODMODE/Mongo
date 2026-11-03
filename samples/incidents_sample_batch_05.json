@@ -1,0 +1,104 @@
+{
+    "incidents":  [
+                      {
+                          "incident_id":  "INC-2026-00082",
+                          "zeitpunkt":  "2026-09-18T04:48:00+02:00",
+                          "system_service":  "ERP / SAP",
+                          "fehlermeldung":  "CPU-Auslastung 99 % auf Applikationsserver während Batchjob. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Performance",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00084",
+                          "zeitpunkt":  "2026-09-18T15:14:00+02:00",
+                          "system_service":  "ERP / SAP",
+                          "fehlermeldung":  "RFC timeout zwischen ERP und Dokumentenmanagement. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "mittel",
+                          "status":  "geschlossen",
+                          "kategorie":  "Performance",
+                          "bekannte_loesung":  "Behoben: Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00086",
+                          "zeitpunkt":  "2026-09-19T00:40:00+02:00",
+                          "system_service":  "ERP / SAP",
+                          "fehlermeldung":  "Dialog response time 18 s, üblicher Wert 2 s. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "mittel",
+                          "status":  "neu",
+                          "kategorie":  "Performance",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00088",
+                          "zeitpunkt":  "2026-09-19T11:06:00+02:00",
+                          "system_service":  "ERP / SAP",
+                          "fehlermeldung":  "SAP GUI friert beim Öffnen von Materialstammdaten ein. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "geloest",
+                          "kategorie":  "Performance",
+                          "bekannte_loesung":  "Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00090",
+                          "zeitpunkt":  "2026-09-19T20:32:00+02:00",
+                          "system_service":  "ERP / SAP",
+                          "fehlermeldung":  "Queue length 180, Hintergrundverarbeitung verzögert sich. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Performance",
+                          "bekannte_loesung":  "Auslastung, laufende Jobs, Schnittstellen und Performance-Traces analysieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00092",
+                          "zeitpunkt":  "2026-09-20T06:58:00+02:00",
+                          "system_service":  "Reverse Proxy / Webportal",
+                          "fehlermeldung":  "x509: certificate signed by unknown authority. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Zertifikat",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00094",
+                          "zeitpunkt":  "2026-09-20T16:24:00+02:00",
+                          "system_service":  "Reverse Proxy / Webportal",
+                          "fehlermeldung":  "OCSP responder timeout, sporadische TLS-Fehler. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "hoch",
+                          "status":  "geschlossen",
+                          "kategorie":  "Zertifikat",
+                          "bekannte_loesung":  "Behoben: Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00096",
+                          "zeitpunkt":  "2026-09-21T02:50:00+02:00",
+                          "system_service":  "Reverse Proxy / Webportal",
+                          "fehlermeldung":  "TLS handshake failed: certificate has expired. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "hoch",
+                          "status":  "neu",
+                          "kategorie":  "Zertifikat",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00098",
+                          "zeitpunkt":  "2026-09-21T12:16:00+02:00",
+                          "system_service":  "Reverse Proxy / Webportal",
+                          "fehlermeldung":  "Certificate hostname mismatch für portal.intern.example. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "geloest",
+                          "kategorie":  "Zertifikat",
+                          "bekannte_loesung":  "Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00100",
+                          "zeitpunkt":  "2026-09-21T22:42:00+02:00",
+                          "system_service":  "Reverse Proxy / Webportal",
+                          "fehlermeldung":  "TLS alert unknown_ca nach Zertifikatswechsel. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Zertifikat",
+                          "bekannte_loesung":  "Gültigkeit, SAN, Zertifikatskette, Truststore und Proxy-Konfiguration prüfen."
+                      }
+                  ]
+}

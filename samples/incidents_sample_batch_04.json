@@ -1,0 +1,104 @@
+{
+    "incidents":  [
+                      {
+                          "incident_id":  "INC-2026-00062",
+                          "zeitpunkt":  "2026-09-14T00:28:00+02:00",
+                          "system_service":  "Serviceware ITSM",
+                          "fehlermeldung":  "Genehmigungsworkflow bleibt auf Pending trotz Freigabe. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Applikation",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00064",
+                          "zeitpunkt":  "2026-09-14T10:54:00+02:00",
+                          "system_service":  "Serviceware ITSM",
+                          "fehlermeldung":  "API antwortet 429 Too Many Requests bei Ticket-Synchronisation. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "mittel",
+                          "status":  "geschlossen",
+                          "kategorie":  "Applikation",
+                          "bekannte_loesung":  "Behoben: Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00066",
+                          "zeitpunkt":  "2026-09-14T20:20:00+02:00",
+                          "system_service":  "Serviceware ITSM",
+                          "fehlermeldung":  "HTTP 500 beim Speichern eines Incident-Datensatzes. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "mittel",
+                          "status":  "neu",
+                          "kategorie":  "Applikation",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00068",
+                          "zeitpunkt":  null,
+                          "system_service":  "Serviceware ITSM",
+                          "fehlermeldung":  "Portal zeigt leere Ticketliste nach Filterwechsel. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "geloest",
+                          "kategorie":  "Applikation",
+                          "bekannte_loesung":  "Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00070",
+                          "zeitpunkt":  "2026-09-15T17:12:00+02:00",
+                          "system_service":  "Serviceware ITSM",
+                          "fehlermeldung":  "Ticketanhänge liefern HTTP 403 trotz bestehender Berechtigung. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Applikation",
+                          "bekannte_loesung":  "Anwendungs- und API-Logs, Rollen, Workflow und letzte Deployments prüfen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00072",
+                          "zeitpunkt":  "2026-09-16T02:38:00+02:00",
+                          "system_service":  "Veeam Backup",
+                          "fehlermeldung":  "VSS_E_WRITERERROR_TIMEOUT bei nächtlicher Sicherung. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Backup",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00074",
+                          "zeitpunkt":  "2026-09-16T13:04:00+02:00",
+                          "system_service":  "Veeam Backup",
+                          "fehlermeldung":  "Failed to connect to backup proxy, connection timed out. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "hoch",
+                          "status":  "geschlossen",
+                          "kategorie":  "Backup",
+                          "bekannte_loesung":  "Behoben: Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00076",
+                          "zeitpunkt":  "2026-09-16T22:30:00+02:00",
+                          "system_service":  "Veeam Backup",
+                          "fehlermeldung":  "Backup job failed: Repository out of space. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "kritisch",
+                          "status":  "neu",
+                          "kategorie":  "Backup",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00078",
+                          "zeitpunkt":  "2026-09-17T08:56:00+02:00",
+                          "system_service":  "Veeam Backup",
+                          "fehlermeldung":  "Restore point missing für VM-app-04. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "geloest",
+                          "kategorie":  "Backup",
+                          "bekannte_loesung":  "Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00080",
+                          "zeitpunkt":  "2026-09-17T18:22:00+02:00",
+                          "system_service":  "Veeam Backup",
+                          "fehlermeldung":  "Incremental backup stopped: changed block tracking invalid. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "",
+                          "bekannte_loesung":  "Jobprotokolle, Repository-Kapazität und Backup-Kette prüfen, Wiederherstellungstest einplanen."
+                      }
+                  ]
+}

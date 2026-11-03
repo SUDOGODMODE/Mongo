@@ -1,0 +1,104 @@
+{
+    "incidents":  [
+                      {
+                          "incident_id":  "INC-2026-00002",
+                          "zeitpunkt":  "2026-09-01T12:28:00+02:00",
+                          "system_service":  "Microsoft Entra ID",
+                          "fehlermeldung":  "AADSTS50126: Benutzername oder Passwort ungültig beim SSO-Login. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Authentifizierung",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00004",
+                          "zeitpunkt":  "2026-99-42T25:61:00+02:00",
+                          "system_service":  "Microsoft Entra ID",
+                          "fehlermeldung":  "Login-Schleife nach erfolgreicher MFA, Session-Cookie wird nicht übernommen. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "mittel",
+                          "status":  "geschlossen",
+                          "kategorie":  "Authentifizierung",
+                          "bekannte_loesung":  "Behoben: Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00006",
+                          "zeitpunkt":  "2026-09-02T08:20:00+02:00",
+                          "system_service":  "Microsoft Entra ID",
+                          "fehlermeldung":  "AADSTS50076: MFA erforderlich, Anmeldung auf dem Portal nicht abgeschlossen. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "mittel",
+                          "status":  "neu",
+                          "kategorie":  "Authentifizierung",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00008",
+                          "zeitpunkt":  "2026-09-02T18:46:00+02:00",
+                          "system_service":  "Microsoft Entra ID",
+                          "fehlermeldung":  "AADSTS700016: Anwendung bei der Anmeldung nicht gefunden. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "mittel",
+                          "status":  "geloest",
+                          "kategorie":  "Authentifizierung",
+                          "bekannte_loesung":  "Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00010",
+                          "zeitpunkt":  "2026-09-03T05:12:00+02:00",
+                          "system_service":  "Microsoft Entra ID",
+                          "fehlermeldung":  "AADSTS50020: Benutzerkonto im falschen Tenant angemeldet. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Authentifizierung",
+                          "bekannte_loesung":  "Anmeldeprotokolle und Tenant-Zuordnung prüfen, MFA-Methode bzw. SSO-Konfiguration korrigieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00012",
+                          "zeitpunkt":  "2026-09-03T14:38:00+02:00",
+                          "system_service":  "Standortnetz / LAN",
+                          "fehlermeldung":  "DHCP timeout: Client erhält APIPA-Adresse 169.254.23.8. Mehrere Personen im gleichen Team betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "in_bearbeitung",
+                          "kategorie":  "Netzwerk",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00014",
+                          "zeitpunkt":  "2026-09-04T01:04:00+02:00",
+                          "system_service":  "Standortnetz / LAN",
+                          "fehlermeldung":  "DNS lookup timeout bei internen Hostnamen trotz Internetzugriff. Fehler seit Wartungsfenster beobachtet.",
+                          "schweregrad":  "hoch",
+                          "status":  "geschlossen",
+                          "kategorie":  "Netzwerk",
+                          "bekannte_loesung":  "Behoben: Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00016",
+                          "zeitpunkt":  "2026-09-04T10:30:00+02:00",
+                          "system_service":  "Standortnetz / LAN",
+                          "fehlermeldung":  "Switchport Gi1/0/18 down, Endgerät nicht erreichbar. Produktivbetrieb zeitweise beeinträchtigt.",
+                          "schweregrad":  "kritisch",
+                          "status":  "neu",
+                          "kategorie":  "Netzwerk",
+                          "bekannte_loesung":  null
+                      },
+                      {
+                          "incident_id":  "INC-2026-00018",
+                          "zeitpunkt":  "2026-09-04T20:56:00+02:00",
+                          "system_service":  "Standortnetz / LAN",
+                          "fehlermeldung":  "Packet loss 38 % zum Gateway, Verbindung bricht sporadisch ab. Testumgebung ebenfalls betroffen.",
+                          "schweregrad":  "hoch",
+                          "status":  "geloest",
+                          "kategorie":  "Netzwerk",
+                          "bekannte_loesung":  "Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+                      },
+                      {
+                          "incident_id":  "INC-2026-00020",
+                          "zeitpunkt":  "2026-09-05T06:22:00+02:00",
+                          "system_service":  "Standortnetz / LAN",
+                          "fehlermeldung":  "STP topology change mehrfach innerhalb von 60 Sekunden erkannt. Support kann Problem nachstellen.",
+                          "schweregrad":  "niedrig",
+                          "status":  "wartend",
+                          "kategorie":  "Netzwerk",
+                          "bekannte_loesung":  "Port, Verkabelung, VLAN, DHCP-Lease und DNS prüfen, betroffene Netzkomponente gezielt korrigieren."
+                      }
+                  ]
+}
