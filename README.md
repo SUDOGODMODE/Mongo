@@ -2,8 +2,30 @@
 Project for IN258
 Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen
 
-## Branching
-TBD
+
+## Voraussetzungen
+MongoDB als Storage für Incident-Daten.
+Beispiel-Start für MongoDB:
+```
+docker run -d \
+  --name mongodb \
+  -p 27017:27017 \
+  -v mongodb_data:/data/db \
+  mongodb/mongodb-community-server:latest
+```
+
+
+AI-Endpoint als Verarbeiter für Anfragen.
+Beispiel-Start mit llama.cpp und gemma3:4b mit Q8_0 Quantisierung:
+```
+llama-server `
+    -hf ggml-org/gemma-3-4b-it-GGUF:Q8_0 `
+    --alias "gemma3:4b" `
+    -ngl all `
+    -c 8192 `
+    --port 8080
+```
+
 
 ## Architektur
 Unten als Vorschlag grober Aufbau.
@@ -19,21 +41,7 @@ Unten als Vorschlag grober Aufbau.
 6b. Ergebnis zurück in DB schreiben.
 7. Ergebnisse exportieren
 
-### File-Struktur
-/modules
-    json_parse.py
-    xml_parse.py
-    write_db.py
-    get_entry_db.py
-    process_manual.py
-    process_ai.py
-    export.py
-/samples
-    sample.json
-    sample.xml
-/exports
-    export.csv
-main.py
+
 
 
 

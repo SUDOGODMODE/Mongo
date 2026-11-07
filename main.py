@@ -54,7 +54,6 @@ def db_write_incidents(col: Collection, data: list[dict]) -> bool:
 def rate_ai(col: Collection) -> None:
     unrated_ai = col.find({"rated_ai": False})
 
-    print("Start AI-Rating")
     for incident in unrated_ai:
         try:
             llm_incident = {
@@ -96,7 +95,6 @@ def rate_ai(col: Collection) -> None:
 def rate_manual(col: Collection) -> None:
     unrated = col.find({"rated_manual": False})
 
-    print("Start manual rating")
     for incident in unrated:
         try:
             man_incident = {

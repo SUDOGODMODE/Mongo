@@ -1,7 +1,7 @@
 """Minimal JSON/XML upload entry point. Run with: uvicorn api:app."""
 
 from pathlib import Path
-from uuid import uuid4
+from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request
 
@@ -25,7 +25,8 @@ async def upload(request: Request):
 
     body = await request.body()
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    filename = f"{uuid4().hex}{extensions[content_type]}"
+    timestamp = datetime.now(timezone.utc).strftime("%y%m%d_%H%M%S_%f")
+    filename = f"INC_{timestamp}{extensions[content_type]}"
     final_path = UPLOAD_DIR / filename
     partial_path = UPLOAD_DIR / f"{filename}.part"
     try:
