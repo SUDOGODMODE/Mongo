@@ -1,12 +1,13 @@
-# Mongo
-Project for IN258
-Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen
-
+﻿# Mongo
+Projekt für IN258
+Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen.
 
 ## Voraussetzungen
-MongoDB als Storage für Incident-Daten.
-Beispiel-Start für MongoDB:
-```
+
+MongoDB als Speicher für Incident-Daten.
+Beispiel zum Starten von MongoDB:
+
+```bash
 docker run -d \
   --name mongodb \
   -p 27017:27017 \
@@ -14,10 +15,10 @@ docker run -d \
   mongodb/mongodb-community-server:latest
 ```
 
+KI-Endpunkt zur Verarbeitung der Anfragen.
+Beispiel mit llama.cpp und gemma3:4b mit Q8_0-Quantisierung:
 
-AI-Endpoint als Verarbeiter für Anfragen.
-Beispiel-Start mit llama.cpp und gemma3:4b mit Q8_0 Quantisierung:
-```
+```powershell
 llama-server `
     -hf ggml-org/gemma-3-4b-it-GGUF:Q8_0 `
     --alias "gemma3:4b" `
@@ -26,70 +27,72 @@ llama-server `
     --port 8080
 ```
 
-
 ## Architektur
-Unten als Vorschlag grober Aufbau.
 
-### Ablauf Verarbeitung
-1. Daten aus JSON einlesen und in Liste von Python Dicts umwandeln.
-2. Daten aus XML einlesen und in Liste von Python Dicts umwandeln.
-3. Daten in noSQL DB schreiben.
-4. Datensätze einzeln aus noSQL DB auslesen.
-5a. Einzelnen Datensatz an manuellen Verarbeiter schicken.
-6a. Ergebnis zurück in DB schreiben.
-5b. Einzelnen Datensatz an AI-Endpoint schicken.
-6b. Ergebnis zurück in DB schreiben.
-7. Ergebnisse exportieren
+Der folgende Ablauf zeigt den groben Aufbau der Anwendung.
 
-## Practical setup and usage guide
+### Verarbeitungsablauf
 
-This app imports IT incidents from JSON or XML, stores them in MongoDB, and
-rates their impact from 1 (very low) to 10 (critical). It creates two ratings:
-an AI rating and an automatic rule-based rating. The code calls the rule-based
-rating "manual"; you do not need to enter scores yourself.
+1. Daten aus JSON oder XML einlesen und in eine Liste von Python-Dictionaries umwandeln.
+2. Daten in der NoSQL-Datenbank speichern.
+3. Noch nicht bewertete Datensätze einzeln aus der Datenbank lesen.
+4. Datensätze an den KI-Endpunkt senden und die Ergebnisse in der Datenbank speichern.
+5. Datensätze regelbasiert bewerten und die Ergebnisse in der Datenbank speichern.
+6. Ergebnisse bei Bedarf mit `compare.py` exportieren.
 
-### 1. Prerequisites
+## Anleitung zur Einrichtung und Verwendung
 
-- Python 3.12 or newer. The source uses Python 3.12 f-string syntax.
-- Docker with a running Docker engine for the MongoDB command below, or an
-  existing MongoDB server.
-- `llama-server` from llama.cpp, installed and available in your terminal, or
-  another compatible AI server. The app expects `/v1/chat/completions` with
-  JSON-schema structured responses.
-- Enough memory for the selected model. The first model download also needs
-  internet access and disk space.
+Diese Anwendung importiert IT-Incidents aus JSON oder XML, speichert sie in
+MongoDB und bewertet ihre Auswirkungen von 1 (sehr gering) bis 10 (kritisch).
+Sie erstellt zwei Bewertungen: eine KI-Bewertung und eine automatische,
+regelbasierte Bewertung. Im Code heisst die regelbasierte Bewertung „manual“;
+Bewertungen müssen also nicht von Hand eingegeben werden.
 
-The commands below use **PowerShell**. Run Python commands from this project's
-root directory so that relative paths point to the correct folders.
+### 1. Voraussetzungen
 
-Create a virtual environment and install the Python dependencies:
+- Python 3.12 oder neuer. Der Quellcode verwendet die f-String-Syntax von Python 3.12.
+- Docker mit laufender Docker Engine für den unten gezeigten MongoDB-Befehl
+  oder ein bereits vorhandener MongoDB-Server.
+- `llama-server` aus llama.cpp, installiert und im Terminal verfügbar, oder
+  ein anderer kompatibler KI-Server. Die Anwendung erwartet
+  `/v1/chat/completions` mit strukturierten Antworten nach einem JSON-Schema.
+- Genügend Arbeitsspeicher für das gewählte Modell. Für den ersten Download
+  werden ausserdem eine Internetverbindung und freier Speicherplatz benötigt.
+
+Die folgenden Befehle verwenden **PowerShell**. Führe Python-Befehle im
+Hauptverzeichnis dieses Projekts aus, damit relative Pfade auf die richtigen
+Ordner zeigen.
+
+Erstelle eine virtuelle Umgebung und installiere die Python-Abhängigkeiten:
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-If you use a newer Python version, replace `-3.12` with that version. The examples
-use the virtual environment's Python directly, so activation is optional.
+Wenn du eine neuere Python-Version verwendest, ersetze `-3.12` durch diese
+Version. Die Beispiele verwenden Python direkt aus der virtuellen Umgebung;
+deren Aktivierung ist daher optional.
 
-### 2. Start the prerequisites
+### 2. Benötigte Dienste starten
 
-Start Docker, then create and start MongoDB once:
+Starte Docker. Erstelle und starte anschliessend einmalig den MongoDB-Container:
 
 ```powershell
 docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db mongodb/mongodb-community-server:latest
 ```
 
-For subsequent starts, reuse the existing container:
+Verwende bei späteren Starts den vorhandenen Container:
 
 ```powershell
 docker start mongodb
 docker ps
 ```
 
-The `mongodb_data` volume keeps the database when the container is stopped.
+Das Volume `mongodb_data` bewahrt die Datenbank auch dann auf, wenn der
+Container gestoppt wird.
 
-In a separate terminal, start the AI server and leave it running:
+Starte den KI-Server in einem separaten Terminal und lasse ihn laufen:
 
 ```powershell
 llama-server `
@@ -100,140 +103,148 @@ llama-server `
     --port 8080
 ```
 
-This requests GPU offloading. Adjust the offloading and model settings to your
-hardware if the server cannot load the model. The first launch downloads it.
+Dieser Befehl fordert die Auslagerung der Modellberechnung auf die GPU an.
+Passe die GPU-Auslagerung und die Modelleinstellungen an deine Hardware an,
+falls der Server das Modell nicht laden kann. Beim ersten Start wird das
+Modell heruntergeladen.
 
-### 3. Configure the app
+### 3. Anwendung konfigurieren
 
-The settings are in [config.py](config.py):
+Die Einstellungen befinden sich in [config.py](config.py):
 
-| Setting | Default | Purpose |
+| Einstellung | Standardwert | Zweck |
 | --- | --- | --- |
-| `LLM_MODEL` | `gemma3:4b` | Must match the model name or alias served by the AI server. |
-| `LLM_URL` | `http://localhost:8080/v1` | AI base URL, including `/v1`. |
-| `MONGO_URL` | `mongodb://localhost:27017/` | MongoDB connection string. |
-| `API_PORT` | `8000` | Upload API port when started with `python api.py`. |
-| `PATH_IMPORT` | `./import` | Folder the worker scans for incoming files. |
-| `PATH_DONE` | `./done` | Archive for successfully imported files. |
-| `PATH_ERROR` | `./failed` | Rejected records and invalid files. |
+| `LLM_MODEL` | `gemma3:4b` | Muss mit dem Modellnamen oder Alias des KI-Servers übereinstimmen. |
+| `LLM_URL` | `http://localhost:8080/v1` | Basis-URL des KI-Servers, einschliesslich `/v1`. |
+| `MONGO_URL` | `mongodb://localhost:27017/` | Verbindungsadresse für MongoDB. |
+| `API_PORT` | `8000` | Port der Upload-API beim Start mit `python api.py`. |
+| `PATH_IMPORT` | `./import` | Ordner, den der Verarbeitungsprozess nach neuen Dateien durchsucht. |
+| `PATH_DONE` | `./done` | Archiv für erfolgreich importierte Dateien. |
+| `PATH_ERROR` | `./failed` | Abgewiesene Datensätze und ungültige Dateien. |
 
-Only `LLM_URL` and `MONGO_URL` support environment overrides. For example:
+Nur `LLM_URL` und `MONGO_URL` lassen sich durch Umgebungsvariablen überschreiben.
+Zum Beispiel:
 
 ```powershell
 $env:LLM_URL = "http://localhost:8080/v1"
 $env:MONGO_URL = "mongodb://localhost:27017/"
 ```
 
-Set overrides in each terminal that needs them before starting Python. Other
-settings must be edited in `config.py`. A `.env` file is not loaded automatically.
-Restart the affected Python processes after changing configuration.
+Setze diese Variablen vor dem Python-Start in jedem Terminal, das sie benötigt.
+Andere Einstellungen müssen in `config.py` angepasst werden. Eine `.env`-Datei
+wird nicht automatisch geladen. Starte die betroffenen Python-Prozesse nach
+Konfigurationsänderungen neu.
 
-The database name `incident_db` and collection name `incidents` are set in
-`main.py` and `compare.py`. Rule weights and keyword mappings are in
-[manual.py](manual.py); the AI instructions are in [llm.py](llm.py).
+Der Datenbankname `incident_db` und der Collection-Name `incidents` sind in
+`main.py` und `compare.py` festgelegt. Die Regelgewichtungen und
+Schlüsselwortzuordnungen befinden sich in [manual.py](manual.py), die
+Anweisungen für die KI in [llm.py](llm.py).
 
-### 4. Run the app: API and main worker
+### 4. Anwendung starten: API und Hauptverarbeitung
 
-Keep MongoDB and the AI server running. Start these two Python processes in
-separate terminals, both from the project root.
+Lasse MongoDB und den KI-Server laufen. Starte die folgenden beiden
+Python-Prozesse in separaten Terminals, jeweils im Hauptverzeichnis des Projekts.
 
-**Terminal A: upload API**
+**Terminal A: Upload-API**
 
 ```powershell
 .\.venv\Scripts\python.exe api.py
 ```
 
-The API listens on `http://127.0.0.1:8000` by default. Its interactive API docs
-are at `http://127.0.0.1:8000/docs`. Alternatively, use
-`.\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000`;
-with this command, the command-line port determines the port, not `API_PORT`.
+Die API ist standardmässig unter `http://127.0.0.1:8000` erreichbar. Die
+interaktive API-Dokumentation findest du unter `http://127.0.0.1:8000/docs`.
+Alternativ kannst du
+`.\.venv\Scripts\python.exe -m uvicorn api:app --host 127.0.0.1 --port 8000`
+verwenden. Bei diesem Befehl bestimmt der angegebene Kommandozeilenparameter
+den Port; die Einstellung `API_PORT` wird dabei nicht verwendet.
 
-**Terminal B: import and rating worker**
+**Terminal B: Import und Bewertung**
 
 ```powershell
 .\.venv\Scripts\python.exe main.py
 ```
 
-The worker creates the import folder and a unique index on `incident_id`. It
-pauses for two seconds between processing cycles, imports queued files, then
-runs AI scoring followed by rule-based scoring. AI requests can make a cycle
-take substantially longer than two seconds.
+Der Verarbeitungsprozess erstellt den Importordner und einen eindeutigen Index
+auf `incident_id`. Zwischen den Verarbeitungsdurchläufen wartet er zwei
+Sekunden. Er importiert wartende Dateien und führt danach zuerst die
+KI-Bewertung und anschliessend die regelbasierte Bewertung aus. Durch
+KI-Anfragen kann ein Durchlauf deutlich länger als zwei Sekunden dauern.
 
-The API only saves uploaded files. A successful upload response does not mean
-that validation, database import, or rating has completed. The worker must be
-running for those steps to happen. You can also use the worker without the API
-by placing complete JSON or XML files directly into `import/`.
+Die API speichert hochgeladene Dateien. Eine erfolgreiche Upload-Antwort
+bedeutet noch nicht, dass Validierung, Datenbankimport oder Bewertung
+abgeschlossen sind. Dafür muss der Verarbeitungsprozess laufen. Du kannst ihn
+auch ohne API verwenden, indem du vollständige JSON- oder XML-Dateien direkt
+im Ordner `import/` ablegst.
 
-### 5. Upload incidents and check the results
+### 5. Incidents hochladen und Ergebnisse prüfen
 
-With the API and worker running, send the included JSON and XML samples:
+Wenn API und Verarbeitungsprozess laufen, kannst du die mitgelieferten JSON-
+und XML-Beispiele senden:
 
 ```powershell
 .\.venv\Scripts\python.exe example_upload.py
 ```
 
-Some sample records contain invalid data, so files appearing in `failed/` during
-this demonstration are expected.
+Einige Beispieldatensätze enthalten ungültige Daten. Dass bei dieser
+Demonstration Dateien in `failed/` erscheinen, ist daher zu erwarten.
 
-To upload your own file:
+Eine eigene Datei kannst du mit folgendem Befehl hochladen:
 
 ```powershell
 curl.exe -X POST "http://127.0.0.1:8000/upload" -H "Content-Type: application/json" --data-binary "@samples/incidents_sample_batch_01.json"
 ```
 
-For XML, use an XML file and `Content-Type: application/xml` (or `text/xml`). Send
-the file as the raw request body, not as multipart form data. The response
-contains the generated filename, for example `{"filename":"INC_...json"}`.
+Verwende für XML eine XML-Datei und `Content-Type: application/xml` oder
+`text/xml`. Sende den Dateiinhalt direkt als Anfrageinhalt, nicht als
+Multipart-Formulardaten. Die Antwort enthält den erzeugten Dateinamen,
+zum Beispiel `{"filename":"INC_...json"}`.
 
-Use the structures in [samples/](samples/) as templates. JSON requires an
-`incidents` array; XML requires an `<incidents>` root containing `<incident>`
-elements. Both formats require `incident_id`, `zeitpunkt`, `system_service`,
-`fehlermeldung`, `schweregrad`, `status`, and `kategorie`. `bekannte_loesung` is
-optional. Exact validation rules are in
-[the JSON schema](schemas/incidents.schema.json) and
-[the XML schema](schemas/incidents.xsd).
+Verwende die Strukturen in [samples/](samples/) als Vorlagen. JSON benötigt
+ein `incidents`-Array. XML benötigt ein Wurzelelement `<incidents>` mit
+`<incident>`-Elementen. Beide Formate verlangen die Felder `incident_id`,
+`zeitpunkt`, `system_service`, `fehlermeldung`, `schweregrad`, `status` und
+`kategorie`. `bekannte_loesung` ist optional. Die genauen Validierungsregeln
+stehen im [JSON-Schema](schemas/incidents.schema.json) und im
+[XML-Schema](schemas/incidents.xsd).
 
-Check the worker terminal for progress and validation messages:
+Im Terminal des Verarbeitungsprozesses siehst du Fortschritts- und
+Validierungsmeldungen:
 
-| Location | Meaning |
+| Speicherort | Bedeutung |
 | --- | --- |
-| `import/` | Files waiting for import, or retained for retry after certain failures. |
-| `done/` | Valid records have been written to MongoDB. Ratings may still be pending. |
-| `failed/*_failed.json` or `*_failed.xml` | Individual rejected records from an otherwise readable batch. Valid records continue through import. |
-| `failed/*_invalid_*` | A whole file was quarantined because it could not be parsed or its structure was invalid. |
-| MongoDB `incident_db.incidents` | Imported incidents, ratings, completion flags, and AI timing/token metrics. |
+| `import/` | Dateien warten auf den Import oder bleiben nach bestimmten Fehlern für einen erneuten Versuch erhalten. |
+| `done/` | Gültige Datensätze wurden in MongoDB gespeichert. Bewertungen können noch ausstehen. |
+| `failed/*_failed.json` oder `*_failed.xml` | Einzelne abgewiesene Datensätze aus einer ansonsten lesbaren Datei. Gültige Datensätze werden weiter importiert. |
+| `failed/*_invalid_*` | Eine ganze Datei wurde ausgesondert, weil sie nicht eingelesen werden konnte oder ihre Struktur ungültig war. |
+| MongoDB `incident_db.incidents` | Importierte Incidents, Bewertungen, Abschlussmarkierungen sowie Zeit- und Token-Messwerte der KI. |
 
-When a batch contains rejected records, the archived file contains only the
-valid records. If every record is rejected, no file is archived in `done/`.
-Correct rejected records before uploading them again.
+Enthält eine Datei abgewiesene Datensätze, enthält die archivierte Datei nur
+die gültigen Datensätze. Werden alle Datensätze abgewiesen, wird keine Datei
+in `done/` archiviert. Korrigiere abgewiesene Datensätze vor dem erneuten Upload.
 
-An existing `incident_id` updates the stored incident instead of creating a
-duplicate. Existing rating flags are preserved: re-uploading an incident does
-**not** automatically recalculate completed ratings, even if its contents or the
-configured model changed.
+Bei einer bereits vorhandenen `incident_id` wird der gespeicherte Incident
+aktualisiert, statt ein Duplikat anzulegen. Vorhandene Bewertungsmarkierungen
+bleiben erhalten: Ein erneuter Upload berechnet abgeschlossene Bewertungen
+**nicht** automatisch neu, auch wenn sich der Inhalt oder das konfigurierte
+Modell geändert hat.
 
-### 6. Manually run a comparison
+### 6. Vergleich manuell ausführen
 
-Once incidents have both ratings, run:
+Sobald Incidents beide Bewertungen haben, führe folgenden Befehl aus:
 
 ```powershell
 .\.venv\Scripts\python.exe compare.py
 ```
 
-This creates or overwrites `comparison.csv` in the current directory. It reads
-existing results from MongoDB; it does not trigger new ratings. The API and
-worker do not need to be running for this export, but MongoDB must be available.
+Dadurch wird `comparison.csv` im aktuellen Verzeichnis erstellt oder
+überschrieben. Das Skript liest vorhandene Ergebnisse aus MongoDB und löst
+keine neuen Bewertungen aus. API und Verarbeitungsprozess müssen für diesen
+Export nicht laufen; MongoDB muss jedoch erreichbar sein.
 
-The CSV contains `incident_id`, `manual`, `ai`, `difference`, `manual_reason`,
-and `ai_reason`. `difference` is the absolute difference between the two scores;
-zero means agreement. Only incidents with both `rated_ai` and `rated_manual` set
-to `True` are included. A file containing only headers means no incidents have
-both completion flags yet. The worker does not export comparisons automatically.
-
-
-
-
-
-
-
-
+Die CSV-Datei enthält `incident_id`, `manual`, `ai`, `difference`,
+`manual_reason` und `ai_reason`. `difference` ist der absolute Unterschied
+zwischen den beiden Bewertungen; null bedeutet Übereinstimmung. Es werden
+nur Incidents berücksichtigt, bei denen sowohl `rated_ai` als auch
+`rated_manual` auf `True` gesetzt sind. Enthält die Datei nur Spaltenüberschriften,
+hat noch kein Incident beide Abschlussmarkierungen. Der Verarbeitungsprozess
+exportiert Vergleiche nicht automatisch.
