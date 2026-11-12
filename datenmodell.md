@@ -1,14 +1,36 @@
 # Beschreibung des NoSQL-Datenmodells
 
+## Inhaltsverzeichnis
+
+- [1. Überblick](#1-überblick)
+- [2. Aufbau der Datenbank](#2-aufbau-der-datenbank)
+- [3. Struktur eines Incident-Dokuments](#3-struktur-eines-incident-dokuments)
+  - [3.1 Störungsdaten](#31-störungsdaten)
+  - [3.2 Analyseergebnisse und Verarbeitungsinformationen](#32-analyseergebnisse-und-verarbeitungsinformationen)
+- [4. Beispieldokument](#4-beispieldokument)
+  - [Erklärung des Beispiels](#erklärung-des-beispiels)
+- [5. Begründung der Modellierung](#5-begründung-der-modellierung)
+  - [5.1 Ein Dokument pro Incident](#51-ein-dokument-pro-incident)
+  - [5.2 Eingebettete Unterdokumente](#52-eingebettete-unterdokumente)
+  - [5.3 Erweiterung während der Verarbeitung](#53-erweiterung-während-der-verarbeitung)
+- [6. Eindeutigkeit und Aktualisierung](#6-eindeutigkeit-und-aktualisierung)
+- [7. Validierung der Daten](#7-validierung-der-daten)
+- [8. Beispielabfragen](#8-beispielabfragen)
+  - [Datenbank auswählen](#datenbank-auswählen)
+  - [Einen bestimmten Incident suchen](#einen-bestimmten-incident-suchen)
+  - [Incidents mit hoher KI-Bewertung suchen](#incidents-mit-hoher-ki-bewertung-suchen)
+  - [Noch nicht durch die KI bewertete Incidents suchen](#noch-nicht-durch-die-ki-bewertete-incidents-suchen)
+  - [Vollständig bewertete Incidents suchen](#vollständig-bewertete-incidents-suchen)
+
 ## 1. Überblick
 
 Das Projekt verwendet die dokumentenorientierte NoSQL-Datenbank MongoDB, um IT-Störungsmeldungen, sogenannte Incidents, zu speichern.
 
-Die Anwendung importiert Incidents aus JSON- oder XML-Dateien und überführt sie in eine gemeinsame interne Struktur. Anschließend werden die Incidents regelbasiert und durch eine KI bewertet. Die Ergebnisse werden im jeweiligen Incident-Dokument ergänzt.
+Die Anwendung importiert Incidents aus JSON- oder XML-Dateien und überführt sie in eine gemeinsame interne Struktur. Anschliessend werden die Incidents regelbasiert und durch eine KI bewertet. Die Ergebnisse werden im jeweiligen Incident-Dokument ergänzt.
 
 ## 2. Aufbau der Datenbank
 
-Die Incident-Daten werden folgendermaßen organisiert:
+Die Incident-Daten werden folgendermassen organisiert:
 
 incident_db
 └── incidents
@@ -40,7 +62,7 @@ Ein Incident-Dokument besteht aus drei Teilen:
 |---|---|---|
 | _id | ObjectId | Automatisch erzeugte, eindeutige Dokumentkennung |
 | incident_id | String | Eindeutige fachliche Kennung des Incidents |
-| zeitpunkt | String | Zeitpunkt im ISO-8601-Format |
+| zeitpunkt | String | Zeitpunkt Format |
 | system_service | String | Betroffenes System oder betroffener Dienst |
 | fehlermeldung | String | Beschreibung der Störung oder Logmeldung |
 | schweregrad | String | Mitgelieferter Schweregrad |
@@ -61,8 +83,6 @@ Die Felder und ihre Importregeln sind im JSON-Schema (https://github.com/SUDOGOD
 | metrics_ai | Unterdokument | KI-Modell, Verarbeitungsdauer und Tokenverbrauch |
 
 Beim erstmaligen Import setzt die Anwendung rated_ai und rated_manual auf false. Die Ergebnisfelder werden nach erfolgreicher Bewertung ergänzt.
-
-Hinweis: Der Name manual bezeichnet im Projekt eine automatische, regelbasierte Bewertung. Eine manuelle Eingabe ist damit nicht gemeint.
 
 Quellen: main.py (https://github.com/SUDOGODMODE/Mongo/blob/main/main.py), manual.py (https://github.com/SUDOGODMODE/Mongo/blob/main/manual.py), llm.py (https://github.com/SUDOGODMODE/Mongo/blob/main/llm.py).
 
@@ -175,7 +195,7 @@ Die Anwendung prüft die Daten vor dem Speichern anhand eines JSON-Schemas bezie
 
 Für den JSON-Import gelten unter anderem folgende Regeln:
 
-- Alle grundlegenden Störungsfelder außer bekannte_loesung sind Pflichtfelder.
+- Alle grundlegenden Störungsfelder ausser bekannte_loesung sind Pflichtfelder.
 - zeitpunkt muss eine gültige Datums- und Zeitangabe enthalten.
 - schweregrad muss niedrig, mittel, hoch oder kritisch sein.
 - status muss neu, in_bearbeitung, wartend, geloest oder geschlossen sein.
@@ -201,7 +221,7 @@ db.incidents.findOne({
   incident_id: "INC-001"
 })
 
-Diese Abfrage liefert den Incident mit der Kennung INC-001 einschließlich seiner gespeicherten Bewertungen.
+Diese Abfrage liefert den Incident mit der Kennung INC-001 einschliesslich seiner gespeicherten Bewertungen.
 
 ### Incidents mit hoher KI-Bewertung suchen
 
@@ -211,7 +231,7 @@ db.incidents.find({
 
 Diese Abfrage liefert alle Incidents mit einer KI-Bewertung von mindestens 8.
 
-Die Punktnotation greift auf ein Feld innerhalb eines Unterdokuments zu. Der Operator $gte bedeutet „größer oder gleich“.
+Die Punktnotation greift auf ein Feld innerhalb eines Unterdokuments zu. Der Operator $gte bedeutet „grösser oder gleich“.
 
 ### Noch nicht durch die KI bewertete Incidents suchen
 
