@@ -1,6 +1,6 @@
 ﻿"""Rule-based incident severity scoring. Edit the mappings and weights below."""
 
-WEIGHTS = {"impact": 0.50, "keywords": 0.35, "category": 0.15}
+WEIGHTS = {"impact": 0.15, "keywords": 0.60, "category": 0.25}
 IMPACT_SCORES = {
     "very low": 2, "sehr niedrig": 2,
     "low": 3, "niedrig": 3,
@@ -42,7 +42,8 @@ def rate_incident(incident, impact="impact", category="category"):
 
     Pass the exact field names, e.g. impact="Schweregrad", category="Kategorie".
     Numeric impact uses 1-10 (higher is worse). Keywords are case-insensitive
-    substrings searched in every value, including nested data and solutions.
+    substrings searched in values except the supplied impact field, including
+    nested data and solutions. This avoids counting the supplied impact twice.
     Missing/unknown components are omitted; no evidence returns a neutral 5.
     """
     scores = {}
@@ -64,7 +65,8 @@ def rate_incident(incident, impact="impact", category="category"):
     matches = {
         keyword: score
         for keyword, score in KEYWORD_SCORES.items()
-        if any(keyword in str(value).casefold() for value in incident.values())
+        if any(keyword in str(value).casefold()
+               for key, value in incident.items() if key != impact)
     }
     if matches:
         scores["keywords"] = max(matches.values())

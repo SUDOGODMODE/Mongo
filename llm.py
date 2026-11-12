@@ -31,6 +31,12 @@ def build_request(ticket, evals):
 
         Instructions:
         - Base the rating only on the provided incident information.
+        - Treat the supplied 'schweregrad' field as a weak supplementary hint,
+          not as the target answer. First assess severity independently from
+          the incident description, affected service, and concrete impact.
+        - Give concrete incident evidence much more weight than 'schweregrad'.
+          If they conflict, prioritize the concrete evidence and briefly explain
+          the discrepancy. Do not copy 'schweregrad' without supporting evidence.
         - Do not assume missing information.
         - Rate the actual impact, not the potential worst-case scenario.
         - Give a short explanation for the rating.

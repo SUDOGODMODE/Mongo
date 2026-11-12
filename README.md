@@ -48,6 +48,15 @@ Sie erstellt zwei Bewertungen: eine KI-Bewertung und eine automatische,
 regelbasierte Bewertung. Im Code heisst die regelbasierte Bewertung „manual“;
 Bewertungen müssen also nicht von Hand eingegeben werden.
 
+Das mitgelieferte Feld `schweregrad` dient als ergänzender Hinweis. Die
+regelbasierte Bewertung gewichtet es mit 15 %, Schlüsselwörter mit 60 % und
+die Kategorie mit 25 %. Fehlende oder unbekannte Komponenten werden
+ausgelassen; die verbleibenden Gewichte werden entsprechend normalisiert.
+Das Feld `schweregrad` wird nicht zusätzlich nach Schlüsselwörtern durchsucht.
+Die KI wird angewiesen, zunächst die konkreten Incident-Angaben zu bewerten
+und `schweregrad` nur schwach zu berücksichtigen. Diese Prompt-Anweisung
+garantiert keine feste prozentuale Gewichtung beim Sprachmodell.
+
 ### 1. Voraussetzungen
 
 - Python 3.12 oder neuer. Der Quellcode verwendet die f-String-Syntax von Python 3.12.
