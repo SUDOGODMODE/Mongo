@@ -1,0 +1,54 @@
+{
+  "incidents": [
+    {
+      "incident_id": "INC-2026-10001",
+      "zeitpunkt": "2026-11-08T08:15:00+01:00",
+      "system_service": "Webserver",
+      "fehlermeldung": "HTTP 503: Webanwendung nicht erreichbar; mehrere Benutzer betroffen.",
+      "schweregrad": "hoch",
+      "status": "geloest",
+      "kategorie": "Anwendungsfehler",
+      "bekannte_loesung": "Webserver-Dienst neu gestartet und Erreichbarkeit geprüft."
+    },
+    {
+      "incident_id": "INC-2026-10002",
+      "zeitpunkt": "2026-11-08T09:30:00+01:00",
+      "system_service": "Datenbankserver",
+      "fehlermeldung": "Zeitüberschreitung nach 30 Sekunden beim Aufbau der Datenbankverbindung.",
+      "schweregrad": "kritisch",
+      "status": "neu",
+      "kategorie": "Datenbankfehler",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-10003",
+      "zeitpunkt": "2026-11-08T10:45:00+01:00",
+      "system_service": "Kernnetzwerk",
+      "fehlermeldung": "Paketverlust von 25 Prozent auf dem zentralen Netzwerk-Switch festgestellt.",
+      "schweregrad": "hoch",
+      "status": "in_bearbeitung",
+      "kategorie": "Netzwerkfehler",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-10004",
+      "zeitpunkt": "2026-11-08T11:20:00+01:00",
+      "system_service": "Authentifizierungsserver",
+      "fehlermeldung": "Mehrere Benutzer können sich wegen eines abgelaufenen Zertifikats nicht anmelden.",
+      "schweregrad": "mittel",
+      "status": "geloest",
+      "kategorie": "Authentifizierungsfehler",
+      "bekannte_loesung": "Abgelaufenes Zertifikat erneuert und Anmeldung erfolgreich getestet."
+    },
+    {
+      "incident_id": "INC-2026-10005",
+      "zeitpunkt": "2026-11-08T13:05:00+01:00",
+      "system_service": "Speichersystem",
+      "fehlermeldung": "Speicherbelegung des Volumes /data hat 95 Prozent erreicht.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Speicherfehler",
+      "bekannte_loesung": "Nicht mehr benötigte Protokolldateien nach Prüfung gelöscht; Speicherbelegung kontrolliert."
+    }
+  ]
+}

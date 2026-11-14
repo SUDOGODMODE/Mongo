@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<incidents>
+  <incident>
+    <incident_id>INC-2026-T007</incident_id>
+    <zeitpunkt>2026-11-02T13:20:00+01:00</zeitpunkt>
+    <system_service>Raumbuchungspanel Sitzungszimmer 2</system_service>
+    <fehlermeldung>Raumpanel zeigt keine Reservierungen. Ein Raum betroffen. Buchung per Outlook weiterhin möglich.</fehlermeldung>
+    <schweregrad>niedrig</schweregrad>
+    <status>neu</status>
+    <kategorie>Endgerät</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-T008</incident_id>
+    <zeitpunkt>2026-11-04T07:40:00+01:00</zeitpunkt>
+    <system_service>Lager / Handscanner</system_service>
+    <fehlermeldung>Acht Handscanner in Packzone B verlieren die WLAN-Verbindung. 15 Mitarbeitende sind seit rund 70 Minuten betroffen. Artikel werden mit Papierliste erfasst und nachgetragen. Der Verpackungsprozess läuft langsamer, ist aber nicht gestoppt. Fehlermeldung: WLAN authentication timeout.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-T009</incident_id>
+    <zeitpunkt>2026-11-05T08:30:00+01:00</zeitpunkt>
+    <system_service>Power BI / Controlling Dashboard</system_service>
+    <fehlermeldung>Tägliche KPI-Berichte zeigen seit der Aktualisierung um 06:00 Uhr Werte von gestern. Die Fachabteilung (6 Personen) verschiebt die interne Besprechung um zwei Stunden. Buchungen und Belege im ERP sind aktuell, ein manuell exportierter Bericht ist verfügbar. Keine produktiven Transaktionen und keine externen Kunden sind betroffen. Ursache laut Refresh-Protokoll: Gateway credentials expired.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>wartend</status>
+    <kategorie>Reporting</kategorie>
+    <bekannte_loesung>Gateway-Anmeldeinformationen erneuern und Datensatz aktualisieren; Bericht vor Freigabe gegen ERP prüfen.</bekannte_loesung>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-T010</incident_id>
+    <zeitpunkt>2026-11-09T08:05:00+01:00</zeitpunkt>
+    <system_service>Remote Access / Unternehmens-VPN</system_service>
+    <fehlermeldung>Seit 07:15 Uhr schlagen VPN-Anmeldungen mit TLS handshake failed fehl. Rund 230 Beschäftigte im Homeoffice können weder auf interne Anwendungen noch auf Netzlaufwerke zugreifen. Über den Browser sind nur öffentliche Cloud-Dienste erreichbar; ein freigegebener alternativer VPN-Zugang existiert nicht. Standortarbeitsplätze sind nicht betroffen. Das Netzteam hat Zertifikatsablauf und Gateway-Failover als mögliche Ursachen identifiziert. Nach 50 Minuten besteht weiterhin keine Verbindung. Mehrere Kundensupportfälle werden verzögert.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-T011</incident_id>
+    <zeitpunkt>2026-11-10T11:10:00+01:00</zeitpunkt>
+    <system_service>Kundenportal / API und Datenbank</system_service>
+    <fehlermeldung>Security Monitoring meldete um 09:05 Uhr ungewöhnliche Massendownloads über einen kompromittierten technischen API-Account. Die Analyse der Zugriffslogs bestätigt den unberechtigten Export von Datensätzen mit Kontakt- und Vertragsinformationen zu rund 4200 Kunden. Der Account wurde um 09:32 Uhr gesperrt, die externe Kunden-API aus Sicherheitsgründen deaktiviert. Seitdem können etwa 900 aktive Portalnutzer keine Aufträge einreichen oder ihren Vertragsstatus abrufen. Ein Ersatzkanal deckt nur einen kleinen Teil des Volumens ab. Das Incident-Response-Team untersucht weiterhin den Umfang der Offenlegung, sichert Beweise und bereitet die erforderliche Datenschutzbeurteilung vor. Wiederherstellungszeit unbekannt.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Security Incident</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-T012</incident_id>
+    <zeitpunkt>2026-11-11T10:18:00+01:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <schweregrad>niedrig</schweregrad>
+    <status>neu</status>
+    <kategorie>Messaging</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+</incidents>
