@@ -4,28 +4,10 @@ Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen.
 
 ## Voraussetzungen
 
-MongoDB als Speicher für Incident-Daten.
-Beispiel zum Starten von MongoDB:
-
-```bash
-docker run -d \
-  --name mongodb \
-  -p 27017:27017 \
-  -v mongodb_data:/data/db \
-  mongodb/mongodb-community-server:latest
-```
-
-KI-Endpunkt zur Verarbeitung der Anfragen.
-Beispiel mit llama.cpp und gemma3:4b mit Q8_0-Quantisierung:
-
-```powershell
-llama-server `
-    -hf ggml-org/gemma-3-4b-it-GGUF:Q8_0 `
-    --alias "gemma3:4b" `
-    -ngl all `
-    -c 8192 `
-    --port 8080
-```
+Python 3.12+, Docker **oder** Podman für MongoDB und `llama-server` für die
+lokale KI-Bewertung. Nach der einmaligen Installation startet [start.py](start.py)
+die benötigten Dienste in der richtigen Reihenfolge. Die vollständigen Schritte
+stehen unter [Einrichtung und Verwendung](#anleitung-zur-einrichtung-und-verwendung).
 
 ## Architektur
 
@@ -60,17 +42,18 @@ garantiert keine feste prozentuale Gewichtung beim Sprachmodell.
 ### 1. Voraussetzungen
 
 - Python 3.12 oder neuer. Der Quellcode verwendet die f-String-Syntax von Python 3.12.
-- Docker mit laufender Docker Engine für den unten gezeigten MongoDB-Befehl
-  oder ein bereits vorhandener MongoDB-Server.
+- Docker oder Podman mit funktionsfähiger Containerumgebung für MongoDB,
+  oder ein bereits erreichbarer MongoDB-Server. Unter macOS und Windows
+  benötigt Podman eine initialisierte Podman-Maschine.
 - `llama-server` aus llama.cpp, installiert und im Terminal verfügbar, oder
   ein anderer kompatibler KI-Server. Die Anwendung erwartet
   `/v1/chat/completions` mit strukturierten Antworten nach einem JSON-Schema.
 - Genügend Arbeitsspeicher für das gewählte Modell. Für den ersten Download
   werden ausserdem eine Internetverbindung und freier Speicherplatz benötigt.
 
-Die folgenden Befehle verwenden **PowerShell**. Führe Python-Befehle im
-Hauptverzeichnis dieses Projekts aus, damit relative Pfade auf die richtigen
-Ordner zeigen.
+Die manuellen Beispiele weiter unten verwenden **PowerShell**. Das Startskript
+funktioniert unter macOS, Linux und Windows und setzt für alle Anwendungsprozesse
+das Projektverzeichnis als Arbeitsverzeichnis.
 
 Erstelle eine virtuelle Umgebung und installiere die Python-Abhängigkeiten:
 
@@ -83,39 +66,82 @@ Wenn du eine neuere Python-Version verwendest, ersetze `-3.12` durch diese
 Version. Die Beispiele verwenden Python direkt aus der virtuellen Umgebung;
 deren Aktivierung ist daher optional.
 
-### 2. Benötigte Dienste starten
+Unter macOS und Linux legst du `.venv` so an:
 
-Starte Docker. Erstelle und starte anschliessend einmalig den MongoDB-Container:
-
-```powershell
-docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db mongodb/mongodb-community-server:latest
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
-Verwende bei späteren Starts den vorhandenen Container:
+### 2. Produkt starten
+
+Starte das gesamte Produkt mit einem Befehl im Projektverzeichnis:
 
 ```powershell
-docker start mongodb
-docker ps
+py -3.12 start.py
 ```
 
-Das Volume `mongodb_data` bewahrt die Datenbank auch dann auf, wenn der
-Container gestoppt wird.
+Unter macOS und Linux:
 
-Starte den KI-Server in einem separaten Terminal und lasse ihn laufen:
+```bash
+python3 start.py
+```
+
+`start.py` fragt im Terminal ausdrücklich, ob MongoDB mit **Docker** oder
+**Podman** gestartet werden soll. Gib den Namen oder die angezeigte Nummer ein;
+es gibt keine vorausgewählte Antwort. Docker und Podman verwalten **getrennte**
+Container und Volumes. Wähle deshalb das System, in dem die Projektdaten liegen.
+Das Skript wechselt bei einem Fehler nicht stillschweigend zum anderen System.
+
+Beispiel, wenn beide Programme installiert sind:
+
+```text
+Wähle das Container-System für MongoDB. Docker und Podman haben getrennte Daten-Volumes.
+  1) docker
+  2) podman
+Auswahl (Name oder Nummer): 2
+Verwende podman für MongoDB.
+```
+
+Die Nummern richten sich nach den installierten Programmen. Du kannst auch
+`docker` oder `podman` als Namen eingeben. Die Eingabe wird abgefragt, selbst
+wenn auf dem lokalen MongoDB-Port bereits eine Datenbank erreichbar ist.
+
+Nach der Auswahl startet es die gewählte Containerumgebung bei Bedarf,
+startet einen vorhandenen Container `mongodb` oder erstellt ihn beim ersten Mal
+mit dem Image `mongodb/mongodb-community-server:latest`. Die Daten liegen im
+benannten Volume `mongodb_data`; es bleibt auch nach einem Containerstopp
+erhalten. Fehlt der gewählte Container oder ist er gestoppt, bricht das Skript
+bei belegtem MongoDB-Port ab, statt stillschweigend eine zweite Datenbank
+anzulegen oder zu starten.
+
+Für automatisierte Starts ohne Terminal kann die Auswahl als Argument erfolgen:
 
 ```powershell
-llama-server `
-    -hf ggml-org/gemma-3-4b-it-GGUF:Q8_0 `
-    --alias "gemma3:4b" `
-    -ngl all `
-    -c 8192 `
-    --port 8080
+py -3.12 start.py --runtime podman
 ```
 
-Dieser Befehl fordert die Auslagerung der Modellberechnung auf die GPU an.
-Passe die GPU-Auslagerung und die Modelleinstellungen an deine Hardware an,
-falls der Server das Modell nicht laden kann. Beim ersten Start wird das
-Modell heruntergeladen.
+Mögliche Werte für `--runtime` sind `docker` und `podman`. Ohne Argument ist
+ein interaktives Terminal erforderlich; bei fehlender Eingabe startet kein
+Container. Für einen bereits konfigurierten **externen** MongoDB-Server ist
+keine Container-Auswahl nötig. Auf macOS und Windows versucht das Skript, eine
+vorhandene Podman-Maschine zu starten; fehlt sie noch, muss sie einmalig mit
+`podman machine init` angelegt werden.
+
+Nach einer erfolgreichen MongoDB-Verbindung startet das Skript bei Bedarf
+`llama-server` mit `ggml-org/gemma-3-4b-it-GGUF:Q8_0` (Alias `gemma3:4b`,
+GPU-Auslagerung `all`, Kontext 8192, Port 8080). Fehlt das Modell im Cache,
+wird es dabei heruntergeladen. Passe die Modell- oder GPU-Einstellungen im Skript an,
+falls diese Vorgaben nicht zur Hardware passen. Danach starten Upload-API und
+Importprozess. Jeder nächste Schritt beginnt erst nach einer Bereitschaftsprüfung
+des vorherigen Dienstes. API-Dokumentation: `http://127.0.0.1:8000/docs`.
+
+Mit Ctrl+C beendet das Skript die von ihm gestarteten Python- und KI-Prozesse.
+MongoDB und bereits zuvor laufende Dienste bleiben aktiv. Die Zeitlimits sind
+mit `--runtime-timeout`, `--mongo-timeout`, `--llm-timeout` und `--api-timeout`
+in Sekunden einstellbar. Der erste Image-Download kann zusätzlich bis zu
+zehn Minuten dauern. Fehlende Programme oder Python-Pakete meldet das
+Skript; es installiert diese Voraussetzungen nicht automatisch.
 
 ### 3. Anwendung konfigurieren
 
@@ -149,10 +175,12 @@ Der Datenbankname `incident_db` und der Collection-Name `incidents` sind in
 Schlüsselwortzuordnungen befinden sich in [manual.py](manual.py), die
 Anweisungen für die KI in [llm.py](llm.py).
 
-### 4. Anwendung starten: API und Hauptverarbeitung
+### 4. Optional: API und Hauptverarbeitung manuell starten
 
-Lasse MongoDB und den KI-Server laufen. Starte die folgenden beiden
-Python-Prozesse in separaten Terminals, jeweils im Hauptverzeichnis des Projekts.
+Für den normalen Betrieb übernimmt [start.py](start.py) diese Schritte.
+Falls du die Dienste einzeln starten möchtest, lasse MongoDB und den KI-Server
+laufen und starte die folgenden beiden Python-Prozesse in separaten Terminals,
+jeweils im Hauptverzeichnis des Projekts.
 
 **Terminal A: Upload-API**
 
