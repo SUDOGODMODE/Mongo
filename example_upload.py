@@ -12,8 +12,8 @@ def main():
     samples = Path(__file__).resolve().parent / "samples"
 
     for filename, content_type in (
-        ("incidents_sample_batch_01.json", "application/json"),
-        ("incidents_sample_batch_01.xml", "application/xml"),
+        ("incidents_for_assessment.json", "application/json"),
+        ("incidents_for_assessment.xml", "application/xml"),
     ):
         # The endpoint expects the raw file body, not multipart form data.
         with (samples / filename).open("rb") as source:
