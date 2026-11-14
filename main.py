@@ -129,15 +129,13 @@ def rate_manual(col: Collection) -> None:
 if __name__ == "__main__":
 
     client = MongoClient(config.MONGO_URL)
-    db = client["incident_db"]
-    incident_col = db["incidents"]
-    logs = db["logs"]
-    errors = db["errors"]
+    db = client[config.MONGO_DATABASE]
+    incident_col = db[config.MONGO_INCIDENTS_COLLECTION]
     import_path = Path(config.PATH_IMPORT)
 
     # Check if collection already exists
-    if not "incidents" in db.list_collection_names():
-        db.create_collection("incidents")
+    if config.MONGO_INCIDENTS_COLLECTION not in db.list_collection_names():
+        db.create_collection(config.MONGO_INCIDENTS_COLLECTION)
     incident_col.create_index("incident_id", unique=True)
     import_path.mkdir(parents=True, exist_ok=True)
 
@@ -145,7 +143,7 @@ if __name__ == "__main__":
     print("Begin process-loop, wait for incoming files.")
     while True:
 
-        time.sleep(2)
+        time.sleep(config.WORKER_INTERVAL_SECONDS)
 
         for file in import_path.iterdir():
             if not file.is_file():

@@ -220,10 +220,13 @@ def llm_ready(url: str, model: str) -> bool:
         "max_tokens": 1,
         "stream": False,
     }).encode("utf-8")
+    headers = {"Content-Type": "application/json"}
+    if config.LLM_API_KEY:
+        headers["Authorization"] = f"Bearer {config.LLM_API_KEY}"
     request = Request(
         url.rstrip("/") + "/chat/completions",
         data=payload,
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         method="POST",
     )
     try:
@@ -285,23 +288,23 @@ def ensure_llm(url: str, model: str, timeout: float, owned: list[tuple[str, subp
 
 def api_ready(port: int) -> bool:
     try:
-        with urlopen(f"http://127.0.0.1:{port}/openapi.json", timeout=2) as response:
+        with urlopen(f"http://{config.API_CLIENT_HOST}:{port}/openapi.json", timeout=2) as response:
             return "/upload" in json.load(response).get("paths", {})
     except (HTTPError, URLError, TimeoutError, OSError, ValueError, KeyError):
         return False
 
 
-def port_in_use(port: int) -> bool:
+def port_in_use(port: int, host: str = "127.0.0.1") -> bool:
     with socket.socket() as connection:
         connection.settimeout(1)
-        return connection.connect_ex(("127.0.0.1", port)) == 0
+        return connection.connect_ex((host, port)) == 0
 
 
 def ensure_api(python: str, port: int, timeout: float, owned: list[tuple[str, subprocess.Popen]]) -> None:
     if api_ready(port):
         say("Upload-API ist bereits bereit.")
         return
-    if port_in_use(port):
+    if port_in_use(port, config.API_CLIENT_HOST):
         raise StartupError(f"API-Port {port} wird bereits von einem anderen Dienst verwendet.")
     process = spawn([python, "api.py"], "Upload-API")
     owned.append(("Upload-API", process))
@@ -311,7 +314,7 @@ def ensure_api(python: str, port: int, timeout: float, owned: list[tuple[str, su
 def start_worker(python: str, owned: list[tuple[str, subprocess.Popen]]) -> None:
     process = spawn([python, "main.py"], "Importprozess")
     owned.append(("Importprozess", process))
-    # main.py has no health endpoint; it waits two seconds before its first loop.
+    # main.py has no health endpoint; allow time for initialization.
     time.sleep(config.WORKER_STARTUP_SECONDS)
     code = process.poll()
     if code is not None:
@@ -358,7 +361,7 @@ def main() -> int:
         ensure_llm(config.LLM_URL, config.LLM_MODEL, args.llm_timeout, owned)
         ensure_api(python, config.API_PORT, args.api_timeout, owned)
         start_worker(python, owned)
-        say(f"Produkt bereit nach {time.monotonic() - started:.1f} s. API: http://127.0.0.1:{config.API_PORT}/docs")
+        say(f"Produkt bereit nach {time.monotonic() - started:.1f} s. API: http://{config.API_CLIENT_HOST}:{config.API_PORT}/docs")
         say("Ctrl+C beendet die von diesem Skript gestarteten Prozesse.")
         while True:
             for label, process in owned:

@@ -5,10 +5,10 @@ from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request
 
-from config import PATH_IMPORT, API_PORT
+import config
 
 app = FastAPI()
-UPLOAD_DIR = Path(PATH_IMPORT)
+UPLOAD_DIR = Path(config.PATH_IMPORT)
 
 
 @app.post("/upload")
@@ -41,4 +41,4 @@ async def upload(request: Request):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=API_PORT)
+    uvicorn.run(app, host=config.API_HOST, port=config.API_PORT)

@@ -182,9 +182,10 @@ Andere Einstellungen müssen in `config.py` angepasst werden. Eine `.env`-Datei
 wird nicht automatisch geladen. Starte die betroffenen Python-Prozesse nach
 Konfigurationsänderungen neu.
 
-Der Datenbankname `incident_db` und der Collection-Name `incidents` sind in
-`main.py` und `compare.py` festgelegt. Die Regelgewichtungen und
-Schlüsselwortzuordnungen befinden sich in [manual.py](manual.py), die
+Datenbank und Collection werden mit `MONGO_DATABASE` und
+`MONGO_INCIDENTS_COLLECTION` in `config.py` eingestellt. Die Regelgewichtungen
+und Zuordnungen stehen ebenfalls in `config.py` (`WEIGHTS`, `IMPACT_SCORES`,
+`CATEGORY_SCORES`, `KEYWORD_SCORES`), die
 Anweisungen für die KI in [llm.py](llm.py).
 
 ### 4. Optional: API und Hauptverarbeitung manuell starten
@@ -297,3 +298,14 @@ nur Incidents berücksichtigt, bei denen sowohl `rated_ai` als auch
 `rated_manual` auf `True` gesetzt sind. Enthält die Datei nur Spaltenüberschriften,
 hat noch kein Incident beide Abschlussmarkierungen. Der Verarbeitungsprozess
 exportiert Vergleiche nicht automatisch.
+
+Weitere zentrale Einstellungen in `config.py`:
+
+- `API_HOST` und `API_CLIENT_HOST`: Bind-Adresse und erreichbare Adresse f?r Uploads und Bereitschaftspr?fung.
+- `WORKER_INTERVAL_SECONDS`: Pause zwischen Verarbeitungsdurchl?ufen.
+- `PATH_COMPARISON`: Standardpfad f?r den CSV-Export.
+- `PATH_SAMPLES`, `UPLOAD_SAMPLES`, `UPLOAD_REQUEST_TIMEOUT`: Beispieldateien und Upload-Zeitlimit.
+- `PATH_JSON_SCHEMA`, `PATH_XML_SCHEMA`: Schemapfade relativ zum Projektverzeichnis (oder absolut).
+- `LLM_API_KEY`, `LLM_TEMPERATURE`, `LLM_REQUEST_TIMEOUT`: KI-Anfragen.
+
+Eine ?nderung von Datenbank oder Collection ?bertr?gt keine bestehenden Daten.

@@ -1,3 +1,4 @@
+import config
 import requests
 import time
 import json
@@ -78,7 +79,12 @@ def build_request(ticket, evals):
 # Send to LLM Endpoint
 # Returns answer as string when not using schema
 # Return JSON when using schema
-def send_request(base_url, model, message, api_key=None, temperature=0.1, schema=None):
+def send_request(base_url, model, message, api_key=None, temperature=None, schema=None):
+
+    if api_key is None:
+        api_key = config.LLM_API_KEY
+    if temperature is None:
+        temperature = config.LLM_TEMPERATURE
 
     headers = {
         "Content-Type": "application/json"
@@ -111,7 +117,7 @@ def send_request(base_url, model, message, api_key=None, temperature=0.1, schema
         f"{base_url}/chat/completions",
         headers=headers,
         json=payload,
-        timeout=600
+        timeout=config.LLM_REQUEST_TIMEOUT
     )
 
     duration = time.perf_counter() - start

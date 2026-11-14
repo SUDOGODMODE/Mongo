@@ -48,7 +48,7 @@ def load_json(folder, name):
     with source_path.open("r", encoding="utf-8") as datei:
         data = json.load(datei)
 
-    schema_path = Path(__file__).parent / "schemas" / "incidents.schema.json"
+    schema_path = Path(__file__).parent / config.PATH_JSON_SCHEMA
     with schema_path.open(encoding="utf-8") as source:
         schema = json.load(source)
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
@@ -86,7 +86,7 @@ def load_xml(folder, name):
     source_path = Path(folder) / f"{name}.xml"
     tree = ET.parse(str(source_path))
 
-    schema_path = Path(__file__).parent / "schemas" / "incidents.xsd"
+    schema_path = Path(__file__).parent / config.PATH_XML_SCHEMA
     schema = ET.XMLSchema(ET.parse(str(schema_path)))
     root = tree.getroot()
     # Keep root validation, but validate each child in its own document.

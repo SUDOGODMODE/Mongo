@@ -4,24 +4,21 @@ from pathlib import Path
 
 import requests
 
-from config import API_PORT
+import config
 
 
 def main():
-    url = f"http://127.0.0.1:{API_PORT}/upload"
-    samples = Path(__file__).resolve().parent / "samples"
+    url = f"http://{config.API_CLIENT_HOST}:{config.API_PORT}/upload"
+    samples = Path(__file__).resolve().parent / config.PATH_SAMPLES
 
-    for filename, content_type in (
-        ("incidents_for_assessment.json", "application/json"),
-        ("incidents_for_assessment.xml", "application/xml"),
-    ):
+    for filename, content_type in config.UPLOAD_SAMPLES:
         # The endpoint expects the raw file body, not multipart form data.
         with (samples / filename).open("rb") as source:
             response = requests.post(
                 url,
                 data=source,
                 headers={"Content-Type": content_type},
-                timeout=30,
+                timeout=config.UPLOAD_REQUEST_TIMEOUT,
             )
         response.raise_for_status()
         print(f"{filename} -> {response.json()['filename']}")

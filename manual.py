@@ -1,40 +1,7 @@
-﻿"""Rule-based incident severity scoring. Edit the mappings and weights below."""
+﻿"""Rule-based incident severity scoring. Edit the mappings and weights in config.py."""
 
-WEIGHTS = {"impact": 0.15, "keywords": 0.60, "category": 0.25}
-IMPACT_SCORES = {
-    "very low": 2, "sehr niedrig": 2,
-    "low": 3, "niedrig": 3,
-    "medium": 5, "moderate": 5, "mittel": 5,
-    "high": 8, "hoch": 8,
-    "critical": 10, "kritisch": 10,
-}
-CATEGORY_SCORES = {
-    "security": 8, "sicherheit": 8,
-    "database": 7, "datenbank": 7,
-    "network": 7, "netzwerk": 7,
-    "authentication": 6, "authentifizierung": 6,
-    "application": 5, "applikation": 5, "software": 5,
-    "hardware": 4, "email": 4, "e-mail": 4,
-    "backup": 7, "storage": 7, "zertifikat": 6, "certificate": 6,
-    "endpoint": 4, "performance": 5,
-    "printer": 2, "drucker": 2,
-}
-# The strongest keyword match determines
-# the keyword score, so repeated words or long descriptions cannot inflate it.
-KEYWORD_SCORES = {
-    "ransomware": 10, "data loss": 10, "datenverlust": 10,
-    "data breach": 10, "datenabfluss": 10,
-    "production stopped": 10, "produktionsstillstand": 10,
-    "outage": 9, "totalausfall": 9, "ausfall": 8,
-    "unavailable": 8, "nicht erreichbar": 8,
-    "no space left on device": 8, "fatal": 8,
-    "packet loss": 7, "deadlock": 7,
-    "mehrere personen": 6, "multiple users": 6,
-    "produktivbetrieb zeitweise beeinträchtigt": 6,
-    "timeout": 6, "slow": 4, "langsam": 4,
-    "single user": 2, "einzelner benutzer": 2,
-    "cosmetic": 1, "kosmetisch": 1,
-}
+import config
+
 
 
 def rate_incident(incident, impact="impact", category="category"):
@@ -48,8 +15,8 @@ def rate_incident(incident, impact="impact", category="category"):
     """
     scores = {}
     impact_value = str(incident.get(impact, "")).strip().casefold()
-    if impact_value in IMPACT_SCORES:
-        scores["impact"] = IMPACT_SCORES[impact_value]
+    if impact_value in config.IMPACT_SCORES:
+        scores["impact"] = config.IMPACT_SCORES[impact_value]
     else:
         try:
             number = float(impact_value)
@@ -59,20 +26,20 @@ def rate_incident(incident, impact="impact", category="category"):
             pass
 
     category_value = str(incident.get(category, "")).strip().casefold()
-    if category_value in CATEGORY_SCORES:
-        scores["category"] = CATEGORY_SCORES[category_value]
+    if category_value in config.CATEGORY_SCORES:
+        scores["category"] = config.CATEGORY_SCORES[category_value]
 
     matches = {
         keyword: score
-        for keyword, score in KEYWORD_SCORES.items()
+        for keyword, score in config.KEYWORD_SCORES.items()
         if any(keyword in str(value).casefold()
                for key, value in incident.items() if key != impact)
     }
     if matches:
         scores["keywords"] = max(matches.values())
 
-    total_weight = sum(WEIGHTS[key] for key in scores)
-    score = (sum(value * WEIGHTS[key] for key, value in scores.items())
+    total_weight = sum(config.WEIGHTS[key] for key in scores)
+    score = (sum(value * config.WEIGHTS[key] for key, value in scores.items())
              / total_weight) if total_weight else 5
     reason = "; ".join(f"{key}={value:g}" for key, value in scores.items())
     if matches:
