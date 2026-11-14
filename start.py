@@ -11,6 +11,8 @@ the API, worker and (if started here) llama-server; MongoDB remains running.
 from __future__ import annotations
 
 import argparse
+
+import config
 import json
 import os
 from pathlib import Path
@@ -25,8 +27,6 @@ from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parent
-MONGO_NAME = "mongodb"
-POLL_SECONDS = 1.0
 
 
 class StartupError(Exception):
@@ -56,10 +56,10 @@ def wait_for(
         remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise StartupError(f"{label} ist nach {timeout:g} s nicht bereit (Zeitlimit).")
-        time.sleep(min(POLL_SECONDS, remaining))
+        time.sleep(min(config.POLL_SECONDS, remaining))
 
 
-def command(args: list[str], timeout: float = 30) -> subprocess.CompletedProcess:
+def command(args: list[str], timeout: float = config.COMMAND_TIMEOUT) -> subprocess.CompletedProcess:
     try:
         return subprocess.run(args, text=True, capture_output=True, timeout=timeout, check=False)
     except (OSError, subprocess.TimeoutExpired) as error:
@@ -69,8 +69,8 @@ def command(args: list[str], timeout: float = 30) -> subprocess.CompletedProcess
 def python_in_venv() -> str:
     if sys.version_info < (3, 12):
         raise StartupError("Python 3.12 oder neuer ist erforderlich.")
-    windows_python = ROOT / ".venv" / "Scripts" / "python.exe"
-    unix_python = ROOT / ".venv" / "bin" / "python"
+    windows_python = ROOT / config.VENV_PATH / "Scripts" / "python.exe"
+    unix_python = ROOT / config.VENV_PATH / "bin" / "python"
     candidates = [windows_python, unix_python] if os.name == "nt" else [unix_python, windows_python]
     for candidate in candidates:
         if candidate.is_file():
@@ -90,7 +90,7 @@ def check_dependencies(python: str) -> None:
         )
 
 
-def container_command(runtime: str, *args: str, timeout: float = 30) -> subprocess.CompletedProcess:
+def container_command(runtime: str, *args: str, timeout: float = config.COMMAND_TIMEOUT) -> subprocess.CompletedProcess:
     return command([runtime, *args], timeout=timeout)
 
 
@@ -98,7 +98,7 @@ def container_exists(runtime: str) -> bool:
     listed = container_command(runtime, "container", "ls", "--all", "--format", "{{.Names}}")
     if listed.returncode != 0:
         raise StartupError(f"Containerliste von {runtime} konnte nicht gelesen werden: {listed.stderr.strip()}")
-    return MONGO_NAME in listed.stdout.splitlines()
+    return config.MONGO_CONTAINER_NAME in listed.stdout.splitlines()
 
 
 def runtime_ready(runtime: str) -> bool:
@@ -187,26 +187,26 @@ def ensure_mongo(
     if not container_exists(runtime):
         if port_in_use(port):
             raise StartupError(
-                f"MongoDB-Port {port} ist belegt, aber im gewählten {runtime} gibt es keinen Container '{MONGO_NAME}'. "
+                f"MongoDB-Port {port} ist belegt, aber im gewählten {runtime} gibt es keinen Container '{config.MONGO_CONTAINER_NAME}'. "
                 "Wähle das System mit den vorhandenen Daten oder gib den Port frei."
             )
-        say(f"Erstelle MongoDB-Container mit {runtime} und persistentem Volume mongodb_data.")
+        say(f"Erstelle MongoDB-Container mit {runtime} und persistentem Volume {config.MONGO_VOLUME}.")
         result = container_command(
-            runtime, "run", "-d", "--name", MONGO_NAME,
-            "-p", f"127.0.0.1:{port}:27017", "-v", "mongodb_data:/data/db",
-            "mongodb/mongodb-community-server:latest", timeout=max(600, timeout),
+            runtime, "run", "-d", "--name", config.MONGO_CONTAINER_NAME,
+            "-p", f"127.0.0.1:{port}:27017", "-v", f"{config.MONGO_VOLUME}:/data/db",
+            config.MONGO_IMAGE, timeout=max(config.MONGO_IMAGE_TIMEOUT, timeout),
         )
         if result.returncode != 0:
             raise StartupError(f"MongoDB-Container konnte nicht angelegt werden: {result.stderr.strip()}")
     else:
-        state = container_command(runtime, "inspect", "--format", "{{.State.Running}}", MONGO_NAME)
+        state = container_command(runtime, "inspect", "--format", "{{.State.Running}}", config.MONGO_CONTAINER_NAME)
         if state.returncode != 0:
             raise StartupError(f"MongoDB-Container konnte nicht geprüft werden: {state.stderr.strip()}")
         if state.stdout.strip().lower() != "true":
             if port_in_use(port):
                 raise StartupError(f"MongoDB-Port {port} ist belegt; der gewählte {runtime}-Container ist gestoppt.")
             say(f"Starte MongoDB-Container mit {runtime}.")
-            result = container_command(runtime, "start", MONGO_NAME)
+            result = container_command(runtime, "start", config.MONGO_CONTAINER_NAME)
             if result.returncode != 0:
                 raise StartupError(f"MongoDB-Container konnte nicht starten: {result.stderr.strip()}")
     wait_for("MongoDB", lambda: mongo_ready(python, url), timeout)
@@ -264,7 +264,7 @@ def ensure_llm(url: str, model: str, timeout: float, owned: list[tuple[str, subp
     port = local_llm_port(url)
     if port is None:
         raise StartupError(f"Externer KI-Endpunkt ist nicht bereit: {url}")
-    executable = shutil.which("llama-server")
+    executable = shutil.which(config.LLM_EXECUTABLE)
     if not executable:
         raise StartupError("KI-Endpunkt ist nicht erreichbar und 'llama-server' fehlt im PATH.")
     if port_in_use(port):
@@ -272,11 +272,12 @@ def ensure_llm(url: str, model: str, timeout: float, owned: list[tuple[str, subp
     say("Starte KI-Server; der erste Modelldownload kann länger dauern.")
     process = spawn([
         executable,
-        "-hf", "ggml-org/gemma-3-4b-it-GGUF:Q8_0",
+        "-hf", config.LLM_HF_MODEL,
         "--alias", model,
-        "-ngl", "all",
-        "-c", "8192",
+        "-ngl", str(config.LLM_GPU_LAYERS),
+        "-c", str(config.LLM_CONTEXT_SIZE),
         "--port", str(port),
+        *config.LLM_EXTRA_ARGS,
     ], "KI-Server")
     owned.append(("KI-Server", process))
     wait_for("KI-Server", lambda: llm_ready(url, model), timeout, process)
@@ -311,7 +312,7 @@ def start_worker(python: str, owned: list[tuple[str, subprocess.Popen]]) -> None
     process = spawn([python, "main.py"], "Importprozess")
     owned.append(("Importprozess", process))
     # main.py has no health endpoint; it waits two seconds before its first loop.
-    time.sleep(3)
+    time.sleep(config.WORKER_STARTUP_SECONDS)
     code = process.poll()
     if code is not None:
         raise StartupError(f"Importprozess wurde beim Start beendet (Code {code}).")
@@ -324,10 +325,10 @@ def stop_owned(owned: list[tuple[str, subprocess.Popen]]) -> None:
             say(f"Stoppe {label}.")
             process.terminate()
             try:
-                process.wait(timeout=10)
+                process.wait(timeout=config.STOP_TIMEOUT)
             except subprocess.TimeoutExpired:
                 process.kill()
-                process.wait(timeout=5)
+                process.wait(timeout=config.KILL_TIMEOUT)
 
 
 def positive_seconds(value: str) -> float:
@@ -342,17 +343,15 @@ def positive_seconds(value: str) -> float:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--runtime", choices=("docker", "podman"), help="Container-System ohne interaktive Nachfrage auswählen")
-    parser.add_argument("--runtime-timeout", "--docker-timeout", dest="runtime_timeout", type=positive_seconds, default=120)
-    parser.add_argument("--mongo-timeout", type=positive_seconds, default=120)
-    parser.add_argument("--llm-timeout", type=positive_seconds, default=1800)
-    parser.add_argument("--api-timeout", type=positive_seconds, default=30)
+    parser.add_argument("--runtime", choices=("docker", "podman"), default=config.CONTAINER_RUNTIME, help="Container-System ohne interaktive Nachfrage auswählen")
+    parser.add_argument("--runtime-timeout", "--docker-timeout", dest="runtime_timeout", type=positive_seconds, default=config.RUNTIME_TIMEOUT)
+    parser.add_argument("--mongo-timeout", type=positive_seconds, default=config.MONGO_TIMEOUT)
+    parser.add_argument("--llm-timeout", type=positive_seconds, default=config.LLM_TIMEOUT)
+    parser.add_argument("--api-timeout", type=positive_seconds, default=config.API_TIMEOUT)
     args = parser.parse_args()
     owned: list[tuple[str, subprocess.Popen]] = []
     started = time.monotonic()
     try:
-        import config
-
         python = python_in_venv()
         check_dependencies(python)
         ensure_mongo(python, config.MONGO_URL, args.runtime, args.runtime_timeout, args.mongo_timeout)
@@ -366,7 +365,7 @@ def main() -> int:
                 code = process.poll()
                 if code is not None:
                     raise StartupError(f"{label} wurde unerwartet beendet (Code {code}).")
-            time.sleep(1)
+            time.sleep(config.POLL_SECONDS)
     except KeyboardInterrupt:
         say("Startskript wird beendet.")
         return 0

@@ -121,7 +121,7 @@ Für automatisierte Starts ohne Terminal kann die Auswahl als Argument erfolgen:
 py -3.12 start.py --runtime podman
 ```
 
-Mögliche Werte für `--runtime` sind `docker` und `podman`. Ohne Argument ist
+Mögliche Werte für `--runtime` sind `docker` und `podman`. Ohne Argument und mit `CONTAINER_RUNTIME = None` ist
 ein interaktives Terminal erforderlich; bei fehlender Eingabe startet kein
 Container. Für einen bereits konfigurierten **externen** MongoDB-Server ist
 keine Container-Auswahl nötig. Auf macOS und Windows versucht das Skript, eine
@@ -131,7 +131,7 @@ vorhandene Podman-Maschine zu starten; fehlt sie noch, muss sie einmalig mit
 Nach einer erfolgreichen MongoDB-Verbindung startet das Skript bei Bedarf
 `llama-server` mit `ggml-org/gemma-3-4b-it-GGUF:Q8_0` (Alias `gemma3:4b`,
 GPU-Auslagerung `all`, Kontext 8192, Port 8080). Fehlt das Modell im Cache,
-wird es dabei heruntergeladen. Passe die Modell- oder GPU-Einstellungen im Skript an,
+wird es dabei heruntergeladen. Passe die Modell- oder GPU-Einstellungen in `config.py` an,
 falls diese Vorgaben nicht zur Hardware passen. Danach starten Upload-API und
 Importprozess. Jeder nächste Schritt beginnt erst nach einer Bereitschaftsprüfung
 des vorherigen Dienstes. API-Dokumentation: `http://127.0.0.1:8000/docs`.
@@ -142,6 +142,18 @@ mit `--runtime-timeout`, `--mongo-timeout`, `--llm-timeout` und `--api-timeout`
 in Sekunden einstellbar. Der erste Image-Download kann zusätzlich bis zu
 zehn Minuten dauern. Fehlende Programme oder Python-Pakete meldet das
 Skript; es installiert diese Voraussetzungen nicht automatisch.
+
+Alle Start-Einstellungen stehen in `config.py`; `start.py` muss nicht angepasst
+werden. `CONTAINER_RUNTIME = None` fragt nach Docker/Podman; mit `"docker"` oder
+`"podman"` entf?llt die Nachfrage auch ohne CLI-Argument. CLI-Argumente k?nnen
+die Konfiguration f?r einen einzelnen Start ?berschreiben.
+
+Weitere Einstellungen: `MONGO_CONTAINER_NAME`, `MONGO_IMAGE`, `MONGO_VOLUME`,
+`LLM_EXECUTABLE`, `LLM_HF_MODEL`, `LLM_GPU_LAYERS`, `LLM_CONTEXT_SIZE`,
+`LLM_EXTRA_ARGS` und `VENV_PATH`. Startzeitlimits und Pr?fintervalle stehen
+im selben Konfigurationsabschnitt, alle Zeitangaben sind in Sekunden.
+Beim ?ndern von Containername oder Volume werden bestehende Daten nicht
+automatisch ?bertragen.
 
 ### 3. Anwendung konfigurieren
 
