@@ -19,7 +19,7 @@ Grundlagen: [Aufgabe.md](Aufgabe.md), [README.md](README.md), [datenmodell.md](d
 | Zwei Austauschformate | JSON und XML in [loaders.py](loaders.py); Regeln in [JSON-Schema](schemas/incidents.schema.json) und [XSD](schemas/incidents.xsd) | Implementiert |
 | Gemeinsames Format | Beide Loader liefern Python-Dictionaries mit denselben Incident-Feldern | Implementiert |
 | NoSQL-Speicherung | MongoDB `incident_db.incidents`, eindeutiger Index auf `incident_id`, Upsert in [main.py](main.py) | Implementiert |
-| Klassische Analyse | Gewichtete Regeln und Schlüsselwörter in [manual.py](manual.py) | Implementiert |
+| Klassische Analyse | Gewichtete Regeln und Schlüsselwörter in [classic_rule.py](classic_rule.py) | Implementiert |
 | KI-Analyse | Strukturiertes JSON aus `/v1/chat/completions` in [llm.py](llm.py) | Implementiert |
 | Vergleich | [compare.py](compare.py) exportiert vorhandene Regel-/KI-Werte und Begründungen als `comparison.csv` | Export implementiert; vollständige Auswertung offen |
 | Mindestens zehn bewertete Testfälle | Zehn geeignete Fälle sind unten ausgewählt | Sollwerte, KI-Ergebnisse und Vergleich noch offen |
@@ -53,7 +53,7 @@ Für eine Validierungsdemo eignen sich die Assessment-Dateien: In [JSON](samples
 
 ## 5. NoSQL-Datenmodell
 
-Ein MongoDB-Dokument entspricht einem Incident. Die importierten Störungsfelder, beide Bewertungen und die KI-Messwerte liegen gemeinsam darin. `impact_rating_ai` und `rating_manual` enthalten jeweils `impact_rating` und `impact_reason`; `metrics_ai` enthält Modellname, Dauer und Tokenzahlen. `rated_ai` und `rated_manual` markieren abgeschlossene Bewertungen. `incident_id` hat einen eindeutigen Index. Details und Beispielabfragen stehen in [datenmodell.md](datenmodell.md).
+Ein MongoDB-Dokument entspricht einem Incident. Die importierten Störungsfelder, beide Bewertungen und die KI-Messwerte liegen gemeinsam darin. `impact_rating_ai` und `rating_classic_rule` enthalten jeweils `impact_rating` und `impact_reason`; `metrics_ai` enthält Modellname, Dauer und Tokenzahlen. `rated_ai` und `rated_classic_rule` markieren abgeschlossene Bewertungen. `incident_id` hat einen eindeutigen Index. Details und Beispielabfragen stehen in [datenmodell.md](datenmodell.md).
 
 **Demonstrationsabfrage:** Einen importierten Incident über seine fachliche ID suchen und die beiden Unterdokumente zeigen. In PowerShell mit dem Python der Projektumgebung:
 
@@ -65,7 +65,7 @@ Die gleiche Abfrage lässt sich unter macOS/Linux mit `.venv/bin/python` ausfüh
 
 ## 6. Die zwei Bewertungswege
 
-**Regeln:** [manual.py](manual.py) wandelt den importierten `schweregrad` in einen numerischen Hinweis um, ordnet bekannte Kategorien Punktwerte zu und sucht Schlüsselwörter in den übrigen Incident-Feldern. Das stärkste gefundene Schlüsselwort zählt. Die Gewichte sind 15 % Schweregrad-Hinweis, 60 % Schlüsselwörter, 25 % Kategorie. Nicht verfügbare Komponenten entfallen; die restlichen Gewichte werden normalisiert. Ohne verwertbare Hinweise ist der Wert 5. Der Grundtext nennt verwendete Teilwerte und Treffer. Das Verfahren ist bei gleichen Eingaben und gleichem Code reproduzierbar.
+**Regeln:** [classic_rule.py](classic_rule.py) wandelt den importierten `schweregrad` in einen numerischen Hinweis um, ordnet bekannte Kategorien Punktwerte zu und sucht Schlüsselwörter in den übrigen Incident-Feldern. Das stärkste gefundene Schlüsselwort zählt. Die Gewichte sind 15 % Schweregrad-Hinweis, 60 % Schlüsselwörter, 25 % Kategorie. Nicht verfügbare Komponenten entfallen; die restlichen Gewichte werden normalisiert. Ohne verwertbare Hinweise ist der Wert 5. Der Grundtext nennt verwendete Teilwerte und Treffer. Das Verfahren ist bei gleichen Eingaben und gleichem Code reproduzierbar.
 
 **KI:** [llm.py](llm.py) schickt die Incident-Daten an das konfigurierte Sprachmodell. Der Prompt verlangt eine Zahl von 1 bis 10 und eine kurze Begründung als JSON-Schema. Er nennt betroffene Nutzer/Systeme, Geschäftsfolgen, Kritikalität, Workaround sowie Sicherheits- und Datenrisiken als Kriterien. Das importierte Feld `schweregrad` soll nur ein schwacher Hinweis sein; diese Anweisung garantiert keine feste Modellgewichtung. Der Code misst die HTTP-Anfragedauer mit `time.perf_counter()` und speichert Dauer und Tokenzahlen in `metrics_ai`. Die KI erzeugt Bewertungen und Empfehlungen, führt aber keine Systembefehle aus.
 
@@ -76,14 +76,14 @@ Die gleiche Abfrage lässt sich unter macOS/Linux mit `.venv/bin/python` ausfüh
 1. **Testmenge fixieren:** Die zehn gültigen Assessment-Fälle in der Tabelle unten verwenden, fünf aus JSON und fünf aus XML. Die zwei ungültigen Fälle separat für die Validierungsdemo behandeln.
 2. **Sollwerte vor dem Lauf festlegen:** Mindestens zwei Teammitglieder vergeben für jeden gültigen Incident unabhängig einen fachlich begründeten Wert von 1 bis 10. Abweichungen gemeinsam klären und den finalen Sollwert samt Begründung festhalten, bevor Regel- und KI-Ausgaben angeschaut werden.
 3. **Qualität messen:** Pro Verfahren den absoluten Fehler `|Bewertung − Sollwert|` berechnen; zusätzlich exakte Treffer und Treffer mit höchstens einem Punkt Abweichung zählen. Kritische Unterbewertungen gesondert besprechen.
-4. **Zeit fair messen:** `metrics_ai.duration_seconds` ist die Dauer einer KI-HTTP-Anfrage. Die Regel-Laufzeit wird derzeit **nicht** in MongoDB gespeichert; sie muss separat mit `time.perf_counter()` um `manual.rate_incident(...)` auf derselben Maschine gemessen werden. Diese beiden Messgrenzen im Vortrag benennen. Für belastbare Zahlen mehrere Wiederholungen und Median angeben.
+4. **Zeit fair messen:** `metrics_ai.duration_seconds` ist die Dauer einer KI-HTTP-Anfrage. Die Regel-Laufzeit wird derzeit **nicht** in MongoDB gespeichert; sie muss separat mit `time.perf_counter()` um `classic_rule.rate_incident(...)` auf derselben Maschine gemessen werden. Diese beiden Messgrenzen im Vortrag benennen. Für belastbare Zahlen mehrere Wiederholungen und Median angeben.
 5. **Nachvollziehbarkeit und Zuverlässigkeit prüfen:** Begründungen anhand konkreter Incident-Angaben und fehlender Annahmen beurteilen. Regeln bei gleicher Eingabe erneut ausführen; für KI-Wiederholungen einen isolierten Testbestand nutzen, weil `rated_ai=True` automatische Neubewertung verhindert. Fehlversuche und ungültige Antworten zählen.
 
 [compare.py](compare.py) liefert nur `incident_id`, Regelwert, KI-Wert, ihren Unterschied und beide Begründungen. Es enthält weder fachliche Sollwerte noch Regel-Laufzeiten. Die nachstehende Tabelle muss deshalb mit den zusätzlichen Messungen ergänzt werden.
 
 ### Zehn ausgewählte Vergleichsfälle
 
-Die Spalte „Regel“ wurde am 14.11.2026 **direkt aus `manual.rate_incident`** mit den Assessment-Daten berechnet. Das ist eine reproduzierbare Vorberechnung, aber noch keine abgeschlossene Import- und KI-Vergleichsstudie. „offen“ bedeutet: noch nicht fachlich festgelegt oder gemessen.
+Die Spalte „Regel“ wurde am 14.11.2026 **direkt aus `classic_rule.rate_incident`** mit den Assessment-Daten berechnet. Das ist eine reproduzierbare Vorberechnung, aber noch keine abgeschlossene Import- und KI-Vergleichsstudie. „offen“ bedeutet: noch nicht fachlich festgelegt oder gemessen.
 
 | Incident | Format | Betroffener Dienst (kurz) | Importierter Schweregrad | Regel | Soll | KI | KI-Zeit (s) | Urteil |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
@@ -107,7 +107,7 @@ Die Tabellenkürzel entsprechen den vollständigen IDs `INC-2026-T001` bis `INC-
 | Ungültige Eingaben oder fehlende Pflichtfelder | JSON-Schema/XSD, `failed/` prüfen, abgewiesene Datensätze korrigieren |
 | KI kann trotz Prompt falsche oder unbelegte Werte liefern | Strukturierte Antwort prüfen, Begründung und kritische Fälle menschlich prüfen |
 | Modell- oder Promptänderung kann Ergebnisse verändern | Modellname und Testversion protokollieren, Vergleichslauf wiederholen |
-| `rated_ai`/`rated_manual` verhindern automatische Neubewertung aktualisierter Incidents | Änderungen und Bewertungsversionen nachvollziehen; für neue Versuche isolierte Daten verwenden |
+| `rated_ai`/`rated_classic_rule` verhindern automatische Neubewertung aktualisierter Incidents | Änderungen und Bewertungsversionen nachvollziehen; für neue Versuche isolierte Daten verwenden |
 | Regelwörter können Kontext übersehen; die Suche berücksichtigt auch `bekannte_loesung` | Fehlklassifikationen an Testfällen auswerten, Wortlisten und berücksichtigte Felder gezielt pflegen |
 | KI-Server, Container oder Netzwerk können ausfallen | Bereitschaftsprüfungen und Zeitlimits beim Start; Fehler im Betrieb überwachen |
 | Incident-Texte können sensible Informationen enthalten | Nur freigegebene Daten an den KI-Endpunkt senden; Zugriff und Aufbewahrung regeln |

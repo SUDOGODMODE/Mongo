@@ -22,7 +22,7 @@ def build_request(ticket, evals):
         }
         properties["impact_reason"] = {
             "type": "string",
-            "maxLength": 1000
+            "maxLength": 250
         }
 
 

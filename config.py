@@ -24,7 +24,7 @@ MONGO_VOLUME = "mongodb_data"
 LLM_EXECUTABLE = "llama-server"  # Command in PATH or full path.
 LLM_HF_MODEL = "ggml-org/gemma-3-4b-it-GGUF:Q8_0"
 LLM_GPU_LAYERS = "all"  # "0" for CPU only.
-LLM_CONTEXT_SIZE = 8192
+LLM_CONTEXT_SIZE = 16384
 LLM_EXTRA_ARGS = []  # Additional llama-server arguments.
 VENV_PATH = ".venv"  # Relative to the project directory, or absolute.
 # All durations below are in seconds.
@@ -69,70 +69,68 @@ LLM_REQUEST_TIMEOUT = 600
 # Prompt text used for incident assessment.
 LLM_PROMPT_DESCRIPTION = "Analyze the following Incident ticket:\n"
 LLM_IMPACT_PROMPT = """
-Assess the ACTUAL impact of this IT incident from 1 to 10.
+Assess the ACTUAL impact of this IT incident on a scale of 1-10.
 
-Evaluate TWO independent dimensions:
+Evaluate business and security impact independently.
+Use the higher JUSTIFIED score.
 
 BUSINESS IMPACT:
-- Number of affected users and systems
-- Service availability and operational disruption
-- Criticality of affected business processes
-- Availability of workarounds
-- Duration and extent of disruption
+Consider documented service disruption, affected users,
+operational consequences, and available workarounds.
 
 SECURITY IMPACT:
-- Confidentiality: unauthorized access or data exposure
-- Integrity: unauthorized changes or data corruption
-- Availability: disruption caused by security attacks
-- Scope and sensitivity of affected data or systems
-- Evidence of compromise or active exploitation
-- Credible, documented security exposure
+Consider documented confidentiality, integrity, and
+availability violations, confirmed compromises, and
+credible, explicitly documented security exposure.
 
 SCORING:
-1-2: Negligible impact. Isolated, cosmetic, quickly resolved
-     or harmless security event.
-3-4: Low impact. Few users affected, minor disruption,
-     suspicious activity without evidence of compromise.
-5-6: Medium impact. Multiple users affected, important
-     functions impaired, limited security compromise.
-7-8: High impact. Major operational disruption, critical
-     service unavailable, confirmed significant security
-     compromise or exposure of sensitive data.
-9-10: Critical impact. Production shutdown, widespread
-      outage, severe data breach, destructive malware
-      or major compromise of critical infrastructure.
+1-2: Negligible impact, cosmetic or temporary inconvenience.
+3-4: Localized disruption, limited functionality, workaround
+     available, normal operations largely unaffected.
+5-6: Significant disruption affecting multiple users or
+     important processes, or confirmed limited security breach.
+7-8: Major operational disruption, critical business process
+     unavailable, or significant confirmed security compromise.
+9-10: Production shutdown, widespread business outage,
+      severe data breach, or destructive security incident.
 
-RULES:
-- Assess business and security impact independently.
-- Use the HIGHER justified impact as the final rating.
-- Start low and increase only with documented evidence.
-- Security incidents do not require business downtime.
-- Distinguish suspicion, vulnerability and confirmed compromise.
-- A security alert alone does not prove a breach.
-- Rate credible documented exposure, not hypothetical attacks.
-- Do not assume missing information or worst-case outcomes.
-- Technical errors alone do not establish high severity.
-- Ignore 'schweregrad' unless supported by concrete evidence.
-- Rate resolved incidents by their experienced impact.
-- Reserve 9-10 for clearly demonstrated critical consequences.
+STRICT RULES:
+- Only use explicitly documented consequences.
+- NEVER invent affected users, dependencies, or consequences.
+- NEVER infer criticality from a system's name alone.
+- NEVER confuse a broken interface with an unavailable service.
+- A working alternative means the underlying process remains available.
+- Technical failure does not automatically imply business disruption.
+- A security suspicion is not a confirmed compromise.
+- No documented security impact means no security-related score increase.
+- Ignore the provided 'schweregrad' when assessing impact.
+- Do not use hypothetical worst-case scenarios.
+
+SCORING LIMITS:
+- Isolated non-critical issue with a functional workaround:
+  Maximum 3, unless concrete higher impact is documented.
+- Limited disruption without significant operational impact:
+  Maximum 4, unless concrete higher impact is documented.
+- Scores 5-6 require evidence of significant business
+  disruption or a documented security incident.
+- Scores 7-8 require evidence of major business or security impact.
+- Scores 9-10 require evidence of critical consequences.
+- Never exceed these limits based on assumptions.
 
 CALIBRATION:
-Printer restart, one user affected: 2
-Phishing email received, no interaction: 2
-Suspicious login, blocked by MFA: 3
-Application slow, several users affected: 5
-Malware detected and isolated on one endpoint: 5
-Compromised user account with unauthorized access: 7
-Entire department unable to work: 8
-Sensitive customer data confirmed exposed: 9
-Ransomware spreading across production systems: 10
-Entire production stopped without workaround: 10
+Single room panel blank, Outlook booking works: 3
+Printer offline, fixed by restart: 2
+Suspicious login blocked by MFA: 3
+ERP slow for 20 users, work continues: 5
+Confirmed compromised account, unauthorized access: 7
+Entire production stopped: 10
+Confirmed severe customer data breach: 10
 
 OUTPUT:
-- Return only valid JSON matching the provided schema.
-- Reason: maximum 15 words, one sentence.
-- State the decisive business or security impact.
-- No speculation, recommendations or extra explanation.
+Return only JSON matching the specified schema.
+Reason: maximum 20 words, one short sentence.
+Mention only the decisive documented impact.
+No speculation, recommendations or extended analysis.
 """
 
 

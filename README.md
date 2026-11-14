@@ -27,8 +27,7 @@ Der folgende Ablauf zeigt den groben Aufbau der Anwendung.
 Diese Anwendung importiert IT-Incidents aus JSON oder XML, speichert sie in
 MongoDB und bewertet ihre Auswirkungen von 1 (sehr gering) bis 10 (kritisch).
 Sie erstellt zwei Bewertungen: eine KI-Bewertung und eine automatische,
-regelbasierte Bewertung. Im Code heisst die regelbasierte Bewertung „manual“;
-Bewertungen müssen also nicht von Hand eingegeben werden.
+regelbasierte Bewertung mit `classic_rule.py`.
 
 Das mitgelieferte Feld `schweregrad` dient als ergänzender Hinweis. Die
 regelbasierte Bewertung gewichtet es mit 15 %, Schlüsselwörter mit 60 % und
@@ -291,11 +290,11 @@ Dadurch wird `comparison.csv` im aktuellen Verzeichnis erstellt oder
 keine neuen Bewertungen aus. API und Verarbeitungsprozess müssen für diesen
 Export nicht laufen; MongoDB muss jedoch erreichbar sein.
 
-Die CSV-Datei enthält `incident_id`, `manual`, `ai`, `difference`,
-`manual_reason` und `ai_reason`. `difference` ist der absolute Unterschied
+Die CSV-Datei enthält `incident_id`, `classic_rule`, `ai`, `difference`,
+`classic_rule_reason` und `ai_reason`. `difference` ist der absolute Unterschied
 zwischen den beiden Bewertungen; null bedeutet Übereinstimmung. Es werden
 nur Incidents berücksichtigt, bei denen sowohl `rated_ai` als auch
-`rated_manual` auf `True` gesetzt sind. Enthält die Datei nur Spaltenüberschriften,
+`rated_classic_rule` auf `True` gesetzt sind. Enthält die Datei nur Spaltenüberschriften,
 hat noch kein Incident beide Abschlussmarkierungen. Der Verarbeitungsprozess
 exportiert Vergleiche nicht automatisch.
 

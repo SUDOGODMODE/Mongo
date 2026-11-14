@@ -4,7 +4,7 @@ from loaders import move_to_done, move_to_failed
 from jsonschema.exceptions import ValidationError
 from lxml.etree import LxmlError
 import config as config
-import manual as rater
+import classic_rule as rater
 import compare as compare
 from pymongo.collection import Collection
 from pymongo import MongoClient
@@ -30,7 +30,7 @@ def db_write_incidents(col: Collection, data: list[dict]) -> bool:
                     "$set": incident,
                     "$setOnInsert": {
                         "rated_ai": False,
-                        "rated_manual": False,
+                        "rated_classic_rule": False,
                     },
                 },
                 upsert=True
@@ -61,10 +61,10 @@ def rate_ai(col: Collection) -> None:
                 for key, value in incident.items()
                 if key not in {
                     "_id",
-                    "rating_manual",
+                    "rating_classic_rule",
                     "impact_rating_ai",
                     "metrics_ai",
-                    "rated_manual",
+                    "rated_classic_rule",
                     "rated_ai",
                 }
             }
@@ -92,28 +92,28 @@ def rate_ai(col: Collection) -> None:
 
         print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated with {config.LLM_MODEL}")
 
-def rate_manual(col: Collection) -> None:
-    unrated = col.find({"rated_manual": False})
+def rate_classic_rule(col: Collection) -> None:
+    unrated = col.find({"rated_classic_rule": False})
 
     for incident in unrated:
         try:
-            man_incident = {
+            rule_incident = {
                 key: value
                 for key, value in incident.items()
                 if key not in {
                     "_id",
-                    "rating_manual",
+                    "rating_classic_rule",
                     "impact_rating_ai",
                     "metrics_ai",
-                    "rated_manual",
+                    "rated_classic_rule",
                     "rated_ai",
                 }
             }
 
-            impact_rating = rater.rate_incident(man_incident, "schweregrad", "kategorie")
+            impact_rating = rater.rate_incident(rule_incident, "schweregrad", "kategorie")
 
-            incident["rating_manual"] = impact_rating
-            incident["rated_manual"] = True
+            incident["rating_classic_rule"] = impact_rating
+            incident["rated_classic_rule"] = True
 
             col.replace_one(
                 {"_id": incident["_id"]},
@@ -123,7 +123,7 @@ def rate_manual(col: Collection) -> None:
             print(f"Rating failed for {incident['incident_id']}: {error}")
             continue
 
-        print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated manually")
+        print(f"Incident: {incident["incident_id"]} / {incident["_id"]} Rated with classic rules")
 
 
 if __name__ == "__main__":
@@ -171,4 +171,4 @@ if __name__ == "__main__":
                 print(f"Import failed for {file.name}; file retained for retry: {error}")
 
         rate_ai(incident_col)
-        rate_manual(incident_col)
+        rate_classic_rule(incident_col)

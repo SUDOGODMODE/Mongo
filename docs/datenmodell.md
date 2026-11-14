@@ -77,14 +77,14 @@ Die Felder und ihre Importregeln sind im JSON-Schema (https://github.com/SUDOGOD
 | Feld | Datentyp | Beschreibung |
 |---|---|---|
 | rated_ai | Boolean | Gibt an, ob die KI-Bewertung abgeschlossen ist |
-| rated_manual | Boolean | Gibt an, ob die regelbasierte Bewertung abgeschlossen ist |
+| rated_classic_rule | Boolean | Gibt an, ob die regelbasierte Bewertung abgeschlossen ist |
 | impact_rating_ai | Unterdokument | KI-Bewertung und Begründung |
-| rating_manual | Unterdokument | Regelbasierte Bewertung und Begründung |
+| rating_classic_rule | Unterdokument | Regelbasierte Bewertung und Begründung |
 | metrics_ai | Unterdokument | KI-Modell, Verarbeitungsdauer und Tokenverbrauch |
 
-Beim erstmaligen Import setzt die Anwendung rated_ai und rated_manual auf false. Die Ergebnisfelder werden nach erfolgreicher Bewertung ergänzt.
+Beim erstmaligen Import setzt die Anwendung rated_ai und rated_classic_rule auf false. Die Ergebnisfelder werden nach erfolgreicher Bewertung ergänzt.
 
-Quellen: main.py (https://github.com/SUDOGODMODE/Mongo/blob/main/main.py), manual.py (https://github.com/SUDOGODMODE/Mongo/blob/main/manual.py), llm.py (https://github.com/SUDOGODMODE/Mongo/blob/main/llm.py).
+Quellen: main.py (https://github.com/SUDOGODMODE/Mongo/blob/main/main.py), classic_rule.py (https://github.com/SUDOGODMODE/Mongo/blob/main/classic_rule.py), llm.py (https://github.com/SUDOGODMODE/Mongo/blob/main/llm.py).
 
 ## 4. Beispieldokument
 
@@ -105,14 +105,14 @@ Die Darstellung verwendet die MongoDB-Shell-Schreibweise und ist daher kein rein
   bekannte_loesung: "Datenbankdienst prüfen und gegebenenfalls neu starten.",
 
   rated_ai: true,
-  rated_manual: true,
+  rated_classic_rule: true,
 
   impact_rating_ai: {
     impact_rating: 8,
     impact_reason: "Der Onlineshop ist durch die Störung nicht verfügbar."
   },
 
-  rating_manual: {
+  rating_classic_rule: {
     impact_rating: 8,
     impact_reason: "impact=8; category=7; keywords=8; matched: nicht erreichbar"
   },
@@ -245,5 +245,5 @@ Diese Abfrage entspricht der Auswahl, die die Anwendung für ausstehende KI-Bewe
 
 db.incidents.find({
   rated_ai: true,
-  rated_manual: true
+  rated_classic_rule: true
 })

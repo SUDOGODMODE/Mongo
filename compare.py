@@ -7,12 +7,12 @@ def export_comparison(col, path=None):
         path = config.PATH_COMPARISON
     incidents = col.find({
         "rated_ai": True,
-        "rated_manual": True,
+        "rated_classic_rule": True,
     })
 
     fields = [
-        "incident_id", "manual", "ai", "difference",
-        "manual_reason", "ai_reason",
+        "incident_id", "classic_rule", "ai", "difference",
+        "classic_rule_reason", "ai_reason",
     ]
 
     with open(path, "w", newline="", encoding="utf-8-sig") as file:
@@ -20,15 +20,15 @@ def export_comparison(col, path=None):
         writer.writeheader()
 
         for incident in incidents:
-            manual = incident["rating_manual"]
+            classic_rule = incident["rating_classic_rule"]
             ai = incident["impact_rating_ai"]
 
             writer.writerow({
                 "incident_id": incident["incident_id"],
-                "manual": manual["impact_rating"],
+                "classic_rule": classic_rule["impact_rating"],
                 "ai": ai["impact_rating"],
-                "difference": abs(manual["impact_rating"] - ai["impact_rating"]),
-                "manual_reason": manual["impact_reason"],
+                "difference": abs(classic_rule["impact_rating"] - ai["impact_rating"]),
+                "classic_rule_reason": classic_rule["impact_reason"],
                 "ai_reason": ai["impact_reason"],
             })
 
