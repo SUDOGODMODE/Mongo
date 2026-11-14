@@ -8,6 +8,7 @@ logs/
 /import/
 /done/
 /failed/
+/comparison/
 
 # Virtuelle Umgebung
 .venv/
