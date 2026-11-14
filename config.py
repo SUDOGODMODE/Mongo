@@ -66,6 +66,75 @@ LLM_API_KEY = None
 LLM_TEMPERATURE = 0.1
 LLM_REQUEST_TIMEOUT = 600
 
+# Prompt text used for incident assessment.
+LLM_PROMPT_DESCRIPTION = "Analyze the following Incident ticket:\n"
+LLM_IMPACT_PROMPT = """
+Assess the ACTUAL impact of this IT incident from 1 to 10.
+
+Evaluate TWO independent dimensions:
+
+BUSINESS IMPACT:
+- Number of affected users and systems
+- Service availability and operational disruption
+- Criticality of affected business processes
+- Availability of workarounds
+- Duration and extent of disruption
+
+SECURITY IMPACT:
+- Confidentiality: unauthorized access or data exposure
+- Integrity: unauthorized changes or data corruption
+- Availability: disruption caused by security attacks
+- Scope and sensitivity of affected data or systems
+- Evidence of compromise or active exploitation
+- Credible, documented security exposure
+
+SCORING:
+1-2: Negligible impact. Isolated, cosmetic, quickly resolved
+     or harmless security event.
+3-4: Low impact. Few users affected, minor disruption,
+     suspicious activity without evidence of compromise.
+5-6: Medium impact. Multiple users affected, important
+     functions impaired, limited security compromise.
+7-8: High impact. Major operational disruption, critical
+     service unavailable, confirmed significant security
+     compromise or exposure of sensitive data.
+9-10: Critical impact. Production shutdown, widespread
+      outage, severe data breach, destructive malware
+      or major compromise of critical infrastructure.
+
+RULES:
+- Assess business and security impact independently.
+- Use the HIGHER justified impact as the final rating.
+- Start low and increase only with documented evidence.
+- Security incidents do not require business downtime.
+- Distinguish suspicion, vulnerability and confirmed compromise.
+- A security alert alone does not prove a breach.
+- Rate credible documented exposure, not hypothetical attacks.
+- Do not assume missing information or worst-case outcomes.
+- Technical errors alone do not establish high severity.
+- Ignore 'schweregrad' unless supported by concrete evidence.
+- Rate resolved incidents by their experienced impact.
+- Reserve 9-10 for clearly demonstrated critical consequences.
+
+CALIBRATION:
+Printer restart, one user affected: 2
+Phishing email received, no interaction: 2
+Suspicious login, blocked by MFA: 3
+Application slow, several users affected: 5
+Malware detected and isolated on one endpoint: 5
+Compromised user account with unauthorized access: 7
+Entire department unable to work: 8
+Sensitive customer data confirmed exposed: 9
+Ransomware spreading across production systems: 10
+Entire production stopped without workaround: 10
+
+OUTPUT:
+- Return only valid JSON matching the provided schema.
+- Reason: maximum 15 words, one sentence.
+- State the decisive business or security impact.
+- No speculation, recommendations or extra explanation.
+"""
+
 
 
 # Start of Definitions for Rule-Based assessment

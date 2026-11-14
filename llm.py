@@ -8,41 +8,12 @@ import json
 # returns message + schema
 def build_request(ticket, evals):
 
-    prompt = "Analyze the following Incident ticket:\n"
+    prompt = config.LLM_PROMPT_DESCRIPTION
 
     properties = {}
 
     if "impact" in evals:
-        prompt += """
-        Perform an IT incident impact analysis and rate the severity from 1 to 10.
-
-        Consider the following criteria:
-        - Number of affected users or systems
-        - Business impact and service availability
-        - Criticality of the affected system or service
-        - Availability of a workaround
-        - Potential security or data integrity risks
-
-        Rating guidelines:
-        1-2: Very Low - Minor issue, negligible business impact, individual user affected.
-        3-4: Low - Limited impact, few users affected, normal operations mostly possible.
-        5-6: Medium - Noticeable disruption, multiple users affected, important functions impaired.
-        7-8: High - Major disruption, critical service impaired or unavailable, many users affected.
-        9-10: Critical - Business-critical outage, widespread impact, production stopped or severe security/data integrity risk.
-
-        Instructions:
-        - Base the rating only on the provided incident information.
-        - Treat the supplied 'schweregrad' field as a weak supplementary hint,
-          not as the target answer. First assess severity independently from
-          the incident description, affected service, and concrete impact.
-        - Give concrete incident evidence much more weight than 'schweregrad'.
-          If they conflict, prioritize the concrete evidence and briefly explain
-          the discrepancy. Do not copy 'schweregrad' without supporting evidence.
-        - Do not assume missing information.
-        - Rate the actual impact, not the potential worst-case scenario.
-        - Give a short explanation for the rating.
-        - Return the severity rating and reason in the specified JSON format.
-        """
+        prompt += config.LLM_IMPACT_PROMPT
 
         properties["impact_rating"] = {
             "type": "integer",
