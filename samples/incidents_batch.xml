@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<incidents><incident>
+    <incident_id>INC-2026-B007</incident_id>
+    <zeitpunkt>2026-11-02T13:20:00+01:00</zeitpunkt>
+    <system_service>Raumbuchungspanel Sitzungszimmer 2</system_service>
+    <fehlermeldung>Raumpanel zeigt keine Reservierungen. Ein Raum betroffen. Buchung per Outlook weiterhin möglich.</fehlermeldung>
+    <schweregrad>niedrig</schweregrad>
+    <status>neu</status>
+    <kategorie>Endgerät</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+  <incident>
+    <incident_id>INC-2026-B009</incident_id>
+    <zeitpunkt>2026-11-09T08:05:00+01:00</zeitpunkt>
+    <system_service>Remote Access / Unternehmens-VPN</system_service>
+    <fehlermeldung>VPN-Anmeldung bleibt bei «Verbindung wird aufgebaut» hängen.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>neu</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+<incident>
+    <incident_id>INC-2026-B012</incident_id>
+    <zeitpunkt>2026-11-11T10:18:00+01:00</zeitpunkt>
+    <system_service>Exchange Online</system_service>
+    <schweregrad>niedrig</schweregrad>
+    <status>neu</status>
+    <kategorie>Messaging</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+<incident>
+    <incident_id>INC-2026-B008</incident_id>
+    <zeitpunkt>2026-11-04T07:40:00+01:00</zeitpunkt>
+    <system_service>Lager / Handscanner</system_service>
+    <fehlermeldung>Siit rund 70 Minute flüge üs i dr Packzone B immer wider 8 Scanner us em WLAN. Mir si 15 Lüt i dere Zone. Mir schriibe d Artikel uf Papier u trage si spöter naa. S Verpacke geit witer, aber mir si hinger em Plan. I de andere Zone laufts wie immer.</fehlermeldung>
+    <schweregrad>mittel</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Netzwerk</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+<incident>
+    <incident_id>INC-2026-B010</incident_id>
+    <zeitpunkt>2026-11-09T09:10:00+01:00</zeitpunkt>
+    <system_service>Finanzreporting / Monatsübersicht</system_service>
+    <fehlermeldung>08:02 Service Desk: Die Monatsübersicht ist im Browser nicht erreichbar. Beim Öffnen erscheint HTTP 503. Der Browser und der Gateway wurden separat protokolliert. Auszug aus dem Ticketverlauf und den angehängten Diagnoseprotokollen.
+
+Browser client
+08:04:00 [Browser client] view=monthly-overview route=/reports/monthly session=internal-review
+08:04:17 [Browser client] request=GET resource=/reports/monthly accepted_locale=de-CH
+08:04:34 [Browser client] response=503 resolver=reporting-frontend window=standard
+08:04:51 [Browser client] browser_policy=managed cache_mode=default tab_state=visible
+08:05:08 [Browser client] client_clock=in_sync profile=controlling render_mode=desktop
+08:05:25 [Browser client] asset=report-shell.css response=200 source=browser-cache
+08:05:42 [Browser client] asset=report-shell.js response=200 source=browser-cache
+08:05:59 [Browser client] view_state=waiting selected_workspace=internal-reporting
+08:06:16 [Browser client] issue_context=pinned_shortcut navigation_source=bookmarks
+08:06:33 [Browser client] attachment=browser_capture linked_to=service_desk note=received
+
+Report gateway
+08:09:00 [Report gateway] route=reporting/default upstream=renderer pool=internal
+08:09:17 [Report gateway] request_method=GET resource=/reports/monthly transport=https
+08:09:34 [Report gateway] session_scope=monthly workspace=internal-reporting identity=recognized
+08:09:51 [Report gateway] proxy_response=503 gateway_instance=secondary correlation=retained
+08:10:08 [Report gateway] endpoint=/reports route_table=active route_result=matched
+08:10:25 [Report gateway] frontend_alias=reporting service_registry=reachable source=registry
+08:10:42 [Report gateway] cache_group=monthly-summary policy=standard lookup=bypassed
+08:10:59 [Report gateway] content_type=text/html content_encoding=gzip via=reverse-proxy
+08:11:16 [Report gateway] metrics_channel=controlling listener=internal filter=monthly
+08:11:33 [Report gateway] trace_attachment=gateway_snapshot retention=standard redact=applied
+
+Datenquelle
+08:14:00 [Datenquelle] batch=month-summary view=posted_items snapshot=current mode=read
+08:14:17 [Datenquelle] dataset=invoice_totals source=finance_read_replica cursor=opened
+08:14:34 [Datenquelle] query=monthly_rollup group=cost_center result=returned
+08:14:51 [Datenquelle] columns=period,cost_center,currency,amount schema=matched
+08:15:08 [Datenquelle] source_zone=internal replication_state=synchronized
+08:15:25 [Datenquelle] period=2026-10 view=monthly_baseline currency=CHF
+08:15:42 [Datenquelle] aggregation=cost_center_partition row_visibility=policy_applied
+08:15:59 [Datenquelle] query=baseline_counts rows=864 mode=read
+08:16:16 [Datenquelle] snapshot_header=present manifest=reporting-source
+08:16:33 [Datenquelle] data_owner=controlling diagnostic_copy=received
+
+08:32 Rückmeldung der Fachverantwortlichen: Ausschliesslich sechs Mitarbeitende im Controlling brauchen diese Ansicht. Die interne Abstimmung wurde bereits um zwei Stunden verschoben. Der freigegebene Export mit den aktuellen Zahlen steht im gemeinsamen Ordner und wurde vom Team geöffnet. Buchungen und Zahlungen laufen weiter. Die Unterlagen für den externen Versand wurden bereits abgegeben.
+
+Berichts-Renderer
+08:39:00 [Berichts-Renderer] layout=monthly-overview output_profile=internal_review
+08:39:17 [Berichts-Renderer] template_version=2026.10 locale=de-CH region=CH
+08:39:34 [Berichts-Renderer] renderer_slot=worker-02 font_package=standard
+08:39:51 [Berichts-Renderer] font_cache=warm style_profile=finance default_precision=2
+08:40:08 [Berichts-Renderer] theme=monthly_standard header_style=registered
+08:40:25 [Berichts-Renderer] input_manifest=accepted profile=control_sample
+08:40:42 [Berichts-Renderer] section=income renderer=table visibility=internal
+08:40:59 [Berichts-Renderer] section=expenses renderer=table visibility=internal
+08:41:16 [Berichts-Renderer] section=appendix renderer=table sort=cost_center
+08:41:33 [Berichts-Renderer] renderer_snapshot=attached scope=internal support_queue=assigned
+
+Exportdienst
+08:44:00 [Exportdienst] profile=approved-monthly snapshot=enabled workspace=controlling
+08:44:17 [Exportdienst] job_name=monthly-report target_folder=monthly-internal
+08:44:34 [Exportdienst] parameter_period=2026-10 scope=cost-center-summary
+08:44:51 [Exportdienst] template_source=approved-report manifest_version=3
+08:45:08 [Exportdienst] stage=query state=complete checksum_mode=standard
+08:45:25 [Exportdienst] stage=transform state=complete section_count=6
+08:45:42 [Exportdienst] stage=render state=complete export_format=pdf
+08:45:59 [Exportdienst] stage=publish state=complete target=shared-report-folder
+08:46:16 [Exportdienst] permission_group=controlling distribution=internal
+08:46:33 [Exportdienst] execution_log=attached schedule=standard owner=reporting
+
+Ticketverlauf
+08:49:00 [Ticketverlauf] attachment=gateway_snapshot received_by=application_support
+08:49:17 [Ticketverlauf] attachment=browser_capture received_by=service_desk
+08:49:34 [Ticketverlauf] group_assignment=reporting routing_rule=internal_application
+08:49:51 [Ticketverlauf] log_window=morning source=supervisor_console tags=reporting,monthly
+08:50:08 [Ticketverlauf] follow_up=browser_owner status=pending channel=ticket
+08:50:25 [Ticketverlauf] follow_up=gateway_owner status=accepted channel=ticket
+08:50:42 [Ticketverlauf] next_step=renderer_review contact=application_support
+08:50:59 [Ticketverlauf] next_step=review_navigation_cache owner=workspace_admin
+08:51:16 [Ticketverlauf] attachment_manifest=complete visible_to=internal_support
+08:51:33 [Ticketverlauf] case_note=diagnostic_material_for_application_team
+
+09:06 Übergabe ans Applikationsteam: Browser-Aufruf zur weiteren Eingrenzung erneut erfasst. Die Ausschnitte gehören zum selben Ticket.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Reporting</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+<incident>
+    <incident_id>INC-2026-B011</incident_id>
+    <zeitpunkt>2026-11-10T11:10:00+01:00</zeitpunkt>
+    <system_service>Customer portal / Account statements</system_service>
+    <fehlermeldung>Confirmed data breach. An external recipient downloaded statements for 4,200 customers from a shared link that support had enabled for a single recipient. The download logs and the file manifest confirm that the export included customer names, account numbers and invoice details. The link has been revoked. Customers can still sign in, retrieve their own statements and submit orders. The investigation has confirmed disclosure of the downloaded files. The recipient has not confirmed deletion.</fehlermeldung>
+    <schweregrad>hoch</schweregrad>
+    <status>in_bearbeitung</status>
+    <kategorie>Security Incident</kategorie>
+    <bekannte_loesung fehlend="true"/>
+  </incident>
+</incidents>

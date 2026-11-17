@@ -1,0 +1,63 @@
+{
+  "incidents": [
+    {
+      "incident_id": "INC-2026-B001",
+      "zeitpunkt": "2026-11-02T08:15:00+01:00",
+      "system_service": "Bürodrucker HP LaserJet 4. OG",
+      "fehlermeldung": "Papierstau am Drucker eines Einzelarbeitsplatzes. Nach Entfernen des Blatts und Neustart druckt er wieder. Unterbruch: 7 Minuten.",
+      "schweregrad": "niedrig",
+      "status": "geloest",
+      "kategorie": "Drucker",
+      "bekannte_loesung": "Blatt entfernt, Drucker neu gestartet und Testseite gedruckt."
+    },
+    {
+      "incident_id": "INC-2026-B002",
+      "zeitpunkt": "2026-11-03T09:42:00+01:00",
+      "system_service": "Kreditorenportal / Belegfreigabe",
+      "fehlermeldung": "Bei 12 Personnen aus der Buchhaltung lasen sich die Belege in der Freigabemaske nich öffnen. Seit 40 Min. prüfen wir sie über den Exprot. Erfassen und Buchen geht wie sonst. Die Freigabe dauert jetzt pro Beleg ungefähr 4 Min. länger. Der heutige Zahllauf ist durch.",
+      "schweregrad": "niedrig",
+      "status": "in_bearbeitung",
+      "kategorie": "Applikation",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-B006",
+      "system_service": "Fileserver / Teamablage",
+      "fehlermeldung": "Ein Unterordner der Teamablage fehlt in der Ansicht.",
+      "schweregrad": "mittel",
+      "status": "neu",
+      "kategorie": "Storage",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-B003",
+      "zeitpunkt": "2026-11-04T16:12:00+01:00",
+      "system_service": "Versandportal / Kühltransporte",
+      "fehlermeldung": "Nach «Übermitteln» bleibt die Maske weiss. Der letzte Kühltransport ist um 16 Uhr ohne die 86 heute fälligen Sendungen abgefahren. Die Pakete stehen noch an Rampe 4. Der Spediteur nimmt das Manifest ausschliesslich über dieses Portal entgegen. Die nächste Abholung ist frühestens morgen. Drei Filialen haben ihre heute zugesagte Lieferung bereits als ausstehend gemeldet.",
+      "schweregrad": "mittel",
+      "status": "in_bearbeitung",
+      "kategorie": "Schnittstelle",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-B004",
+      "zeitpunkt": "2026-11-05T07:06:00+01:00",
+      "system_service": "MES / Produktionsrückverfolgung",
+      "fehlermeldung": "Produktionsstillstand an zwei Standorten seit 06:37 Uhr. Das produktive MES ist nicht erreichbar. Drei Fertigungslinien stehen. Rund 160 Mitarbeitende können Arbeitsaufträge und Prüfergebnisse nicht erfassen. Die Fertigung ohne Chargendokumentation ist gesperrt. Eine freigegebene manuelle Alternative gibt es nicht. Der Wiederanlaufzeitpunkt ist unbekannt.",
+      "schweregrad": "kritisch",
+      "status": "in_bearbeitung",
+      "kategorie": "Produktion",
+      "bekannte_loesung": null
+    },
+    {
+      "incident_id": "INC-2026-B005",
+      "zeitpunkt": "2026-11-06T10:25:00+01:00",
+      "system_service": "Endpoint-Schutz / Helpdesk-Laptop",
+      "fehlermeldung": "Das EDR meldete «Ransomware» auf einem Helpdesk-Laptop. Die Untersuchung schliesst Ransomware und Datenverlust aus. Der Treffer stammt von einer freigegebenen Übungsdatei. Das EDR hat sie vor der Ausführung blockiert. Der Laptop blieb benutzbar und der Helpdesk arbeitete ohne Unterbruch weiter.",
+      "schweregrad": "hoch",
+      "status": "geschlossen",
+      "kategorie": "Sicherheitsvorfall",
+      "bekannte_loesung": null
+    }
+  ]
+}

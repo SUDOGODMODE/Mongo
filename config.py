@@ -53,8 +53,9 @@ WORKER_INTERVAL_SECONDS = 2
 PATH_COMPARISON = "./comparison/comparison.csv"
 PATH_SAMPLES = "samples"  # Relative to the project directory, or absolute.
 UPLOAD_SAMPLES = [
-    ("incidents_for_assessment.json", "application/json"),
-    ("incidents_for_assessment.xml", "application/xml"),
+    ("incidents_batch.json", "application/json"),
+    ("incidents_batch.xml", "application/xml"),
+    ("incident_invalid_document.json", "application/json")
 ]
 
 # Schema Settings

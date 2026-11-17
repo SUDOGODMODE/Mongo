@@ -1,8 +1,0 @@
-{
-  "incidents": {
-    "incident": {
-      "incident_id": "INC-2026-T013",
-      "fehlermeldung": "Test: incidents ist ein Objekt statt eines Arrays."
-    }
-  }
-}
