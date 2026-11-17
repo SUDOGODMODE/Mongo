@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <incidents>
   <incident>
     <incident_id>INC-2026-T007</incident_id>
@@ -14,7 +14,7 @@
     <incident_id>INC-2026-T008</incident_id>
     <zeitpunkt>2026-11-04T07:40:00+01:00</zeitpunkt>
     <system_service>Lager / Handscanner</system_service>
-    <fehlermeldung>Acht Handscanner in Packzone B verlieren die WLAN-Verbindung. 15 Mitarbeitende sind seit rund 70 Minuten betroffen. Artikel werden mit Papierliste erfasst und nachgetragen. Der Verpackungsprozess läuft langsamer, ist aber nicht gestoppt. Fehlermeldung: WLAN authentication timeout.</fehlermeldung>
+    <fehlermeldung>Siit rund 70 Minute verlüüre 8 Handscanner i dr Packzone B immer wider d WLAN-Verbindig. 15 Mitarbeitendi si betroffe. Mir schribe d Artikel uf Papier u träge si spöter nache. S Verpacke louft langsamer, steit aber nid still. Uf de Scanner steit: WLAN authentication timeout.</fehlermeldung>
     <schweregrad>mittel</schweregrad>
     <status>in_bearbeitung</status>
     <kategorie>Netzwerk</kategorie>

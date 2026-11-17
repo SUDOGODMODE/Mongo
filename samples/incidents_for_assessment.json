@@ -14,7 +14,7 @@
       "incident_id": "INC-2026-T002",
       "zeitpunkt": "2026-11-03T09:42:00+01:00",
       "system_service": "Microsoft 365 / Outlook",
-      "fehlermeldung": "Bei einer Person öffnet sich eine Kalenderfreigabe nicht. E-Mails und eigene Termine funktionieren. Terminübersicht über Outlook Web verfügbar. Keine Frist betroffen.",
+      "fehlermeldung": "Bei einer Person öffnet sich die Kalenderfreigabe nich. E-Mails und eigene Termine funktioniern normal. Die Terminübersicht ist über Outlook Web verfühgbar. Keine Frist betroffen.",
       "schweregrad": "mittel",
       "status": "wartend",
       "kategorie": "Applikation",
