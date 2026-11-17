@@ -23,6 +23,12 @@ MONGO_IMAGE = "mongodb/mongodb-community-server:latest"
 MONGO_VOLUME = "mongodb_data"
 LLM_EXECUTABLE = "llama-server"  # Command in PATH or full path.
 LLM_HF_MODEL = "ggml-org/gemma-3-4b-it-GGUF:Q8_0"
+# Beispiel-Modelle
+# ggml-org/gemma-3-4b-it-GGUF:Q8_0
+# unsloth/gemma-3-12b-it-GGUF:Q4_K_M
+# unsloth/Qwen3.5-9B-GGUF:Q4_K_M
+# unsloth/Qwen3.5-4B-GGUF:Q4_K_M
+
 LLM_GPU_LAYERS = "all"  # "0" for CPU only.
 LLM_CONTEXT_SIZE = 16384
 LLM_EXTRA_ARGS = []  # Additional llama-server arguments.
