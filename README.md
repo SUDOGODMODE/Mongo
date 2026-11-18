@@ -1,6 +1,6 @@
 ﻿# Mongo
 Projekt für IN258
-Siehe [Aufgabenstellung](Aufgabe.md) für Projektaufgabe und Anforderungen.
+Siehe [Aufgabenstellung](docs/Aufgabe.md) für Projektaufgabe und Anforderungen.
 
 ## Voraussetzungen
 
@@ -29,14 +29,12 @@ MongoDB und bewertet ihre Auswirkungen von 1 (sehr gering) bis 10 (kritisch).
 Sie erstellt zwei Bewertungen: eine KI-Bewertung und eine automatische,
 regelbasierte Bewertung mit `classic_rule.py`.
 
-Das mitgelieferte Feld `schweregrad` dient als ergänzender Hinweis. Die
-regelbasierte Bewertung gewichtet es mit 15 %, Schlüsselwörter mit 60 % und
+Die regelbasierte Bewertung gewichtet `schweregrad` mit 15 %, Schlüsselwörter mit 60 % und
 die Kategorie mit 25 %. Fehlende oder unbekannte Komponenten werden
 ausgelassen; die verbleibenden Gewichte werden entsprechend normalisiert.
 Das Feld `schweregrad` wird nicht zusätzlich nach Schlüsselwörtern durchsucht.
-Die KI wird angewiesen, zunächst die konkreten Incident-Angaben zu bewerten
-und `schweregrad` nur schwach zu berücksichtigen. Diese Prompt-Anweisung
-garantiert keine feste prozentuale Gewichtung beim Sprachmodell.
+Der KI-Prompt weist das Modell an, `schweregrad` zu ignorieren und die
+dokumentierten geschäftlichen und sicherheitsbezogenen Auswirkungen zu bewerten.
 
 ### 1. Voraussetzungen
 
@@ -128,8 +126,8 @@ vorhandene Podman-Maschine zu starten; fehlt sie noch, muss sie einmalig mit
 `podman machine init` angelegt werden.
 
 Nach einer erfolgreichen MongoDB-Verbindung startet das Skript bei Bedarf
-`llama-server` mit `ggml-org/gemma-3-4b-it-GGUF:Q8_0` (Alias `gemma3:4b`,
-GPU-Auslagerung `all`, Kontext 8192, Port 8080). Fehlt das Modell im Cache,
+`llama-server` mit dem in `LLM_MODEL` konfigurierten Hugging-Face-Modell.
+Der Server verwendet denselben Wert als API-Alias. Fehlt das Modell im Cache,
 wird es dabei heruntergeladen. Passe die Modell- oder GPU-Einstellungen in `config.py` an,
 falls diese Vorgaben nicht zur Hardware passen. Danach starten Upload-API und
 Importprozess. Jeder nächste Schritt beginnt erst nach einer Bereitschaftsprüfung
@@ -144,15 +142,14 @@ Skript; es installiert diese Voraussetzungen nicht automatisch.
 
 Alle Start-Einstellungen stehen in `config.py`; `start.py` muss nicht angepasst
 werden. `CONTAINER_RUNTIME = None` fragt nach Docker/Podman; mit `"docker"` oder
-`"podman"` entf?llt die Nachfrage auch ohne CLI-Argument. CLI-Argumente k?nnen
-die Konfiguration f?r einen einzelnen Start ?berschreiben.
+`"podman"` entfällt die Nachfrage auch ohne CLI-Argument. CLI-Argumente können
+die Konfiguration für einen einzelnen Start überschreiben.
 
 Weitere Einstellungen: `MONGO_CONTAINER_NAME`, `MONGO_IMAGE`, `MONGO_VOLUME`,
-`LLM_EXECUTABLE`, `LLM_HF_MODEL`, `LLM_GPU_LAYERS`, `LLM_CONTEXT_SIZE`,
-`LLM_EXTRA_ARGS` und `VENV_PATH`. Startzeitlimits und Pr?fintervalle stehen
+`LLM_EXECUTABLE`, `LLM_GPU_LAYERS`, `LLM_CONTEXT_SIZE`,
+`LLM_EXTRA_ARGS` und `VENV_PATH`. Startzeitlimits und Prüfintervalle stehen
 im selben Konfigurationsabschnitt, alle Zeitangaben sind in Sekunden.
-Beim ?ndern von Containername oder Volume werden bestehende Daten nicht
-automatisch ?bertragen.
+Beim Ändern von Containername oder Volume bleiben bestehende Daten im bisherigen Volume.
 
 ### 3. Anwendung konfigurieren
 
@@ -160,8 +157,8 @@ Die Einstellungen befinden sich in [config.py](config.py):
 
 | Einstellung | Standardwert | Zweck |
 | --- | --- | --- |
-| `LLM_MODEL` | `gemma3:4b` | Muss mit dem Modellnamen oder Alias des KI-Servers übereinstimmen. |
-| `LLM_URL` | `http://localhost:8080/v1` | Basis-URL des KI-Servers, einschliesslich `/v1`. |
+| `LLM_MODEL` | `unsloth/gemma-3-12b-it-GGUF:Q4_K_M` | Hugging-Face-Modell für den lokalen Start und Modellname im API-Request. Bei einem bestehenden KI-Server muss der Wert dessen Modellnamen oder Alias entsprechen. |
+| `LLM_URL` | `http://localhost:51234/v1` | Basis-URL des KI-Servers, einschliesslich `/v1`. |
 | `MONGO_URL` | `mongodb://localhost:27017/` | Verbindungsadresse für MongoDB. |
 | `API_PORT` | `8000` | Port der Upload-API beim Start mit `python api.py`. |
 | `PATH_IMPORT` | `./import` | Ordner, den der Verarbeitungsprozess nach neuen Dateien durchsucht. |
@@ -172,7 +169,7 @@ Nur `LLM_URL` und `MONGO_URL` lassen sich durch Umgebungsvariablen überschreibe
 Zum Beispiel:
 
 ```powershell
-$env:LLM_URL = "http://localhost:8080/v1"
+$env:LLM_URL = "http://localhost:51234/v1"
 $env:MONGO_URL = "mongodb://localhost:27017/"
 ```
 
@@ -184,8 +181,8 @@ Konfigurationsänderungen neu.
 Datenbank und Collection werden mit `MONGO_DATABASE` und
 `MONGO_INCIDENTS_COLLECTION` in `config.py` eingestellt. Die Regelgewichtungen
 und Zuordnungen stehen ebenfalls in `config.py` (`WEIGHTS`, `IMPACT_SCORES`,
-`CATEGORY_SCORES`, `KEYWORD_SCORES`), die
-Anweisungen für die KI in [llm.py](llm.py).
+`CATEGORY_SCORES`, `KEYWORD_SCORES`). Dort stehen auch die KI-Anweisungen
+in `LLM_PROMPT_DESCRIPTION` und `LLM_IMPACT_PROMPT`.
 
 ### 4. Optional: API und Hauptverarbeitung manuell starten
 
@@ -240,7 +237,7 @@ Demonstration Dateien in `failed/` erscheinen, ist daher zu erwarten.
 Eine eigene Datei kannst du mit folgendem Befehl hochladen:
 
 ```powershell
-curl.exe -X POST "http://127.0.0.1:8000/upload" -H "Content-Type: application/json" --data-binary "@samples/incidents_sample_batch_01.json"
+curl.exe -X POST "http://127.0.0.1:8000/upload" -H "Content-Type: application/json" --data-binary "@samples/incidents_batch.json"
 ```
 
 Verwende für XML eine XML-Datei und `Content-Type: application/xml` oder
@@ -282,10 +279,11 @@ Modell geändert hat.
 Sobald Incidents beide Bewertungen haben, führe folgenden Befehl aus:
 
 ```powershell
+New-Item -ItemType Directory -Force comparison | Out-Null
 .\.venv\Scripts\python.exe compare.py
 ```
 
-Dadurch wird `comparison.csv` im aktuellen Verzeichnis erstellt oder
+Dadurch wird standardmässig `comparison/comparison.csv` erstellt oder
 überschrieben. Das Skript liest vorhandene Ergebnisse aus MongoDB und löst
 keine neuen Bewertungen aus. API und Verarbeitungsprozess müssen für diesen
 Export nicht laufen; MongoDB muss jedoch erreichbar sein.
@@ -300,11 +298,11 @@ exportiert Vergleiche nicht automatisch.
 
 Weitere zentrale Einstellungen in `config.py`:
 
-- `API_HOST` und `API_CLIENT_HOST`: Bind-Adresse und erreichbare Adresse f?r Uploads und Bereitschaftspr?fung.
-- `WORKER_INTERVAL_SECONDS`: Pause zwischen Verarbeitungsdurchl?ufen.
-- `PATH_COMPARISON`: Standardpfad f?r den CSV-Export.
+- `API_HOST` und `API_CLIENT_HOST` legen die Bind-Adresse und die erreichbare Adresse für Uploads und Bereitschaftsprüfungen fest.
+- `WORKER_INTERVAL_SECONDS` bestimmt die Pause zwischen Verarbeitungsdurchläufen.
+- `PATH_COMPARISON` bestimmt den Pfad für den CSV-Export. Das Zielverzeichnis muss vorhanden sein.
 - `PATH_SAMPLES`, `UPLOAD_SAMPLES`, `UPLOAD_REQUEST_TIMEOUT`: Beispieldateien und Upload-Zeitlimit.
 - `PATH_JSON_SCHEMA`, `PATH_XML_SCHEMA`: Schemapfade relativ zum Projektverzeichnis (oder absolut).
 - `LLM_API_KEY`, `LLM_TEMPERATURE`, `LLM_REQUEST_TIMEOUT`: KI-Anfragen.
 
-Eine ?nderung von Datenbank oder Collection ?bertr?gt keine bestehenden Daten.
+Bei einer Änderung von Datenbank oder Collection bleiben bestehende Daten am bisherigen Speicherort.

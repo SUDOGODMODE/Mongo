@@ -275,7 +275,7 @@ def ensure_llm(url: str, model: str, timeout: float, owned: list[tuple[str, subp
     say("Starte KI-Server; der erste Modelldownload kann länger dauern.")
     process = spawn([
         executable,
-        "-hf", config.LLM_HF_MODEL,
+        "-hf", model,
         "--alias", model,
         "-ngl", str(config.LLM_GPU_LAYERS),
         "-c", str(config.LLM_CONTEXT_SIZE),

@@ -1,9 +1,13 @@
 import os
 
 # LLM
-# "gemma3:4b", "qwen3.8:latest"
-LLM_MODEL = "gemma3:4b"
 LLM_URL = os.getenv("LLM_URL", "http://localhost:51234/v1")
+# Hugging Face model specifier and API model name.
+LLM_MODEL = "unsloth/gemma-3-12b-it-GGUF:Q4_K_M"
+# Beispiel-Modelle
+# ggml-org/gemma-3-4b-it-GGUF:Q8_0
+# unsloth/Qwen3.5-9B-GGUF:Q4_K_M
+# unsloth/Qwen3.5-4B-GGUF:Q4_K_M
 
 #FILE SETTINGS
 PATH_IMPORT = "./import"
@@ -22,13 +26,6 @@ MONGO_CONTAINER_NAME = "mongodb"
 MONGO_IMAGE = "mongodb/mongodb-community-server:latest"
 MONGO_VOLUME = "mongodb_data"
 LLM_EXECUTABLE = "llama-server"  # Command in PATH or full path.
-LLM_HF_MODEL = "ggml-org/gemma-3-4b-it-GGUF:Q8_0"
-# Beispiel-Modelle
-# ggml-org/gemma-3-4b-it-GGUF:Q8_0
-# unsloth/gemma-3-12b-it-GGUF:Q4_K_M
-# unsloth/Qwen3.5-9B-GGUF:Q4_K_M
-# unsloth/Qwen3.5-4B-GGUF:Q4_K_M
-
 LLM_GPU_LAYERS = "all"  # "0" for CPU only.
 LLM_CONTEXT_SIZE = 16384
 LLM_EXTRA_ARGS = []  # Additional llama-server arguments.
