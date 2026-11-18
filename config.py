@@ -3,8 +3,9 @@ import os
 # LLM
 LLM_URL = os.getenv("LLM_URL", "http://localhost:51234/v1")
 # Hugging Face model specifier and API model name.
-LLM_MODEL = "unsloth/gemma-3-12b-it-GGUF:Q4_K_M"
+LLM_MODEL = "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q5_K_M"
 # Beispiel-Modelle
+# Qwen3.6-35B-A3B-UD-Q5_K_M
 # ggml-org/gemma-3-4b-it-GGUF:Q8_0
 # unsloth/Qwen3.5-9B-GGUF:Q4_K_M
 # unsloth/Qwen3.5-4B-GGUF:Q4_K_M
@@ -122,8 +123,8 @@ SCORING LIMITS:
 - Never exceed these limits based on assumptions.
 
 CALIBRATION:
-Single room panel blank, Outlook booking works: 3
-Printer offline, fixed by restart: 2
+Single room panel blank, Outlook booking works: 2
+Printer offline, fixed by restart: 1
 Suspicious login blocked by MFA: 3
 ERP slow for 20 users, work continues: 5
 Confirmed compromised account, unauthorized access: 7
